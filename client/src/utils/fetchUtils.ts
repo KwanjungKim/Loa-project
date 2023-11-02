@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 
 const Axios = axios.create({
   baseURL: "http://localhost:5173", // ???
@@ -33,17 +33,17 @@ const TestAxios = axios.create({
 });
 
 const fetchUtils = {
-  get: async (url: string, options: AxiosRequestConfig) => {
-    return await Axios.get(url, options);
+  get: async (url: string) => {
+    return await Axios.get(url);
   },
-  post: async (url: string, options: AxiosRequestConfig) => {
-    return await Axios.post(url, options);
+  post: async (url: string) => {
+    return await Axios.post(url);
   },
-  patch: async (url: string, options: AxiosRequestConfig) => {
-    return await Axios.patch(url, options);
+  patch: async (url: string) => {
+    return await Axios.patch(url);
   },
-  delete: async (url: string, options: AxiosRequestConfig) => {
-    return await Axios.delete(url, options);
+  delete: async (url: string) => {
+    return await Axios.delete(url);
   },
   testGet: async (url: string) => {
     return await TestAxios.get(url);
