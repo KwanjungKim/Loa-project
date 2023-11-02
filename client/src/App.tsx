@@ -1,9 +1,13 @@
-function App() {
+import { Outlet } from "react-router-dom";
+import { RecoilRoot } from "recoil";
+
+const App = () => {
+  console.log("hihi");
   return (
-    <>
-      <h1>hello world</h1>
-    </>
+    <RecoilRoot>
+      <Outlet />
+    </RecoilRoot>
   );
-}
+};
 
 export default App;
