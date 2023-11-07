@@ -1,64 +1,18 @@
-import {
-  Button,
-  CssBaseline,
-  PaletteMode,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { useMemo } from "react";
+import { Button, CssBaseline, ThemeProvider } from "@mui/material";
+import { RouterProvider } from "react-router-dom";
 
 // recoil
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import paletteModeState, { paletteModeActions } from "./atoms/paletteMode";
 
-// routes
-import HomeRoute from "./routes/HomeRoute";
-import TestRoute from "./routes/Test";
-import TestComponents from "./routes/Test/Components";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomeRoute />,
-  },
-  {
-    path: "/test",
-    element: <TestRoute />,
-  },
-  {
-    path: "/test/components",
-    element: <TestComponents />,
-  },
-]);
-
-const getPalette = (mode: PaletteMode) => ({
-  palette: {
-    mode,
-    ...(mode === "light"
-      ? {
-          primary: {
-            main: "#E3D026",
-            contrastText: "white",
-          },
-        }
-      : {
-          primary: {
-            main: "#E3D026",
-            contrastText: "black",
-          },
-        }),
-  },
-});
+// router
+import router from "./router";
+import useTheme from "./hooks/useTheme";
 
 const App = () => {
-  const [paletteMode, setPaletteMode] = useRecoilState(paletteModeState);
+  const theme = useTheme();
 
-  const theme = useMemo(
-    () => createTheme(getPalette(paletteMode)),
-    [paletteMode],
-  );
-
+  const setPaletteMode = useSetRecoilState(paletteModeState);
   const handleClickChangeTheme = () => {
     setPaletteMode(paletteModeActions.toggle);
   };
