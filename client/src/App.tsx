@@ -1,4 +1,5 @@
 import {
+  Button,
   CssBaseline,
   PaletteMode,
   ThemeProvider,
@@ -9,7 +10,7 @@ import { useMemo } from "react";
 
 // recoil
 import { useRecoilState } from "recoil";
-import paletteModeState from "./atoms/paletteMode";
+import paletteModeState, { paletteModeActions } from "./atoms/paletteMode";
 
 // routes
 import HomeRoute from "./routes/HomeRoute";
@@ -34,7 +35,19 @@ const router = createBrowserRouter([
 const getPalette = (mode: PaletteMode) => ({
   palette: {
     mode,
-    ...(mode === "light" ? {} : {}),
+    ...(mode === "light"
+      ? {
+          primary: {
+            main: "#E3D026",
+            contrastText: "white",
+          },
+        }
+      : {
+          primary: {
+            main: "#E3D026",
+            contrastText: "black",
+          },
+        }),
   },
 });
 
@@ -46,10 +59,21 @@ const App = () => {
     [paletteMode],
   );
 
+  const handleClickChangeTheme = () => {
+    setPaletteMode(paletteModeActions.toggle);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <RouterProvider router={router} />
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleClickChangeTheme}
+      >
+        테마 변경
+      </Button>
     </ThemeProvider>
   );
 };

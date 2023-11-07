@@ -6,16 +6,16 @@ const paletteModeState = atom<PaletteMode>({
   default: "dark",
 });
 
-// export const testCountActions = {
-//   increment: (prev: number) => {
-//     return prev >= 10 ? 10 : prev + 1;
-//   },
-//   decrement: (prev: number) => {
-//     return prev <= 0 ? 0 : prev - 1;
-//   },
-//   reset: () => {
-//     return 0;
-//   },
-// };
+export const paletteModeActions = {
+  toggle: (prev: PaletteMode) => {
+    return prev === "dark" ? "light" : "dark";
+  },
+  setDark: () => {
+    return "dark";
+  },
+  setLight: () => {
+    return "light";
+  },
+};
 
 export default paletteModeState;
