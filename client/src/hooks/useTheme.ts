@@ -20,19 +20,25 @@ const getPalette = (mode: PaletteMode): ThemeOptions => ({
       ? {
           primary: {
             main: yellow[700],
-            contrastText: "white",
+            // contrastText: "#161b27",
           },
           background: {
-            default: "white",
+            default: "#fff",
+          },
+          text: {
+            primary: "#161b27",
           },
         }
       : {
           primary: {
             main: yellow[700],
-            contrastText: "black",
+            // contrastText: "black",
           },
           background: {
-            default: "black",
+            default: "#161b27",
+          },
+          text: {
+            primary: "#fff",
           },
         }),
   },
