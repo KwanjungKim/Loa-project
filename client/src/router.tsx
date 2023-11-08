@@ -1,10 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 
+// layouts
+import RootLayout from "./components/layouts/RootLayout";
+
 // routes
 import HomeRoute from "./routes/HomeRoute";
 import TestRoute from "./routes/Test";
 import ButtonsRoute from "./routes/Test/ButtonsRoute";
-import RootLayout from "./components/layouts/RootLayout";
+import ModalsRoute from "./routes/Test/ModalsRoute";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +28,10 @@ const router = createBrowserRouter([
           {
             path: "buttons",
             element: <ButtonsRoute />,
+          },
+          {
+            path: "modals",
+            element: <ModalsRoute />,
           },
         ],
       },
