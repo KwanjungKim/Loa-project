@@ -1,33 +1,20 @@
-import { useRecoilState } from "recoil";
-import testCountState, { testCountActions } from "../../atoms/testCount";
-import useTestPosts from "../../hooks/useTestPosts";
+import { Button } from "@mui/material";
+import styles from "./index.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const TestRoute = () => {
-  const [testCount, setTestCount] = useRecoilState(testCountState);
-  const { posts } = useTestPosts();
+  const navigate = useNavigate();
   return (
-    <div>
-      <h1>{testCount}</h1>
+    <div className={styles.wrapper}>
+      <h2>Test</h2>
       <div>
-        <button
-          onClick={() => {
-            setTestCount(testCountActions.increment);
-          }}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/test/buttons")}
         >
-          plus
-        </button>
-        <button
-          onClick={() => {
-            setTestCount(testCountActions.decrement);
-          }}
-        >
-          minus
-        </button>
-      </div>
-      <div>
-        {posts.map((post) => (
-          <div key={post.id}>{post.title}</div>
-        ))}
+          buttons
+        </Button>
       </div>
     </div>
   );

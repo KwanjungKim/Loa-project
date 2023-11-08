@@ -2,13 +2,13 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 
 // route
-import TestRoute from ".";
+import RecoilRoute from "./RecoilRoute";
 
 describe("Test Route", () => {
   beforeEach(() => {
     render(
       <RecoilRoot>
-        <TestRoute />
+        <RecoilRoute />
       </RecoilRoot>,
     );
   });
