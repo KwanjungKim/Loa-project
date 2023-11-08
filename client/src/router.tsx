@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 // routes
 import HomeRoute from "./routes/HomeRoute";
 import TestRoute from "./routes/Test";
-import TestComponents from "./routes/Test/Components";
+import ButtonsRoute from "./routes/Test/ButtonsRoute";
 import RootLayout from "./components/layouts/RootLayout";
 
 const router = createBrowserRouter([
@@ -23,8 +23,8 @@ const router = createBrowserRouter([
             element: <TestRoute />,
           },
           {
-            path: "components",
-            element: <TestComponents />,
+            path: "buttons",
+            element: <ButtonsRoute />,
           },
         ],
       },
