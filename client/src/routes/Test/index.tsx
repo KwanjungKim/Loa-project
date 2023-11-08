@@ -15,6 +15,13 @@ const TestRoute = () => {
         >
           buttons
         </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/test/modals")}
+        >
+          modals
+        </Button>
       </div>
     </div>
   );
