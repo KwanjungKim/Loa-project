@@ -1,7 +1,7 @@
 import { PaletteMode, ThemeOptions, createTheme } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import paletteModeState from "../atoms/paletteMode";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { yellow } from "@mui/material/colors";
 
 const getPalette = (mode: PaletteMode): ThemeOptions => ({
@@ -51,6 +51,14 @@ const useTheme = () => {
     () => createTheme(getPalette(paletteMode)),
     [paletteMode],
   );
+
+  useEffect(() => {
+    if (paletteMode === "dark") {
+      document.body.setAttribute("data-theme", "dark");
+    } else {
+      document.body.removeAttribute("data-theme");
+    }
+  }, [paletteMode]);
 
   return theme;
 };
