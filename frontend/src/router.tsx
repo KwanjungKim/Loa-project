@@ -8,6 +8,8 @@ import HomeRoute from "./routes/HomeRoute";
 import TestRoute from "./routes/Test";
 import ButtonsRoute from "./routes/Test/ButtonsRoute";
 import ModalsRoute from "./routes/Test/ModalsRoute";
+import Auth from "./components/kakaoLogin/Auth";
+import CharacterAuth from "./components/kakaoLogin/CharacterAuth";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,20 @@ const router = createBrowserRouter([
             element: <ModalsRoute />,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      {
+        path: "oauth/kakao/callback",
+        element: <Auth />,
+      },
+      {
+        path: "characterAuth",
+        element: <CharacterAuth />,
       },
     ],
   },

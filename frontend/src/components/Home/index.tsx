@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { SmallButton } from "../common/Button";
+import KakaoLogin from "../kakaoLogin/Login";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -9,6 +10,8 @@ const Home = () => {
       <SmallButton variant="outlined" onClick={() => navigate("/test")}>
         테스트
       </SmallButton>
+
+      <KakaoLogin>카카오로그인</KakaoLogin>
     </div>
   );
 };
