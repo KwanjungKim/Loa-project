@@ -1,0 +1,25 @@
+.main {
+  position: relative;
+  max-width: var(--xl);
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 60px 1fr;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 40px auto;
+
+  // media query
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.nav {
+  @media (max-width: 480px) {
+    display: none;
+  }
+}
