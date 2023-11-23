@@ -12,4 +12,7 @@ export default defineConfig({
     setupFiles: "./src/test/setup.ts",
     globals: true,
   },
+  optimizeDeps: {
+    exclude: ["js-big-decimal"],
+  },
 });
