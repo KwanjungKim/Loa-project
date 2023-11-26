@@ -10,4 +10,18 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  z-index: 100;
+  background-color: var(--bg);
+}
+
+.buttons_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .theme_button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
 }
