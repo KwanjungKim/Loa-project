@@ -12,7 +12,7 @@ const KakaoLogin = ({ children }: IButtonProps) => {
 
   return (
     <>
-      <MediumButton variant="outlined" onClick={loginKakao}>
+      <MediumButton variant="contained" onClick={loginKakao}>
         {children}
       </MediumButton>
     </>

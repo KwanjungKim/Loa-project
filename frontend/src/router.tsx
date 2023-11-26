@@ -10,11 +10,13 @@ import ButtonsRoute from "./routes/Test/ButtonsRoute";
 import ModalsRoute from "./routes/Test/ModalsRoute";
 import Auth from "./components/kakaoLogin/Auth";
 import CharacterAuth from "./components/kakaoLogin/CharacterAuth";
+import ErrorPage from "./error-page";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "",
