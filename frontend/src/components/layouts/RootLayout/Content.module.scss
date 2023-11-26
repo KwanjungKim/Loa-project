@@ -40,6 +40,7 @@
   .link_wrapper {
     position: relative;
     display: flex;
+    cursor: pointer;
 
     gap: 2px;
     align-items: center;
@@ -78,5 +79,9 @@
   @media (max-width: 480px) {
     display: flex;
     align-items: center;
+  }
+
+  .link_wrapper {
+    cursor: pointer;
   }
 }

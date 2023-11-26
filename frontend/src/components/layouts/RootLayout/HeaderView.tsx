@@ -8,6 +8,7 @@ import styles from "./HeaderView.module.scss";
 
 // components
 import { SmallButton } from "../../common/Button";
+import IconWrapper from "../../common/IconWrapper";
 
 // icons
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
@@ -38,42 +39,63 @@ const HeaderView = ({
 }: IHeaderViewProps) => {
   return (
     <div className={styles.wrapper} {...props}>
-      <div style={{ cursor: "pointer" }} onClick={handleClickLogo}>
+      <IconWrapper aria-label="open home page" onClick={handleClickLogo}>
         LOGO
-      </div>
+      </IconWrapper>
       <div className={styles.buttons_wrapper}>
         {isLoggedin ? (
           isMobile ? (
-            <LogoutIcon
-              sx={{ fontSize: "22px", cursor: "pointer" }}
-              onClick={handleClickLogout}
-            />
+            <IconWrapper aria-label="logout" onClick={handleClickLogout}>
+              <LogoutIcon
+                focusable="false"
+                aria-hidden="true"
+                sx={{ fontSize: "22px" }}
+              />
+            </IconWrapper>
           ) : (
-            <SmallButton variant="contained" onClick={handleClickLogout}>
+            <SmallButton
+              aria-label="logout"
+              variant="contained"
+              onClick={handleClickLogout}
+            >
               logout
             </SmallButton>
           )
         ) : isMobile ? (
-          <LoginIcon
-            sx={{ fontSize: "22px", cursor: "pointer" }}
-            onClick={handleClickLogin}
-          />
+          <IconWrapper aria-label="login" onClick={handleClickLogin}>
+            <LoginIcon
+              focusable="false"
+              aria-hidden="true"
+              sx={{ fontSize: "22px" }}
+            />
+          </IconWrapper>
         ) : (
-          <SmallButton variant="contained" onClick={handleClickLogin}>
+          <SmallButton
+            aria-label="login"
+            variant="contained"
+            onClick={handleClickLogin}
+          >
             login
           </SmallButton>
         )}
-        <div className={styles.theme_button} onClick={handleTogglePaletteMode}>
+        <IconWrapper
+          aria-label={paletteMode === "light" ? "dark mode" : "light mode"}
+          onClick={handleTogglePaletteMode}
+        >
           {paletteMode === "light" ? (
             <DarkModeRoundedIcon
+              focusable="false"
+              aria-hidden="true"
               sx={{ fontSize: "22px", color: "var(--brand-color)" }}
             />
           ) : (
             <LightModeRoundedIcon
+              focusable="false"
+              aria-hidden="true"
               sx={{ fontSize: "22px", color: "var(--brand-color)" }}
             />
           )}
-        </div>
+        </IconWrapper>
       </div>
     </div>
   );

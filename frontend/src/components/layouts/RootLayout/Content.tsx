@@ -6,55 +6,98 @@ import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 
 // styles
 import styles from "./Content.module.scss";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const Content = () => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.content_wrapper}>
       {
         // left nav
       }
       <nav className={styles.nav_left}>
-        <Link to="/">
-          <div className={styles.link_wrapper}>
-            <HomeRoundedIcon
-              sx={{
-                fontSize: "22px",
-              }}
-            />
-            <p>홈</p>
-          </div>
-        </Link>
-        <Link to="/raid">
-          <div className={styles.link_wrapper}>
-            <GroupAddRoundedIcon
-              sx={{
-                fontSize: "22px",
-              }}
-            />
-            <p>레이드 모집</p>
-          </div>
-        </Link>
-        <Link to="/my/calendar">
-          <div className={styles.link_wrapper}>
-            <CalendarMonthRoundedIcon
-              sx={{
-                fontSize: "22px",
-              }}
-            />
-            <p>나의 달력</p>
-          </div>
-        </Link>
-        <Link to="/throughout">
-          <div className={styles.link_wrapper}>
-            <MenuBookRoundedIcon
-              sx={{
-                fontSize: "22px",
-              }}
-            />
-            <p>공략</p>
-          </div>
-        </Link>
+        <div
+          className={styles.link_wrapper}
+          aria-label="홈 페이지"
+          tabIndex={0}
+          onClick={() => navigate("/")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              navigate("/");
+            }
+          }}
+        >
+          <HomeRoundedIcon
+            focusable="false"
+            aria-hidden="true"
+            sx={{
+              fontSize: "22px",
+            }}
+          />
+          <p>홈</p>
+        </div>
+        <div
+          className={styles.link_wrapper}
+          aria-label="레이드 모집 페이지"
+          tabIndex={0}
+          onClick={() => navigate("/raid")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              navigate("/raid");
+            }
+          }}
+        >
+          <GroupAddRoundedIcon
+            focusable="false"
+            aria-hidden="true"
+            sx={{
+              fontSize: "22px",
+            }}
+          />
+          <p>레이드 모집</p>
+        </div>
+        {/* <Link to="/my/calendar"> */}
+        <div
+          className={styles.link_wrapper}
+          aria-label="나의 달력 페이지"
+          tabIndex={0}
+          onClick={() => navigate("/my/calendar")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              navigate("/my/calendar");
+            }
+          }}
+        >
+          <CalendarMonthRoundedIcon
+            focusable="false"
+            aria-hidden="true"
+            sx={{
+              fontSize: "22px",
+            }}
+          />
+          <p>나의 달력</p>
+        </div>
+        <div
+          className={styles.link_wrapper}
+          aria-label="공략 페이지"
+          tabIndex={0}
+          onClick={() => navigate("/throughout")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              navigate("/throughout");
+            }
+          }}
+        >
+          <MenuBookRoundedIcon
+            focusable="false"
+            aria-hidden="true"
+            sx={{
+              fontSize: "22px",
+            }}
+          />
+          <p>공략</p>
+        </div>
       </nav>
       {
         // main content
@@ -66,42 +109,82 @@ const Content = () => {
         // bottom nav
       }
       <nav className={styles.nav_bottom}>
-        <Link to="/">
-          <div className={styles.link_wrapper}>
-            <HomeRoundedIcon
-              sx={{
-                fontSize: "32px",
-              }}
-            />
-          </div>
-        </Link>
-        <Link to="/raid">
-          <div className={styles.link_wrapper}>
-            <GroupAddRoundedIcon
-              sx={{
-                fontSize: "32px",
-              }}
-            />
-          </div>
-        </Link>
-        <Link to="/my/calendar">
-          <div className={styles.link_wrapper}>
-            <CalendarMonthRoundedIcon
-              sx={{
-                fontSize: "32px",
-              }}
-            />
-          </div>
-        </Link>
-        <Link to="/throughout">
-          <div className={styles.link_wrapper}>
-            <MenuBookRoundedIcon
-              sx={{
-                fontSize: "32px",
-              }}
-            />
-          </div>
-        </Link>
+        <div
+          className={styles.link_wrapper}
+          aria-label="홈 페이지"
+          tabIndex={0}
+          onClick={() => navigate("/")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              navigate("/");
+            }
+          }}
+        >
+          <HomeRoundedIcon
+            focusable="false"
+            aria-hidden="true"
+            sx={{
+              fontSize: "32px",
+            }}
+          />
+        </div>
+        <div
+          className={styles.link_wrapper}
+          aria-label="레이드 모집 페이지"
+          tabIndex={0}
+          onClick={() => navigate("/raid")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              navigate("/raid");
+            }
+          }}
+        >
+          <GroupAddRoundedIcon
+            focusable="false"
+            aria-hidden="true"
+            sx={{
+              fontSize: "32px",
+            }}
+          />
+        </div>
+        <div
+          className={styles.link_wrapper}
+          aria-label="나의 달력 페이지"
+          tabIndex={0}
+          onClick={() => navigate("/my/calendar")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              navigate("/my/calendar");
+            }
+          }}
+        >
+          <CalendarMonthRoundedIcon
+            focusable="false"
+            aria-hidden="true"
+            sx={{
+              fontSize: "32px",
+            }}
+          />
+        </div>
+        <div
+          className={styles.link_wrapper}
+          aria-label="공략 페이지"
+          tabIndex={0}
+          onClick={() => navigate("/throughout")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              navigate("/throughout");
+            }
+          }}
+        >
+          <MenuBookRoundedIcon
+            focusable="false"
+            aria-hidden="true"
+            sx={{
+              fontSize: "32px",
+            }}
+          />
+        </div>
       </nav>
     </div>
   );
