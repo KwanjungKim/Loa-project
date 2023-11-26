@@ -8,11 +8,13 @@ import HomeRoute from "./routes/HomeRoute";
 import TestRoute from "./routes/Test";
 import ButtonsRoute from "./routes/Test/ButtonsRoute";
 import ModalsRoute from "./routes/Test/ModalsRoute";
+import ErrorPage from "./error-page";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "",

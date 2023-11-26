@@ -1,34 +1,37 @@
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
 
 // utils
 import loginUtils from "../../../utils/loginUtils";
 
 // components
-import { SmallButton } from "../../common/Button";
-import HeaderView from "./HeaderView";
+import HeaderView, { IHeaderViewProps } from "./HeaderView";
+
+// recoil
+import { useRecoilState } from "recoil";
+import paletteModeState, {
+  paletteModeActions,
+} from "../../../atoms/paletteMode";
 
 const Header = () => {
   const navigate = useNavigate();
   const isLoggedin = loginUtils.isLoggedin();
-  return (
-    <HeaderView>
-      <HeaderView.Logo onClick={() => navigate("/")}>LOGO</HeaderView.Logo>
-      <HeaderView.Links>
-        {isLoggedin ? (
-          <SmallButton
-            variant="contained"
-            onClick={() => console.log("logout")}
-          >
-            로그아웃
-          </SmallButton>
-        ) : (
-          <SmallButton variant="contained" onClick={() => navigate("/login")}>
-            로그인
-          </SmallButton>
-        )}
-      </HeaderView.Links>
-    </HeaderView>
-  );
+  const [paletteMode, setPaletteMode] = useRecoilState(paletteModeState);
+  const isMobile = useMediaQuery("(max-width: 480px)");
+
+  const headerViewProps: IHeaderViewProps = {
+    isLoggedin,
+    handleClickLogin: () => console.log("login"),
+    handleClickLogout: () => console.log("logout"),
+    handleClickLogo: () => navigate("/"),
+    paletteMode,
+    handleTogglePaletteMode: () => {
+      setPaletteMode(paletteModeActions.toggle);
+    },
+    isMobile,
+  };
+
+  return <HeaderView {...headerViewProps} />;
 };
 
 export default Header;
