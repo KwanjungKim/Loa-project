@@ -9,6 +9,7 @@ const Home = () => {
       <SmallButton variant="outlined" onClick={() => navigate("/test")}>
         테스트
       </SmallButton>
+
       <div>
         aslighalsigh
         <br />
