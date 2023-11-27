@@ -6,7 +6,7 @@ const KakaoLogin = ({ children }: IButtonProps) => {
   const loginKakao = () => {
     window.Kakao.Auth.authorize({
       redirectUri: REDIRECT_URL,
-      scope: "profile_nickname, profile_image",
+      scope: "profile_nickname",
     });
   };
 

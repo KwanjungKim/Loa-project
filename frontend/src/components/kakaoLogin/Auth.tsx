@@ -7,12 +7,10 @@ const Auth = () => {
   const REST_API_KEY = import.meta.env.VITE_APP_REST_API_KEY;
   const REDIRECT_URI = import.meta.env.VITE_APP_REDIRECT_URL;
   const CLIENT_SECRET = import.meta.env.VITE_APP_CLIENT_SECRET;
-
   // callback으로 받은 인가코드
   const code = new URL(window.location.href).searchParams.get("code");
 
   const navigate = useNavigate();
-
   const getToken = async () => {
     const payload = qs.stringify({
       grant_type: "authorization_code",
@@ -30,8 +28,9 @@ const Auth = () => {
       );
 
       // access token 설정
+
       window.Kakao.Auth.setAccessToken(res.data.access_token);
-      navigate("/characterAuth");
+      navigate("/characterAuth", { state: res.data.access_token });
     } catch (err) {
       console.log(err);
     }
@@ -40,6 +39,7 @@ const Auth = () => {
   useEffect(() => {
     getToken();
   }, []);
+
   return null;
 };
 
