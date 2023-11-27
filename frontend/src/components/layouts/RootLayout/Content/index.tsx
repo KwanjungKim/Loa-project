@@ -1,12 +1,16 @@
+import { Outlet, useNavigate } from "react-router-dom";
+
 // icons
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import GroupAddRoundedIcon from "@mui/icons-material/GroupAddRounded";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 
+// components
+import { Button, ButtonGroup } from "@mui/material";
+
 // styles
-import styles from "./Content.module.scss";
-import { Outlet, useNavigate } from "react-router-dom";
+import styles from "./index.module.scss";
 
 const Content = () => {
   const navigate = useNavigate();
@@ -109,82 +113,100 @@ const Content = () => {
         // bottom nav
       }
       <nav className={styles.nav_bottom}>
-        <div
-          className={styles.link_wrapper}
-          aria-label="홈 페이지"
-          tabIndex={0}
-          onClick={() => navigate("/")}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              navigate("/");
-            }
+        <ButtonGroup
+          variant="text"
+          aria-label="navigative buttons"
+          sx={{
+            width: "100%",
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
           }}
         >
-          <HomeRoundedIcon
-            focusable="false"
-            aria-hidden="true"
-            sx={{
-              fontSize: "32px",
+          <Button
+            aria-label="홈 페이지"
+            onClick={() => navigate("/")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                navigate("/");
+              }
             }}
-          />
-        </div>
-        <div
-          className={styles.link_wrapper}
-          aria-label="레이드 모집 페이지"
-          tabIndex={0}
-          onClick={() => navigate("/raid")}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              navigate("/raid");
-            }
-          }}
-        >
-          <GroupAddRoundedIcon
-            focusable="false"
-            aria-hidden="true"
             sx={{
-              fontSize: "32px",
+              color: "var(--icon)",
+              borderColor: "var(--icon-divider) !important",
             }}
-          />
-        </div>
-        <div
-          className={styles.link_wrapper}
-          aria-label="나의 달력 페이지"
-          tabIndex={0}
-          onClick={() => navigate("/my/calendar")}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              navigate("/my/calendar");
-            }
-          }}
-        >
-          <CalendarMonthRoundedIcon
-            focusable="false"
-            aria-hidden="true"
+          >
+            <HomeRoundedIcon
+              focusable="false"
+              aria-hidden="true"
+              sx={{
+                fontSize: "32px",
+              }}
+            />
+          </Button>
+          <Button
+            aria-label="레이드 모집 페이지"
+            onClick={() => navigate("/raid")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                navigate("/raid");
+              }
+            }}
             sx={{
-              fontSize: "32px",
+              color: "var(--icon)",
+              borderColor: "var(--icon-divider) !important",
             }}
-          />
-        </div>
-        <div
-          className={styles.link_wrapper}
-          aria-label="공략 페이지"
-          tabIndex={0}
-          onClick={() => navigate("/throughout")}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              navigate("/throughout");
-            }
-          }}
-        >
-          <MenuBookRoundedIcon
-            focusable="false"
-            aria-hidden="true"
+          >
+            <GroupAddRoundedIcon
+              focusable="false"
+              aria-hidden="true"
+              sx={{
+                fontSize: "32px",
+              }}
+            />
+          </Button>
+          <Button
+            aria-label="나의 달력 페이지"
+            onClick={() => navigate("/my/calendar")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                navigate("/my/calendar");
+              }
+            }}
             sx={{
-              fontSize: "32px",
+              color: "var(--icon)",
+              borderColor: "var(--icon-divider) !important",
             }}
-          />
-        </div>
+          >
+            <CalendarMonthRoundedIcon
+              focusable="false"
+              aria-hidden="true"
+              sx={{
+                fontSize: "32px",
+              }}
+            />
+          </Button>
+          <Button
+            aria-label="공략 페이지"
+            onClick={() => navigate("/throughout")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                navigate("/throughout");
+              }
+            }}
+            sx={{
+              color: "var(--icon)",
+              borderColor: "var(--icon-divider) !important",
+            }}
+          >
+            <MenuBookRoundedIcon
+              focusable="false"
+              aria-hidden="true"
+              sx={{
+                fontSize: "32px",
+              }}
+            />
+          </Button>
+        </ButtonGroup>
       </nav>
     </div>
   );
