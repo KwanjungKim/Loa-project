@@ -24,7 +24,7 @@ public class MemberController {
     @RequestMapping("join")
     public String join(@RequestParam Map<String, Object> paramMap) {
     	String URL = paramMap.get("timeline_addr").toString();
-    	int user_number = (int) paramMap.get("user_number");
+    	String user_number = paramMap.get("user_number").toString();
     	String auth_key = paramMap.get("auth_key").toString();
     	System.out.println("addr : "+URL+" , user_number : "+user_number+" , auth_key : "+auth_key);
     	
