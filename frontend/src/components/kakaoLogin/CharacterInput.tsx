@@ -11,7 +11,7 @@ const CharacterInput = ({ user_number }: postType) => {
   console.log(typeof user_number);
   return (
     <>
-      문자열 {auth_key}
+      1문자열 {auth_key}
       <input
         placeholder="timeline"
         onChange={(event) => {
