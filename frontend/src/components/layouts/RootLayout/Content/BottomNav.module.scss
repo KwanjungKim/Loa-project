@@ -1,0 +1,19 @@
+.nav_bottom {
+  display: none;
+
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--xl);
+  height: 60px;
+  z-index: 100;
+  background-color: var(--bg);
+  padding: 0 12px;
+
+  @media (max-width: 480px) {
+    display: flex;
+    align-items: center;
+  }
+}

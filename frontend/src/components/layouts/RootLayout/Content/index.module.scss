@@ -75,13 +75,10 @@
   height: 60px;
   z-index: 100;
   background-color: var(--bg);
+  padding: 0 12px;
 
   @media (max-width: 480px) {
     display: flex;
     align-items: center;
-  }
-
-  .link_wrapper {
-    cursor: pointer;
   }
 }

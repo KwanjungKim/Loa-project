@@ -11,6 +11,7 @@ import ModalsRoute from "./routes/Test/ModalsRoute";
 import Auth from "./components/kakaoLogin/Auth";
 import CharacterAuth from "./components/kakaoLogin/CharacterAuth";
 import ErrorPage from "./error-page";
+import CalendarRoute from "./routes/Test/CalendarRoute";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
           {
             path: "modals",
             element: <ModalsRoute />,
+          },
+          {
+            path: "calendar",
+            element: <CalendarRoute />,
           },
         ],
       },

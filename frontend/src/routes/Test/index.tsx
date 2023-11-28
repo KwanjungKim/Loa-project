@@ -22,6 +22,13 @@ const TestRoute = () => {
         >
           modals
         </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/test/calendar")}
+        >
+          calendar
+        </Button>
       </div>
     </div>
   );

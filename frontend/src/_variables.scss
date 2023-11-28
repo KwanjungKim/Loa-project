@@ -6,6 +6,8 @@
 
   --bg: #fff;
   --text: #161b27;
+  --icon: #aaa;
+  --icon-divider: #ccc;
 
   // screen sizes
   --xs: 0;
@@ -19,6 +21,8 @@
 body[data-theme="dark"] {
   --bg: #161b27;
   --text: #fff;
+  --icon: #ddd;
+  --icon-divider: #aaa;
 }
 
 /*
