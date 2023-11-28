@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 import paletteModeState from "../atoms/paletteMode";
 import { useEffect, useMemo } from "react";
 import { yellow } from "@mui/material/colors";
+import type {} from "@mui/x-date-pickers/themeAugmentation";
 
 const getPalette = (mode: PaletteMode): ThemeOptions => ({
   breakpoints: {
