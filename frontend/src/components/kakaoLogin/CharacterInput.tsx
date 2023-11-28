@@ -8,7 +8,6 @@ const auth_key = Math.random().toString(16).substring(2, 24);
 
 const CharacterInput = ({ user_number }: postType) => {
   const [timeline_addr, setTimeLineAddr] = useState("");
-  console.log(typeof user_number);
   return (
     <>
       1문자열 {auth_key}
@@ -34,6 +33,7 @@ const CharacterInput = ({ user_number }: postType) => {
               "content-type": "application/json",
             },
             body: JSON.stringify(paramMap), //userData라는 객체를 보냄
+            timeout: 5000,
           });
         }}
       />

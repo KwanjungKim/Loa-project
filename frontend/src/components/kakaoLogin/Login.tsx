@@ -1,4 +1,4 @@
-import { MediumButton } from "../common/Button";
+import { SmallButton } from "../common/Button";
 import { IButtonProps } from "../common/Button";
 
 const KakaoLogin = ({ children }: IButtonProps) => {
@@ -6,15 +6,16 @@ const KakaoLogin = ({ children }: IButtonProps) => {
   const loginKakao = () => {
     window.Kakao.Auth.authorize({
       redirectUri: REDIRECT_URL,
+      prompt: "login",
       scope: "profile_nickname",
     });
   };
 
   return (
     <>
-      <MediumButton variant="contained" onClick={loginKakao}>
+      <SmallButton variant="contained" onClick={loginKakao}>
         {children}
-      </MediumButton>
+      </SmallButton>
     </>
   );
 };
