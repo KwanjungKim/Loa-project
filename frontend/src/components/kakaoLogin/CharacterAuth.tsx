@@ -1,53 +1,70 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import CharacterInput from "./CharacterInput";
 import { useSetRecoilState } from "recoil";
 import { LoginState } from "../../atoms/login";
 
-const CharacterAuth = () => {
-  const [user_id, setUserId] = useState("");
-  const [nickName, setNickName] = useState("");
+export interface IprofileData {
+  id: string;
+  properties: {
+    nickname: string;
+  };
+}
+
+const useProfile = () => {
+  const [profileData, setProfileData] = useState<IprofileData | null>(null);
+  const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(LoginState);
-  const REST_API_KEY = import.meta.env.VITE_APP_REST_API_KEY;
-  const LOGOUT_URL = import.meta.env.VITE_APP_LOGOUT_URL;
-  const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_URL}`;
-  // const navigate = useNavigate();
-  const getProfile = async () => {
-    if (window.Kakao.Auth.getAccessToken() !== null) {
-      try {
-        // Kakao SDK API를 이용해 사용자 정보 획득
-        const data = await window.Kakao.API.request({
-          url: "/v2/user/me",
-        });
-        // 사용자 정보 변수에 저장
-        setUserId(data.id);
-        setNickName(data.properties.nickname);
-        setIsLoggedIn(true);
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      //navigate("/")
-      alert("로그인이 필요한 페이지 입니다.");
-      location.href = "http://localhost:5173/";
+  const [isLoaded, setIsLoaded] = useState(false);
+  const handleError = (str: string, callback?: () => void) => {
+    alert(str);
+    if (callback) {
+      callback();
     }
   };
 
+  const getProfile = useCallback(async () => {
+    if (isLoaded) return;
+    const accessToken = window.Kakao?.Auth?.getAccessToken();
+    if (!accessToken) {
+      handleError("로그인이 필요한 페이지입니다.", () => {
+        navigate("/");
+      });
+      return;
+    }
+    try {
+      // Kakao SDK API를 이용해 사용자 정보 획득
+      const data = await window.Kakao.API.request({
+        url: "/v2/user/me",
+      });
+      // 사용자 정보 변수에 저장
+      setProfileData({
+        id: data.id,
+        properties: data.properties,
+      });
+      setIsLoggedIn(true);
+      setIsLoaded(true);
+    } catch (err) {
+      handleError("프로필 정보를 불러오는데 실패했습니다.", () => {
+        navigate("/");
+      });
+    }
+  }, [isLoaded, navigate, setIsLoggedIn]);
+
   useEffect(() => {
     getProfile();
-  }, []);
+  }, [getProfile]);
+
   return (
     <div>
-      <h2>{user_id}</h2>
-      <h2>{nickName}</h2>
+      <h2>{profileData?.id}</h2>
+      <h2>{profileData?.properties.nickname}</h2>
 
       <h1>
-        <CharacterInput user_number={user_id} />
+        <CharacterInput profileData={profileData} />
       </h1>
-      {/* 임시 */}
-      <Link to={KAKAO_LOGOUT_URL}>로그아웃 </Link>
     </div>
   );
 };
 
-export default CharacterAuth;
+export default useProfile;

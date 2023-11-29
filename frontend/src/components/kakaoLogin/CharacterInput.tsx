@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
+import { IprofileData } from "./CharacterAuth";
 
-type postType = {
-  user_number: string;
-};
 const auth_key = Math.random().toString(16).substring(2, 24);
 
-const CharacterInput = ({ user_number }: postType) => {
+const CharacterInput = ({
+  profileData,
+}: {
+  profileData: IprofileData | null;
+}) => {
   const [timeline_addr, setTimeLineAddr] = useState("");
   return (
     <>
@@ -22,7 +24,7 @@ const CharacterInput = ({ user_number }: postType) => {
         value="인증"
         onClick={() => {
           const paramMap = {
-            user_number,
+            user_number: profileData,
             auth_key,
             timeline_addr,
           };

@@ -15,8 +15,8 @@ import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-import KakaoLogin from "../../kakaoLogin/Login";
-import KakaoLogout from "../../kakaoLogin/Logout";
+
+import { SmallButton } from "../../common/Button";
 
 export interface IHeaderViewProps
   extends React.AllHTMLAttributes<HTMLDivElement> {
@@ -55,15 +55,13 @@ const HeaderView = ({
               />
             </IconWrapper>
           ) : (
-            // <SmallButton
-            //   aria-label="logout"
-            //   variant="contained"
-            //   onClick={handleClickLogout}
-            // >
-            //   logout
-            // </SmallButton>
-
-            <KakaoLogout />
+            <SmallButton
+              aria-label="logout"
+              variant="contained"
+              onClick={handleClickLogout}
+            >
+              logout
+            </SmallButton>
           )
         ) : isMobile ? (
           <IconWrapper aria-label="login" onClick={handleClickLogin}>
@@ -74,14 +72,13 @@ const HeaderView = ({
             />
           </IconWrapper>
         ) : (
-          // <SmallButton
-          //   aria-label="login"
-          //   variant="contained"
-          //   onClick={handleClickLogin}
-          // >
-          //   login
-          // </SmallButton>
-          <KakaoLogin>login</KakaoLogin>
+          <SmallButton
+            aria-label="login"
+            variant="contained"
+            onClick={handleClickLogin}
+          >
+            login
+          </SmallButton>
         )}
         <IconWrapper
           aria-label={paletteMode === "light" ? "dark mode" : "light mode"}
