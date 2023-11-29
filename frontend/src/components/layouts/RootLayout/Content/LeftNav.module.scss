@@ -14,14 +14,19 @@
   .link_wrapper {
     position: relative;
     display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-start;
+
     cursor: pointer;
 
-    gap: 2px;
-    align-items: center;
+    color: var(--icon);
+    padding: 8px 12px;
+    min-width: 0;
 
     > p {
       position: absolute;
-      left: 30px;
+      left: 40px;
       top: 50%;
       transform: translateY(-50%);
       display: block;
@@ -29,6 +34,8 @@
       width: 80px;
       transition: all 0.2s ease-in-out;
       white-space: nowrap;
+      font-size: 14px;
+      text-align: left;
 
       @media (max-width: 768px) {
         width: 0px;

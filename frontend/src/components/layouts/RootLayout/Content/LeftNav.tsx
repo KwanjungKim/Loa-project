@@ -10,13 +10,16 @@ import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 // styles
 import styles from "./LeftNav.module.scss";
 
+// components
+import { Button } from "@mui/material";
+
 interface Props extends React.AllHTMLAttributes<HTMLDivElement> {}
 
 const LeftNav = ({ ...props }: Props) => {
   const navigate = useNavigate();
   return (
     <nav className={styles.nav_left} {...props}>
-      <div
+      <Button
         className={styles.link_wrapper}
         aria-label="홈 페이지"
         tabIndex={0}
@@ -35,8 +38,8 @@ const LeftNav = ({ ...props }: Props) => {
           }}
         />
         <p>홈</p>
-      </div>
-      <div
+      </Button>
+      <Button
         className={styles.link_wrapper}
         aria-label="레이드 모집 페이지"
         tabIndex={0}
@@ -55,9 +58,9 @@ const LeftNav = ({ ...props }: Props) => {
           }}
         />
         <p>레이드 모집</p>
-      </div>
+      </Button>
       {/* <Link to="/my/calendar"> */}
-      <div
+      <Button
         className={styles.link_wrapper}
         aria-label="나의 달력 페이지"
         tabIndex={0}
@@ -76,8 +79,8 @@ const LeftNav = ({ ...props }: Props) => {
           }}
         />
         <p>나의 달력</p>
-      </div>
-      <div
+      </Button>
+      <Button
         className={styles.link_wrapper}
         aria-label="공략 페이지"
         tabIndex={0}
@@ -96,7 +99,7 @@ const LeftNav = ({ ...props }: Props) => {
           }}
         />
         <p>공략</p>
-      </div>
+      </Button>
     </nav>
   );
 };
