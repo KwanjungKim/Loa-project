@@ -2,23 +2,25 @@ import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
 
 // utils
-import loginUtils from "../../../utils/loginUtils";
+// import loginUtils from "../../../utils/loginUtils";
 
 // components
 import HeaderView, { IHeaderViewProps } from "./HeaderView";
 
 // recoil
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import paletteModeState, {
   paletteModeActions,
 } from "../../../atoms/paletteMode";
+import { LoginState } from "../../../atoms/Login";
 
 const Header = () => {
   const navigate = useNavigate();
-  const isLoggedin = loginUtils.isLoggedin();
-  const [paletteMode, setPaletteMode] = useRecoilState(paletteModeState);
-  const isMobile = useMediaQuery("(max-width: 480px)");
 
+  const [paletteMode, setPaletteMode] = useRecoilState(paletteModeState);
+  const isLoggedin = useRecoilValue(LoginState);
+  const isMobile = useMediaQuery("(max-width: 480px)");
+  console.log(isLoggedin);
   const headerViewProps: IHeaderViewProps = {
     isLoggedin,
     handleClickLogin: () => console.log("login"),
