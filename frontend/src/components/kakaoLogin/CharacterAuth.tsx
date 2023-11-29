@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CharacterInput from "./CharacterInput";
 import { useSetRecoilState } from "recoil";
-import { LoginState } from "../../atoms/Login";
+import { LoginState } from "../../atoms/login";
 
 const CharacterAuth = () => {
   const [user_id, setUserId] = useState("");
