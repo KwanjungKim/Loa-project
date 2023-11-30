@@ -67,10 +67,10 @@ const BottomNav = ({ ...props }: Props) => {
         </Button>
         <Button
           aria-label="나의 달력 페이지"
-          onClick={() => navigate("/my/calendar")}
+          onClick={() => navigate("/my-calendar")}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              navigate("/my/calendar");
+              navigate("/my-calendar");
             }
           }}
           sx={buttonStyle}

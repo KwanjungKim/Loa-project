@@ -2,19 +2,19 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter as Router } from "react-router-dom";
 
 // route
-import HomeRoute from "./HomeRoute";
+import MyCalendarRoute from "./MyCalendarRoute";
 
-describe("Home Route", () => {
+describe("Calendar Route", () => {
   beforeEach(() => {
     render(
       <Router>
-        <HomeRoute />
+        <MyCalendarRoute />
       </Router>,
     );
   });
 
-  it("should render home", () => {
-    const text = screen.getByText(/home/i);
+  it("should render calendar route", () => {
+    const text = screen.getByText(/MyCalendarRoute/i);
     expect(text).toBeInTheDocument();
   });
 });
