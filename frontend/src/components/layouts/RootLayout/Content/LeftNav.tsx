@@ -84,10 +84,10 @@ const LeftNav = ({ ...props }: Props) => {
         className={styles.link_wrapper}
         aria-label="공략 페이지"
         tabIndex={0}
-        onClick={() => navigate("/throughout")}
+        onClick={() => navigate("/raid-guide")}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            navigate("/throughout");
+            navigate("/raid-guide");
           }
         }}
       >
