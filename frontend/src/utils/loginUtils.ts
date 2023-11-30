@@ -11,9 +11,7 @@ const loginUtils = {
       scope: "profile_nickname",
     });
   },
-  logoutKakao: () => {
-    window.Kakao.Auth.logout();
-  },
+  logoutKakao: () => window.Kakao.Auth.logout(),
 };
 
 export default loginUtils;

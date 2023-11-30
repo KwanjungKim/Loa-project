@@ -25,9 +25,7 @@ const Header = () => {
   console.log(isLoggedin);
   const headerViewProps: IHeaderViewProps = {
     isLoggedin,
-    handleClickLogin: () => {
-      loginUtils.loginKakao();
-    },
+    handleClickLogin: () => loginUtils.loginKakao(),
     handleClickLogout: () => {
       loginUtils.logoutKakao();
       setIsLoggedIn(false);

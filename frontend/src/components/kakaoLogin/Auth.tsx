@@ -27,18 +27,15 @@ const Auth = () => {
           "https://kauth.kakao.com/oauth/token",
           payload,
         );
-
         // access token 설정
-
         window.Kakao.Auth.setAccessToken(res.data.access_token);
         navigate("/characterAuth");
       } catch (err) {
         console.log(err);
       }
     };
-
     getToken();
-  }, []);
+  }, [REST_API_KEY, REDIRECT_URI, CLIENT_SECRET, code, navigate]);
 
   return null;
 };
