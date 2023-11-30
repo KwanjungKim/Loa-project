@@ -64,10 +64,10 @@ const LeftNav = ({ ...props }: Props) => {
         className={styles.link_wrapper}
         aria-label="나의 달력 페이지"
         tabIndex={0}
-        onClick={() => navigate("/my/calendar")}
+        onClick={() => navigate("/my-calendar")}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            navigate("/my/calendar");
+            navigate("/my-calendar");
           }
         }}
       >

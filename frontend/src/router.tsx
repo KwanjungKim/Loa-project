@@ -12,6 +12,7 @@ import Auth from "./components/kakaoLogin/Auth";
 import CharacterAuth from "./components/kakaoLogin/CharacterAuth";
 import ErrorPage from "./error-page";
 import CalendarRoute from "./routes/Test/CalendarRoute";
+import MyCalendarRoute from "./routes/MyCalendarRoute";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <HomeRoute />,
+      },
+      {
+        path: "my-calendar",
+        element: <MyCalendarRoute />,
       },
       {
         path: "/test",
