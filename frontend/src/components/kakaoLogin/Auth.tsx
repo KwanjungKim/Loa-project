@@ -29,7 +29,7 @@ const Auth = () => {
         );
         // access token 설정
         window.Kakao.Auth.setAccessToken(res.data.access_token);
-        navigate("/characterAuth");
+        navigate("/character-auth");
       } catch (err) {
         console.log(err);
       }
