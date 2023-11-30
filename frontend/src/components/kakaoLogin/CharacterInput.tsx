@@ -1,18 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
-import { IprofileData } from "./CharacterAuth";
+import { IProfileData } from "../../hooks/useProfile";
 
 const auth_key = Math.random().toString(16).substring(2, 24);
 
 const CharacterInput = ({
   profileData,
 }: {
-  profileData: IprofileData | null;
+  profileData: IProfileData | null;
 }) => {
   const [timeline_addr, setTimeLineAddr] = useState("");
   return (
     <>
-      1문자열 {auth_key}
+      문자열 {auth_key}
       <input
         placeholder="timeline"
         onChange={(event) => {
