@@ -8,14 +8,16 @@ import { useMediaQuery } from "@mui/material";
 import HeaderView, { IHeaderViewProps } from "./HeaderView";
 
 // recoil
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import paletteModeState, {
   paletteModeActions,
 } from "../../../atoms/paletteMode";
-import { LoginState } from "../../../atoms/Login";
+import { LoginState } from "../../../atoms/login";
+import loginUtils from "../../../utils/loginUtils";
 
 const Header = () => {
   const navigate = useNavigate();
+  const setIsLoggedIn = useSetRecoilState(LoginState);
 
   const [paletteMode, setPaletteMode] = useRecoilState(paletteModeState);
   const isLoggedin = useRecoilValue(LoginState);
@@ -23,8 +25,12 @@ const Header = () => {
   console.log(isLoggedin);
   const headerViewProps: IHeaderViewProps = {
     isLoggedin,
-    handleClickLogin: () => console.log("login"),
-    handleClickLogout: () => console.log("logout"),
+    handleClickLogin: () => loginUtils.loginKakao(),
+    handleClickLogout: () => {
+      loginUtils.logoutKakao();
+      setIsLoggedIn(false);
+      navigate("/");
+    },
     handleClickLogo: () => navigate("/"),
     paletteMode,
     handleTogglePaletteMode: () => {

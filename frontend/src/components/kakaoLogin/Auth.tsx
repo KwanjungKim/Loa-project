@@ -11,34 +11,31 @@ const Auth = () => {
   const code = new URL(window.location.href).searchParams.get("code");
 
   const navigate = useNavigate();
-  const getToken = async () => {
-    const payload = qs.stringify({
-      grant_type: "authorization_code",
-      client_id: REST_API_KEY,
-      redirect_uri: REDIRECT_URI,
-      code: code,
-      client_secret: CLIENT_SECRET,
-    });
-
-    try {
-      //access token 가져오기
-      const res = await axios.post(
-        "https://kauth.kakao.com/oauth/token",
-        payload,
-      );
-
-      // access token 설정
-
-      window.Kakao.Auth.setAccessToken(res.data.access_token);
-      navigate("/characterAuth");
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
+    const getToken = async () => {
+      const payload = qs.stringify({
+        grant_type: "authorization_code",
+        client_id: REST_API_KEY,
+        redirect_uri: REDIRECT_URI,
+        code: code,
+        client_secret: CLIENT_SECRET,
+      });
+
+      try {
+        //access token 가져오기
+        const res = await axios.post(
+          "https://kauth.kakao.com/oauth/token",
+          payload,
+        );
+        // access token 설정
+        window.Kakao.Auth.setAccessToken(res.data.access_token);
+        navigate("/characterAuth");
+      } catch (err) {
+        console.log(err);
+      }
+    };
     getToken();
-  }, []);
+  }, [REST_API_KEY, REDIRECT_URI, CLIENT_SECRET, code, navigate]);
 
   return null;
 };
