@@ -1,5 +1,5 @@
-import CharacterInput from "./CharacterInput";
 import useProfile from "../../hooks/useProfile";
+import CharacterInput from "./CharacterInput";
 
 const CharacterAuth = () => {
   // const load: boolean = false;

@@ -1,5 +1,11 @@
+import RaidGuideTest from "./raidGuideTest";
+
 const RaidGuide = () => {
-  return <>레이드 공략 페이지</>;
+  return (
+    <>
+      <RaidGuideTest />
+    </>
+  );
 };
 
 export default RaidGuide;
