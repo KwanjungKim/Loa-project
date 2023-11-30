@@ -1,9 +1,16 @@
-import React from "react";
+import { useState } from "react";
+import Calendar from "../common/Calendar";
+import dayjs from "dayjs";
 
-type Props = {};
+const MyCalendar = () => {
+  const highlighted: string[] = [];
+  const [date, setDate] = useState<dayjs.Dayjs | null>(null);
 
-const MyCalendar = (props: Props) => {
-  return <div>MyCalendar</div>;
+  return (
+    <div>
+      <Calendar date={date} setDate={setDate} highlighted={highlighted} />
+    </div>
+  );
 };
 
 export default MyCalendar;
