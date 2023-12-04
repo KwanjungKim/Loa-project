@@ -9,11 +9,12 @@ import TestRoute from "./routes/Test";
 import ButtonsRoute from "./routes/Test/ButtonsRoute";
 import ModalsRoute from "./routes/Test/ModalsRoute";
 import Auth from "./components/kakaoLogin/Auth";
-import CharacterAuth from "./components/kakaoLogin/CharacterAuth";
+
 import ErrorPage from "./error-page";
 import CalendarRoute from "./routes/Test/CalendarRoute";
 import MyCalendarRoute from "./routes/MyCalendarRoute";
-import RaidGuide from "./components/RaidGuide";
+import CharacterAuth from "./components/kakaoLogin/CharacterAuth";
+import MyPage from "./components/MyPage";
 
 const router = createBrowserRouter([
   {
@@ -38,8 +39,8 @@ const router = createBrowserRouter([
         element: <CharacterAuth />,
       },
       {
-        path: "raid-guide",
-        element: <RaidGuide />,
+        path: "my-page",
+        element: <MyPage />,
       },
       {
         path: "/test",

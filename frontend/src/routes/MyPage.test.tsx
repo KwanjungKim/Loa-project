@@ -2,19 +2,19 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter as Router } from "react-router-dom";
 
 // route
-import RaidGuideRoute from "./RaidGuide";
+import MyPageRoute from "./MyPage";
 
 describe("Raid Guide Route", () => {
   beforeEach(() => {
     render(
       <Router>
-        <RaidGuideRoute />
+        <MyPageRoute />
       </Router>,
     );
   });
 
   it("should render calendar route", () => {
-    const text = screen.getByText(/RaidGuideRoute/i);
+    const text = screen.getByText(/MyPageRoute/i);
     expect(text).toBeInTheDocument();
   });
 });

@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import GroupAddRoundedIcon from "@mui/icons-material/GroupAddRounded";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
+// import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
+import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 
 // styles
 import styles from "./LeftNav.module.scss";
@@ -84,21 +85,21 @@ const LeftNav = ({ ...props }: Props) => {
         className={styles.link_wrapper}
         aria-label="공략 페이지"
         tabIndex={0}
-        onClick={() => navigate("/raid-guide")}
+        onClick={() => navigate("/my-page")}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            navigate("/raid-guide");
+            navigate("/my-page");
           }
         }}
       >
-        <MenuBookRoundedIcon
+        <AccountBoxRoundedIcon
           focusable="false"
           aria-hidden="true"
           sx={{
             fontSize: "22px",
           }}
         />
-        <p>공략</p>
+        <p>마이페이지</p>
       </Button>
     </nav>
   );
