@@ -12,7 +12,7 @@ const CharacterInput = ({
   const [timeline_addr, setTimeLineAddr] = useState("");
   return (
     <>
-      문자열 {auth_key}
+      <h2>문자열 {auth_key}</h2>
       <input
         placeholder="timeline"
         onChange={(event) => {
