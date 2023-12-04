@@ -49,7 +49,7 @@ const CharacterInput = ({
         variant="contained"
         onClick={() => {
           const paramMap = {
-            user_number: profileData,
+            user_number: profileData?.id,
             auth_key,
             timeline_addr,
           };
