@@ -3,6 +3,8 @@ import {
   MediumButton,
   SmallButton,
 } from "../../components/common/Button";
+import TextButton from "../../components/common/Button/TextButton";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 
 // styles
 import styles from "./ButtonsRoute.module.scss";
@@ -33,6 +35,12 @@ const ButtonsRoute = () => {
         >
           large
         </LargeButton>
+      </div>
+      <div className={styles.textButtonWrapper}>
+        <TextButton className={styles.textButton}>
+          <HomeRoundedIcon />
+          <p>홈</p>
+        </TextButton>
       </div>
     </div>
   );

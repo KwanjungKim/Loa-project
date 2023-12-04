@@ -5,14 +5,13 @@ import { useNavigate } from "react-router-dom";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import GroupAddRoundedIcon from "@mui/icons-material/GroupAddRounded";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-// import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 
 // styles
 import styles from "./LeftNav.module.scss";
 
 // components
-import { Button } from "@mui/material";
+import TextButton from "../../../common/Button/TextButton";
 
 interface Props extends React.AllHTMLAttributes<HTMLDivElement> {}
 
@@ -20,7 +19,7 @@ const LeftNav = ({ ...props }: Props) => {
   const navigate = useNavigate();
   return (
     <nav className={styles.nav_left} {...props}>
-      <Button
+      <TextButton
         className={styles.link_wrapper}
         aria-label="홈 페이지"
         tabIndex={0}
@@ -39,8 +38,8 @@ const LeftNav = ({ ...props }: Props) => {
           }}
         />
         <p>홈</p>
-      </Button>
-      <Button
+      </TextButton>
+      <TextButton
         className={styles.link_wrapper}
         aria-label="레이드 모집 페이지"
         tabIndex={0}
@@ -59,9 +58,8 @@ const LeftNav = ({ ...props }: Props) => {
           }}
         />
         <p>레이드 모집</p>
-      </Button>
-      {/* <Link to="/my/calendar"> */}
-      <Button
+      </TextButton>
+      <TextButton
         className={styles.link_wrapper}
         aria-label="나의 달력 페이지"
         tabIndex={0}
@@ -80,10 +78,10 @@ const LeftNav = ({ ...props }: Props) => {
           }}
         />
         <p>나의 달력</p>
-      </Button>
-      <Button
+      </TextButton>
+      <TextButton
         className={styles.link_wrapper}
-        aria-label="공략 페이지"
+        aria-label="마이 페이지"
         tabIndex={0}
         onClick={() => navigate("/my-page")}
         onKeyDown={(e) => {
@@ -100,7 +98,7 @@ const LeftNav = ({ ...props }: Props) => {
           }}
         />
         <p>마이페이지</p>
-      </Button>
+      </TextButton>
     </nav>
   );
 };
