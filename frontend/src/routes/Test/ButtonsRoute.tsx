@@ -8,6 +8,7 @@ import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 
 // styles
 import styles from "./ButtonsRoute.module.scss";
+import IconWrapper from "../../components/common/Wrapper/IconWrapper";
 
 const ButtonsRoute = () => {
   const handleClickButton = (str: string) => {
@@ -42,6 +43,20 @@ const ButtonsRoute = () => {
           <p>홈</p>
         </TextButton>
       </div>
+
+      <IconWrapper
+        aria-label="home button"
+        size={40}
+        onClick={() => handleClickButton("icon button is clicked")}
+      >
+        <HomeRoundedIcon
+          focusable="false"
+          aria-hidden="true"
+          sx={{
+            fontSize: "20px",
+          }}
+        />
+      </IconWrapper>
     </div>
   );
 };
