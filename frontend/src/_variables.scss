@@ -8,6 +8,8 @@
   --text: #161b27;
   --icon: #888;
   --icon-divider: #ccc;
+  --hovered-bg: rgba(0, 0, 0, 0.1);
+  --focused-bg: rgba(0, 0, 0, 0.2);
 
   // screen sizes
   --xs: 0;
@@ -23,9 +25,11 @@
 // dark mode
 body[data-theme="dark"] {
   --bg: #161b27;
-  --text: #fff;
-  --icon: #ddd;
+  --text: #ffffff;
+  --icon: #dddddd;
   --icon-divider: #aaa;
+  --hovered-bg: rgba(255, 255, 255, 0.1);
+  --focused-bg: rgba(255, 255, 255, 0.2);
 }
 
 /*

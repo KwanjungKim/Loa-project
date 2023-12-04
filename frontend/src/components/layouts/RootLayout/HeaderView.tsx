@@ -8,7 +8,7 @@ import styles from "./HeaderView.module.scss";
 
 // components
 // import { SmallButton } from "../../common/Button";
-import IconWrapper from "../../common/IconWrapper";
+import IconWrapper from "../../common/Wrapper/IconWrapper";
 
 // icons
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
@@ -47,11 +47,15 @@ const HeaderView = ({
       <div className={styles.buttons_wrapper}>
         {isLoggedin ? (
           isMobile ? (
-            <IconWrapper aria-label="logout" onClick={handleClickLogout}>
+            <IconWrapper
+              size={30}
+              aria-label="logout"
+              onClick={handleClickLogout}
+            >
               <LogoutIcon
                 focusable="false"
                 aria-hidden="true"
-                sx={{ fontSize: "22px" }}
+                sx={{ fontSize: "18px" }}
               />
             </IconWrapper>
           ) : (
@@ -64,11 +68,11 @@ const HeaderView = ({
             </SmallButton>
           )
         ) : isMobile ? (
-          <IconWrapper aria-label="login" onClick={handleClickLogin}>
+          <IconWrapper size={30} aria-label="login" onClick={handleClickLogin}>
             <LoginIcon
               focusable="false"
               aria-hidden="true"
-              sx={{ fontSize: "22px" }}
+              sx={{ fontSize: "18px" }}
             />
           </IconWrapper>
         ) : (
@@ -81,6 +85,7 @@ const HeaderView = ({
           </SmallButton>
         )}
         <IconWrapper
+          size={30}
           aria-label={paletteMode === "light" ? "dark mode" : "light mode"}
           onClick={handleTogglePaletteMode}
         >
@@ -88,13 +93,13 @@ const HeaderView = ({
             <DarkModeRoundedIcon
               focusable="false"
               aria-hidden="true"
-              sx={{ fontSize: "22px", color: "var(--brand-color)" }}
+              sx={{ fontSize: "18px", color: "var(--brand-color)" }}
             />
           ) : (
             <LightModeRoundedIcon
               focusable="false"
               aria-hidden="true"
-              sx={{ fontSize: "22px", color: "var(--brand-color)" }}
+              sx={{ fontSize: "18px", color: "var(--brand-color)" }}
             />
           )}
         </IconWrapper>

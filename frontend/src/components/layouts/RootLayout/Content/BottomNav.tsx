@@ -1,25 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 // icons
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import GroupAddRoundedIcon from "@mui/icons-material/GroupAddRounded";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
+import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
+
+// components
+import TextButton from "../../../common/Button/TextButton";
 
 // styles
 import styles from "./BottomNav.module.scss";
-import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
-const buttonStyle: React.CSSProperties = {
-  color: "var(--icon)",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  gap: "2px",
-  fontSize: "10px",
-  padding: "0",
-};
 const iconStyle: React.CSSProperties = {
   fontSize: "20px",
 };
@@ -31,7 +24,8 @@ const BottomNav = ({ ...props }: Props) => {
   return (
     <nav className={styles.nav_bottom} {...props}>
       <div className={styles.buttons}>
-        <Button
+        <TextButton
+          className={styles.button}
           aria-label="홈 페이지"
           onClick={() => navigate("/")}
           onKeyDown={(e) => {
@@ -39,7 +33,6 @@ const BottomNav = ({ ...props }: Props) => {
               navigate("/");
             }
           }}
-          sx={buttonStyle}
         >
           <HomeRoundedIcon
             focusable="false"
@@ -47,8 +40,9 @@ const BottomNav = ({ ...props }: Props) => {
             sx={iconStyle}
           />
           <p>홈</p>
-        </Button>
-        <Button
+        </TextButton>
+        <TextButton
+          className={styles.button}
           aria-label="레이드 모집 페이지"
           onClick={() => navigate("/raid")}
           onKeyDown={(e) => {
@@ -56,7 +50,6 @@ const BottomNav = ({ ...props }: Props) => {
               navigate("/raid");
             }
           }}
-          sx={buttonStyle}
         >
           <GroupAddRoundedIcon
             focusable="false"
@@ -64,8 +57,9 @@ const BottomNav = ({ ...props }: Props) => {
             sx={iconStyle}
           />
           <p>레이드</p>
-        </Button>
-        <Button
+        </TextButton>
+        <TextButton
+          className={styles.button}
           aria-label="나의 달력 페이지"
           onClick={() => navigate("/my-calendar")}
           onKeyDown={(e) => {
@@ -73,32 +67,31 @@ const BottomNav = ({ ...props }: Props) => {
               navigate("/my-calendar");
             }
           }}
-          sx={buttonStyle}
         >
           <CalendarMonthRoundedIcon
             focusable="false"
             aria-hidden="true"
             sx={iconStyle}
           />
-          <p>달력</p>
-        </Button>
-        <Button
-          aria-label="공략 페이지"
-          onClick={() => navigate("/throughout")}
+          <p>나의 달력</p>
+        </TextButton>
+        <TextButton
+          className={styles.button}
+          aria-label="마이 페이지"
+          onClick={() => navigate("/my-page")}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              navigate("/throughout");
+              navigate("/my-page");
             }
           }}
-          sx={buttonStyle}
         >
-          <MenuBookRoundedIcon
+          <AccountBoxRoundedIcon
             focusable="false"
             aria-hidden="true"
             sx={iconStyle}
           />
-          <p>공략</p>
-        </Button>
+          <p>마이페이지</p>
+        </TextButton>
       </div>
     </nav>
   );
