@@ -1,0 +1,25 @@
+.content_wrapper {
+  display: grid;
+  grid-template-columns: 160px auto;
+  transition: all 0.2s ease-in-out;
+  column-gap: 12px;
+  padding-bottom: 0px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 62px auto;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    padding-bottom: var(--bottom-nav-height);
+  }
+}
+
+.section {
+  width: 100%;
+  padding: 0;
+
+  @media (max-width: 480px) {
+    padding: 0 16px;
+  }
+}
