@@ -1,0 +1,20 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.extButtonWrapper {
+  width: 700px;
+  height: 80px;
+  border: 1px solid var(--text);
+}
+
+.textButtonWrapper {
+  width: 120px;
+  height: 40px;
+}
+
+.textButton {
+  gap: 4px;
+}

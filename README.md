@@ -28,7 +28,16 @@
 .
 ├── README.md
 ├── frontend
-│   ├── Dockerfile
+    ├── src
+        ├── main.tsx
+        ├── App.tsx
+        ├── routes
+        ├── components
+        ├── atoms
+        ├── hooks
+        ├── tests
+        ├── utils
+
 ```
 
 ## 3. Detailed Description

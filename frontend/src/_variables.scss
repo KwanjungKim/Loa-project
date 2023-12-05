@@ -1,0 +1,42 @@
+:root {
+  --brand-color: #fbc02d;
+
+  --light: #fff;
+  --dark: #161b27;
+
+  --bg: #fff;
+  --text: #161b27;
+  --icon: #888;
+  --icon-divider: #ccc;
+  --hovered-bg: rgba(0, 0, 0, 0.1);
+  --focused-bg: rgba(0, 0, 0, 0.2);
+
+  // screen sizes
+  --xs: 0;
+  --sm: 320px;
+  --md: 480px;
+  --lg: 768px;
+  --xl: 1024px;
+
+  // cals
+  --bottom-nav-height: 64px;
+}
+
+// dark mode
+body[data-theme="dark"] {
+  --bg: #161b27;
+  --text: #ffffff;
+  --icon: #dddddd;
+  --icon-divider: #aaa;
+  --hovered-bg: rgba(255, 255, 255, 0.1);
+  --focused-bg: rgba(255, 255, 255, 0.2);
+}
+
+/*
+media queries
+  xs: 0,
+  sm: 320,
+  md: 480,
+  lg: 768,
+  xl: 1024,
+*/
