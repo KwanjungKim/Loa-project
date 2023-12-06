@@ -23,6 +23,11 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>3.0.2</version>
@@ -66,6 +71,17 @@
     		<artifactId>selenium-java</artifactId>
     		<version>4.15.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+		<dependency>
+    		<groupId>com.zaxxer</groupId>
+    		<artifactId>HikariCP</artifactId>
+    		<version>3.3.1</version>
+		</dependency>
+		<dependency>
+ 			<groupId>org.springframework.boot</groupId>
+   			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+
 
 	</dependencies>
 

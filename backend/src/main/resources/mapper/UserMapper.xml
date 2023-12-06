@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "classpath:/mapper/mybatis-3-config.dtd">
+<mapper namespace="loa.backend.Mapper.UserMapper">
+    <select id="getUser" resultType="UserModel">
+        select *
+        from loain.user_info 
+    </select>
+</mapper>
