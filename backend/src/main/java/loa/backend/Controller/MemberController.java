@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @CrossOrigin(origins="http://localhost:5173")
-@RequestMapping("/Member")
+@RequestMapping("/api/member")
 public class MemberController {
 	@ResponseBody
     @RequestMapping("join")
