@@ -14,8 +14,8 @@ import jakarta.servlet.http.HttpServletRequest;
 public class CharacterList {
 	@RequestMapping(value="/test.do", method = RequestMethod.GET)
     public String test(HttpServletRequest request) throws Exception {
-            String data = request.getParameter("memberNo");
-            System.out.println(request.getParameter("memberNo"));
+        String data = request.getParameter("memberNo");
+        System.out.println(request.getParameter("memberNo"));
 
         URL url = new URL("https://lostark.game.onstove.com/board/IsCharacterList");
         String postData = "memberNo="+data;

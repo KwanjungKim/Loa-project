@@ -5,22 +5,23 @@ import lombok.Data;
 @Data
 public class UserModel {
 
-	private Double user_number;
-	private String Character_name;
+	private String user_number;
+	private String character_name;
 	private String auth_key;
 	private String timeline_addr;
+	private String memberNo;
 	
-	public Double getUser_number() {
+	public String getUser_number() {
 		return user_number;
 	}
-	public void setUser_number(Double user_number) {
+	public void setUser_number(String user_number) {
 		this.user_number = user_number;
 	}
 	public String getCharacter_name() {
-		return Character_name;
+		return character_name;
 	}
 	public void setCharacter_name(String character_name) {
-		Character_name = character_name;
+		this.character_name = character_name;
 	}
 	public String getAuth_key() {
 		return auth_key;
@@ -33,5 +34,11 @@ public class UserModel {
 	}
 	public void setTimeline_addr(String timeline_addr) {
 		this.timeline_addr = timeline_addr;
+	}
+	public String getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 }

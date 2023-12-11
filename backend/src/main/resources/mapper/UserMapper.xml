@@ -9,6 +9,7 @@
     </select>
     
     <insert id="addUser">
-    	insert into loain.user_info value (4444,"abcd")
+    	insert into loain.user_info (user_number, character_name) 
+    	value (#{user_number},#{character_name})
     </insert>
 </mapper>

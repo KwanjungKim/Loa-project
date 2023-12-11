@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+
+import loa.backend.Model.UserModel;
 
 @Mapper
 public interface UserMapper {
@@ -15,5 +16,5 @@ public interface UserMapper {
      */
 	List<Map<String, Object>> getUser();
 	
-	void addUser();
+	void addUser(UserModel model);
 }

@@ -26,7 +26,7 @@ public class MemberController {
     @PostMapping("join")
     public String join(@RequestBody UserModel paramMap) {
     	String URL = paramMap.getTimeline_addr();
-    	Double user_number = paramMap.getUser_number();
+    	String user_number = paramMap.getUser_number();
     	String auth_key = paramMap.getAuth_key();
     	System.out.println("addr : "+URL+" , user_number : "+user_number+" , auth_key : "+auth_key);
     	
