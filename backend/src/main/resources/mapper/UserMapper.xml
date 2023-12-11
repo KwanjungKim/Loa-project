@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper 
-		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "classpath:/mapper/mybatis-3-config.dtd">
-<mapper namespace="loa.backend.Mapper.UserMapper">
-    <select id="getUser" resultType="UserModel">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="loa.backend.mapper.UserMapper">
+    <select id="getUser" resultType="java.util.Map">
         select *
         from loain.user_info 
     </select>
+    
+    <insert id="addUser">
+    	insert into loain.user_info value (4444,"abcd")
+    </insert>
 </mapper>
