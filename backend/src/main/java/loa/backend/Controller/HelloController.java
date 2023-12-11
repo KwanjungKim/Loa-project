@@ -3,6 +3,7 @@ package loa.backend.Controller;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,9 @@ import loa.backend.Service.UserService;
 @RestController
 public class HelloController {
 	
+	@Autowired
+	private UserService sv;
+	
     @GetMapping("/api/hello")
     public String test() {
         return "Hello, world!";
@@ -20,7 +24,13 @@ public class HelloController {
     
     @RequestMapping("/api/adduser")
     public String addUser() {
-    	UserService sv = new UserService();
+    	sv.addUser();
+    	//System.out.println(sv.getUser().get(0));
+    	return "TEST";
+    }
+    
+    @RequestMapping("/api/getUser")
+    public String getUser() {
     	System.out.println(sv.getUser().get(0));
     	return "TEST";
     }
