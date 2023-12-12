@@ -27,3 +27,6 @@ dist-ssr
 .project
 .vscode
 /.metadata/
+
+# ignore properties file
+.application.properties

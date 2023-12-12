@@ -1,22 +1,13 @@
 package loa.backend.Controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.sql.Connection;
-import java.sql.DriverManager;
-
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import loa.backend.Model.UserModel;
 import loa.backend.Service.UserService;
+import loa.backend.model.UserModel;
 
 
 @RestController
@@ -51,6 +42,15 @@ public class HelloController {
     	return "TEST";
     }
     
-    
+    @RequestMapping("/api/login")
+    public String login(@RequestBody UserModel model) {
+    	//auth_key, user_number, timeline_addr
+    	System.out.println(model.getUser_number());
+    	UserModel user = sv.login(model);
+    	if(user != null) {
+    		return user.getCharacter_name();
+    	}
+    	return "회원가입하셈";
+    }
     
 }
