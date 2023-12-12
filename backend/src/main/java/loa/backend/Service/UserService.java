@@ -21,8 +21,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import loa.backend.Model.UserModel;
 import loa.backend.mapper.UserMapper;
+import loa.backend.model.UserModel;
 
 @Service
 public class UserService {
@@ -178,5 +178,9 @@ public class UserService {
 			e.printStackTrace();
 		}
 		return CharacterName;
+	}
+	
+	public UserModel login(UserModel model) {
+		return mapper.login(model);
 	}
 }

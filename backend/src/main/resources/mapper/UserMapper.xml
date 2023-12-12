@@ -12,4 +12,10 @@
     	insert into loain.user_info (user_number, character_name) 
     	value (#{user_number},#{character_name})
     </insert>
+    
+    <select id="login" parameterType="UserModel" resultType="UserModel">
+        select user_number, character_name
+        from loain.user_info
+        where user_number = #{user_number}
+    </select>
 </mapper>
