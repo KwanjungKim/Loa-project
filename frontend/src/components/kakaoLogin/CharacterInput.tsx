@@ -1,12 +1,10 @@
-import axios from "axios";
 import { useState } from "react";
 import { IProfileData } from "../../hooks/useProfile";
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import { SmallButton } from "../common/Button";
 import IconWrapper from "../common/Wrapper/IconWrapper";
 import ModalPortal from "./Modal";
-
-const auth_key = Math.random().toString(16).substring(2, 24);
+import { HandleAuth, HandleCopyClipBoard, auth_key } from "./CharaterInputs";
 
 const CharacterInput = ({
   profileData,
@@ -14,32 +12,7 @@ const CharacterInput = ({
   profileData: IProfileData | null;
 }) => {
   const [timeline_addr, setTimeLineAddr] = useState<string>("");
-  const handleCopyClipBoard = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch (err) {
-      console.log(err);
-      alert("다시 시도해주세요");
-    }
-  };
 
-  const handleAuth = () => {
-    const paramMap = {
-      user_number: profileData?.id,
-      auth_key: auth_key,
-      timeline_addr: timeline_addr,
-    };
-    console.log(paramMap);
-    axios.post("http://localhost:8080/member/join", {
-      headers: {
-        // headers: API 응답에 대한 정보를 담음
-        "content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify(paramMap), //userData라는 객체를 보냄
-      timeout: 5000,
-    });
-  };
   return (
     <>
       <div>
@@ -61,8 +34,9 @@ const CharacterInput = ({
             borderRadius: "20%",
           }}
         >
+          {/* 클립보드  */}
           <ContentCopyRoundedIcon
-            onClick={() => handleCopyClipBoard(auth_key)}
+            onClick={() => HandleCopyClipBoard(auth_key)}
             focusable="false"
             aria-hidden="false"
             sx={{
@@ -80,7 +54,7 @@ const CharacterInput = ({
       <SmallButton
         type="submit"
         variant="contained"
-        onClick={() => handleAuth()}
+        onClick={() => HandleAuth(profileData, timeline_addr)}
       >
         인증
       </SmallButton>

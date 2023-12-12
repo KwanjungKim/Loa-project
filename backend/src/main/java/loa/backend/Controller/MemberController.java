@@ -2,7 +2,6 @@ package loa.backend.Controller;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,20 +12,22 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import loa.backend.Model.UserModel;
 
 @Controller
 @CrossOrigin(origins="http://localhost:5173")
-@RequestMapping("/api/member")
+@RequestMapping("/member")
 public class MemberController {
-	@ResponseBody
-    @RequestMapping("join")
-    public String join(@RequestParam Map<String, Object> paramMap) {
-    	String URL = paramMap.get("timeline_addr").toString();
-    	String user_number = paramMap.get("user_number").toString();
-    	String auth_key = paramMap.get("auth_key").toString();
+
+    @PostMapping("join")
+    public String join(@RequestBody UserModel paramMap) {
+    	String URL = paramMap.getTimeline_addr();
+    	Double user_number = paramMap.getUser_number();
+    	String auth_key = paramMap.getAuth_key();
     	System.out.println("addr : "+URL+" , user_number : "+user_number+" , auth_key : "+auth_key);
     	
     	String result = "";
