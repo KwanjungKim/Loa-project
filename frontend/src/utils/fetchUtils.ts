@@ -1,28 +1,28 @@
 import axios from "axios";
 
 const Axios = axios.create({
-  baseURL: "http://localhost:5173", // ???
+  baseURL: import.meta.env.VITE_APP_API_URL,
   headers: {
     "Content-type": "application/json",
   },
   timeout: 5000,
 });
 
-Axios.interceptors.request.use(
-  (config) => {
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
+// Axios.interceptors.request.use(
+//   (config) => {
+//     return config;
+//   },
+//   (error) => Promise.reject(error),
+// );
 
-Axios.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    return Promise.reject(error);
-  },
-);
+// Axios.interceptors.response.use(
+//   (response) => {
+//     return response;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   },
+// );
 
 const TestAxios = axios.create({
   baseURL: "https://jsonplaceholder.typicode.com",
