@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import loa.backend.mapper.UserMapper;
+import loa.backend.model.ResultModel;
 import loa.backend.model.UserModel;
 
 @Service
@@ -78,7 +79,8 @@ public class UserService {
 	    }
 	}
 	
-	public void addUser2(UserModel model) {
+	public ResultModel addUser2(UserModel model) {
+		ResultModel result = new ResultModel();
     	try {
     		URL url = new URL("http://api.onstove.com/tm/v1/preferences/"+model.getMemberNo());
 
@@ -104,14 +106,18 @@ public class UserService {
             	    	model.setCharacter_name(getCharacterName(encryptMemberNo));
             	    	mapper.addUser(model);
             	    	
-            	    } else {
-            	    	System.out.println(timeline_key+"  "+model.getAuth_key());
+            	    	result.setStatus("success");
+            	    	result.setMessage("회원가입되었습니다.");
+            	    	return result;
             	    }
                 }
             }
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
+    	result.setStatus("fail");
+    	result.setMessage("서버오류입니다.");
+    	return result;
 	}
 	
 	public String getEncryptMemberNo(String memberNo) {
@@ -180,7 +186,17 @@ public class UserService {
 		return CharacterName;
 	}
 	
-	public UserModel login(UserModel model) {
-		return mapper.login(model);
+	public ResultModel login(UserModel model) {
+		ResultModel result = new ResultModel();
+		UserModel user = mapper.login(model);
+		result.setStatus("fail");
+   	 	result.setMessage("회원가입이 필요합니다.");
+		if(user != null) {
+			result.setStatus("success");
+	   	 	result.setMessage("로그인되었습니다.");
+	   	 	result.setCharacter_name(user.getCharacter_name());
+	   	 	return result;
+		}
+		return result;
 	}
 }

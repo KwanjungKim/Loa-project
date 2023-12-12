@@ -16,7 +16,7 @@ const useProfile = () => {
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(LoginState);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isCharactered, setIsCharactered] = useState(false);
+  const [isCharacterCheck, setIsCharacterCheck] = useState(false);
   const handleError = (str: string, callback?: () => void) => {
     alert(str);
     if (callback) {
@@ -45,33 +45,35 @@ const useProfile = () => {
       });
       setIsLoggedIn(true);
       setIsLoaded(true);
+
+      const paramMap = {
+        user_number: data?.id.toString(),
+      };
+      axios
+        .post("/api/login", paramMap, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          timeout: 5000,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data.character_name != null) {
+            setIsCharacterCheck(true);
+          }
+        });
     } catch (err) {
       handleError("프로필 정보를 불러오는데 실패했습니다.", () => {
         navigate("/");
       });
     }
-
-    const paramMap = {
-      user_number: profileData?.id.toString(),
-    };
-    axios
-      .post("/api/login", paramMap, {
-        headers: {
-          "content-type": "application/json",
-        },
-        timeout: 5000,
-      })
-      .then((response) => {
-        console.log(response);
-        setIsCharactered(true);
-      });
-  }, [isLoaded, navigate, setIsLoggedIn, profileData?.id]);
+  }, [isLoaded, navigate, setIsLoggedIn]);
 
   useEffect(() => {
     getProfile();
   }, [getProfile]);
 
-  return { profileData, isLoaded };
+  return { profileData, isLoaded, isCharacterCheck };
 };
 
 export default useProfile;

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import loa.backend.Service.UserService;
+import loa.backend.model.ResultModel;
 import loa.backend.model.UserModel;
 
 
@@ -35,22 +36,44 @@ public class HelloController {
     }
     
     @RequestMapping("/api/addUser2")
+
     public String addUser2(@RequestBody UserModel model) {
     	//auth_key, user_number, timeline_addr
     	System.out.println(model.getAuth_key());
     	sv.addUser2(model);
     	return "TEST";
+	}
+    public ResultModel addUser2(@RequestBody UserModel model) {
+    	ResultModel result = new ResultModel();
+    	
+    	result.setStatus("fail");
+    	result.setMessage("이미 회원 가입된 계정입니다.");
+    	
+    	result = sv.login(model);
+    	
+    	if(result.getStatus() == "fail") {
+    		return sv.addUser2(model);
+    	} else {
+    		result.setStatus("fail");
+        	result.setMessage("이미 회원 가입된 계정입니다.");
+    	}
+    	return result;
+
     }
     
     @RequestMapping("/api/login")
-    public String login(@RequestBody UserModel model) {
-    	//auth_key, user_number, timeline_addr
-    	System.out.println(model.getUser_number());
-    	UserModel user = sv.login(model);
-    	if(user != null) {
-    		return user.getCharacter_name();
+    public ResultModel login(@RequestBody UserModel model) {
+    	ResultModel result = new ResultModel();
+    	
+    	result.setStatus("fail");
+   	 	result.setMessage("회원가입이 필요합니다.");
+   	 	
+    	result = sv.login(model);
+    	
+    	if(result != null) {
+    		return result;
     	}
-    	return "회원가입하셈";
+    	return result;
     }
     
 }

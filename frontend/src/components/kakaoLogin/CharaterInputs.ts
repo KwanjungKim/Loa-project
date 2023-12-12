@@ -35,3 +35,19 @@ export const HandleAuth = (
       console.log({ response });
     });
 };
+
+export const CharacterCheck = (profileData: IProfileData | null) => {
+  const paramMap = {
+    user_number: profileData?.id.toString(),
+  };
+  axios
+    .post("/api/login", paramMap, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      timeout: 5000,
+    })
+    .then((response: any) => {
+      console.log(response);
+    });
+};
