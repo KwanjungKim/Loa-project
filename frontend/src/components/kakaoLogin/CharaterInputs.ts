@@ -19,16 +19,19 @@ export const HandleAuth = (
   const paramMap = {
     user_number: profileData?.id.toString(),
     auth_key: auth_key,
-    timeline_addr: timeline_addr,
+    memberNo: timeline_addr,
   };
   console.log(paramMap);
-  axios.post("http://localhost:8080/member/join", {
-    headers: {
-      // headers: API 응답에 대한 정보를 담음
-      "content-type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-    body: JSON.stringify(paramMap), //userData라는 객체를 보냄
-    timeout: 5000,
-  });
+  axios
+    .post("/api/addUser2", paramMap, {
+      headers: {
+        // headers: API 응답에 대한 정보를 담음
+        "content-type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      timeout: 5000,
+    })
+    .then((response) => {
+      console.log({ response });
+    });
 };

@@ -46,6 +46,7 @@ public class HelloController {
     @RequestMapping("/api/addUser2")
     public String addUser2(@RequestBody UserModel model) {
     	//auth_key, user_number, timeline_addr
+    	System.out.println(model.getAuth_key());
     	sv.addUser2(model);
     	return "TEST";
     }

@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { LoginState } from "../atoms/login";
+import axios from "axios";
 
 export interface IProfileData {
   id: string;
@@ -15,6 +16,7 @@ const useProfile = () => {
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(LoginState);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isCharactered, setIsCharactered] = useState(false);
   const handleError = (str: string, callback?: () => void) => {
     alert(str);
     if (callback) {
@@ -48,7 +50,22 @@ const useProfile = () => {
         navigate("/");
       });
     }
-  }, [isLoaded, navigate, setIsLoggedIn]);
+
+    const paramMap = {
+      user_number: profileData?.id.toString(),
+    };
+    axios
+      .post("/api/login", paramMap, {
+        headers: {
+          "content-type": "application/json",
+        },
+        timeout: 5000,
+      })
+      .then((response) => {
+        console.log(response);
+        setIsCharactered(true);
+      });
+  }, [isLoaded, navigate, setIsLoggedIn, profileData?.id]);
 
   useEffect(() => {
     getProfile();
