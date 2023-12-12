@@ -1,4 +1,4 @@
-package loa.backend.Model;
+package loa.backend.model;
 
 import lombok.Data;
 
