@@ -1,11 +1,13 @@
 package loa.backend.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import loa.backend.Service.UserService;
 import loa.backend.model.ResultModel;
@@ -13,6 +15,7 @@ import loa.backend.model.UserModel;
 
 
 @RestController
+@CrossOrigin(origins="http://localhost:5173")
 public class HelloController {
 	
 	@Autowired
@@ -37,13 +40,6 @@ public class HelloController {
     }
     
     @RequestMapping("/api/addUser2")
-
-    public String addUser2(@RequestBody UserModel model) {
-    	//auth_key, user_number, timeline_addr
-    	System.out.println(model.getAuth_key());
-    	sv.addUser2(model);
-    	return "TEST";
-	}
     public ResultModel addUser2(@RequestBody UserModel model) {
     	ResultModel result = new ResultModel();
     	
@@ -89,6 +85,24 @@ public class HelloController {
        	 	result.setMessage("pong");
     	}
     	return result;
+    }
+    
+    @RequestMapping("/api/ping2")
+    public ModelAndView pingpongtest2(@RequestParam("id") String param) {
+    	ModelAndView mv = new ModelAndView();
+    	
+    	ResultModel result = new ResultModel();
+    	
+    	result.setStatus("fail");
+   	 	result.setMessage("ping이 아닙니다.");
+    	
+    	if(param.equals("ping")) {
+    		result.setStatus("success");
+       	 	result.setMessage("pong");
+    	}
+    	
+    	mv.addObject("result", result);
+    	return mv;
     }
     
 }
