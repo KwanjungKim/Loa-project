@@ -81,42 +81,53 @@ public class UserService {
 	
 	public ResultModel addUser2(UserModel model) {
 		ResultModel result = new ResultModel();
-    	try {
-    		URL url = new URL("http://api.onstove.com/tm/v1/preferences/"+model.getMemberNo());
+		result.setStatus("fail");
+    	result.setMessage("이미 회원 가입된 계정입니다.");
+    	
+    	UserModel user = login(model);
+    	
+    	if(user.getCharacter_name() == null) {
+    		try {
+        		URL url = new URL("http://api.onstove.com/tm/v1/preferences/"+model.getMemberNo());
 
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-     
-            try (BufferedReader bf = new BufferedReader(new InputStreamReader(conn.getInputStream())))
-            {
-                String line;
-                while ((line = bf.readLine()) != null) {
-                	JSONParser jsonParser = new JSONParser();
-                	
-                	Object obj = jsonParser.parse(line);
-                	JSONObject jsonObj = (JSONObject) obj;
+                URLConnection conn = url.openConnection();
+                conn.setDoOutput(true);
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+         
+                try (BufferedReader bf = new BufferedReader(new InputStreamReader(conn.getInputStream())))
+                {
+                    String line;
+                    while ((line = bf.readLine()) != null) {
+                    	JSONParser jsonParser = new JSONParser();
+                    	
+                    	Object obj = jsonParser.parse(line);
+                    	JSONObject jsonObj = (JSONObject) obj;
 
-                	Object obj2 = jsonParser.parse(jsonObj.get("data").toString());
-                	JSONObject jsonObj2 = (JSONObject) obj2;
-                	String timeline_key = jsonObj2.get("introduce").toString();
-                	
-                	if(timeline_key.equals(model.getAuth_key())) {
-            	    	String encryptMemberNo = getEncryptMemberNo(model.getMemberNo());
-            	    	model.setCharacter_name(getCharacterName(encryptMemberNo));
-            	    	mapper.addUser(model);
-            	    	
-            	    	result.setStatus("success");
-            	    	result.setMessage("회원가입되었습니다.");
-            	    	return result;
-            	    }
+                    	Object obj2 = jsonParser.parse(jsonObj.get("data").toString());
+                    	JSONObject jsonObj2 = (JSONObject) obj2;
+                    	String timeline_key = jsonObj2.get("introduce").toString();
+                    	if(timeline_key.equals(model.getAuth_key())) {
+                	    	String encryptMemberNo = getEncryptMemberNo(model.getMemberNo());
+                	    	model.setCharacter_name(getCharacterName(encryptMemberNo));
+                	    	mapper.addUser(model);
+                	    	
+                	    	result.setStatus("success");
+                	    	result.setMessage("회원가입되었습니다.");
+                	    	return result;
+                	    } else {
+                	    	result.setStatus("fail");
+                	    	result.setMessage("인증번호가 다릅니다.");
+                	    	return result;
+                	    }
+                    }
                 }
-            }
-    	} catch (Exception e) {
-    		e.printStackTrace();
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
+    		result.setStatus("fail");
+        	result.setMessage("서버오류입니다.");
+        	return result;
     	}
-    	result.setStatus("fail");
-    	result.setMessage("서버오류입니다.");
     	return result;
 	}
 	
@@ -186,17 +197,21 @@ public class UserService {
 		return CharacterName;
 	}
 	
-	public ResultModel login(UserModel model) {
+	public UserModel login(UserModel model) {
 		ResultModel result = new ResultModel();
 		UserModel user = mapper.login(model);
-		result.setStatus("fail");
-   	 	result.setMessage("회원가입이 필요합니다.");
-		if(user != null) {
-			result.setStatus("success");
-	   	 	result.setMessage("로그인되었습니다.");
-	   	 	result.setCharacter_name(user.getCharacter_name());
-	   	 	return result;
+   	 	
+		if(user == null) {
+			user = new UserModel();
+			result.setStatus("fail");
+	   	 	result.setMessage("회원가입이 필요합니다.");
+	   	 	user.setResultModel(result);
+	   	 	return user;
 		}
-		return result;
+		
+		result.setStatus("success");
+   	 	result.setMessage("로그인되었습니다.");
+   	 	user.setResultModel(result);
+		return user;
 	}
 }

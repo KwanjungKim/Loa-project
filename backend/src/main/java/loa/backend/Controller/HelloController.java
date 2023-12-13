@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import loa.backend.Service.UserService;
 import loa.backend.model.ResultModel;
@@ -41,36 +40,17 @@ public class HelloController {
     
     @RequestMapping("/api/addUser2")
     public ResultModel addUser2(@RequestBody UserModel model) {
-    	ResultModel result = new ResultModel();
     	
-    	result.setStatus("fail");
-    	result.setMessage("이미 회원 가입된 계정입니다.");
+    	ResultModel result = sv.addUser2(model);
     	
-    	result = sv.login(model);
-    	
-    	if(result.getStatus() == "fail") {
-    		return sv.addUser2(model);
-    	} else {
-    		result.setStatus("fail");
-        	result.setMessage("이미 회원 가입된 계정입니다.");
-    	}
     	return result;
 
     }
     
     @RequestMapping("/api/login")
-    public ResultModel login(@RequestBody UserModel model) {
-    	ResultModel result = new ResultModel();
-    	
-    	result.setStatus("fail");
-   	 	result.setMessage("회원가입이 필요합니다.");
-   	 	
-    	result = sv.login(model);
-    	
-    	if(result != null) {
-    		return result;
-    	}
-    	return result;
+    public UserModel login(@RequestBody UserModel model) {
+    	UserModel user = sv.login(model);
+    	return user;
     }
     
     @RequestMapping("/api/ping")
@@ -88,21 +68,20 @@ public class HelloController {
     }
     
     @RequestMapping("/api/ping2")
-    public ModelAndView pingpongtest2(@RequestParam("id") String param) {
-    	ModelAndView mv = new ModelAndView();
+    public UserModel pingpongtest2(@RequestParam("id") String param) {
     	
     	ResultModel result = new ResultModel();
     	
     	result.setStatus("fail");
    	 	result.setMessage("ping이 아닙니다.");
-    	
+    	System.out.println(param);
     	if(param.equals("ping")) {
     		result.setStatus("success");
        	 	result.setMessage("pong");
     	}
-    	
-    	mv.addObject("result", result);
-    	return mv;
+    	UserModel user = new UserModel();
+    	user.setResultModel(result);
+    	return user;
     }
     
 }
