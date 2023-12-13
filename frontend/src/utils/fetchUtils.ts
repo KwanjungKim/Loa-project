@@ -6,6 +6,7 @@ const Axios = axios.create({
   baseURL,
   headers: {
     "Content-type": "application/json",
+    "Access-Control-Allow-Origin": "*",
   },
   timeout: 5000,
 });
@@ -52,16 +53,96 @@ const TestAxios = axios.create({
 
 const fetchUtils = {
   get: async (url: string) => {
-    return await Axios.get(url);
+    // return await Axios.get(url);
+    try {
+      const response = await Axios.get(url);
+      if (response.status === 200) {
+        return {
+          success: true,
+          data: response.data,
+        };
+      } else {
+        return {
+          success: false,
+          data: null,
+        };
+      }
+    } catch (err) {
+      console.log(err);
+      return {
+        success: false,
+        data: null,
+      };
+    }
   },
   post: async (url: string, data: any) => {
-    return await Axios.post(url, data);
+    // return await Axios.post(url, data);
+    try {
+      const response = await Axios.post(url, data);
+      if (response.status === 200) {
+        return {
+          success: true,
+          data: response.data,
+        };
+      } else {
+        return {
+          success: false,
+          data: null,
+        };
+      }
+    } catch (err) {
+      console.log(err);
+      return {
+        success: false,
+        data: null,
+      };
+    }
   },
   patch: async (url: string, data: any) => {
-    return await Axios.patch(url, data);
+    // return await Axios.patch(url, data);
+    try {
+      const response = await Axios.patch(url, data);
+      if (response.status === 200) {
+        return {
+          success: true,
+          data: response.data,
+        };
+      } else {
+        return {
+          success: false,
+          data: null,
+        };
+      }
+    } catch (err) {
+      console.log(err);
+      return {
+        success: false,
+        data: null,
+      };
+    }
   },
   delete: async (url: string) => {
-    return await Axios.delete(url);
+    // return await Axios.delete(url);
+    try {
+      const response = await Axios.delete(url);
+      if (response.status === 200) {
+        return {
+          success: true,
+          data: response.data,
+        };
+      } else {
+        return {
+          success: false,
+          data: null,
+        };
+      }
+    } catch (err) {
+      console.log(err);
+      return {
+        success: false,
+        data: null,
+      };
+    }
   },
   testGet: async (url: string) => {
     return await TestAxios.get(url);

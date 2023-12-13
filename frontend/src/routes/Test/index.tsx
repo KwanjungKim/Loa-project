@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 // utils
@@ -9,33 +9,31 @@ import styles from "./index.module.scss";
 
 // components
 import { Button } from "@mui/material";
+import useSWR from "swr";
+
+type IPingData = {
+  success: boolean;
+  data: string | null;
+};
 
 const TestRoute = () => {
   const [ping, setPing] = useState("🏓 PING");
 
-  const navigate = useNavigate();
-
-  const getHello = async () => {
-    const res = await fetchUtils.get("/api/hello");
-    console.log(res);
-  };
-
-  const pingPong = async () => {
-    const res = await fetchUtils.post("/api/ping", {
-      id: "ping",
-    });
-    console.log(res);
-    if (res.status !== 200) {
-      setPing("❗️ No PONG");
-    } else {
-      setPing("🏓 PONG");
-    }
-  };
+  const { data, isLoading } = useSWR<IPingData>("/api/ping", (url: string) =>
+    fetchUtils.post(url, { id: "ping" }),
+  );
 
   useEffect(() => {
-    getHello();
-    pingPong();
-  }, []);
+    if (!isLoading) {
+      if (data?.success) {
+        setPing("🏓 PONG");
+      } else {
+        setPing("NO PONG 😢");
+      }
+    }
+  }, [data, isLoading]);
+
+  const navigate = useNavigate();
 
   return (
     <div className={styles.wrapper}>
