@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import loa.backend.Service.UserService;
@@ -64,6 +65,20 @@ public class HelloController {
     	
     	if(result != null) {
     		return result;
+    	}
+    	return result;
+    }
+    
+    @RequestMapping("/api/ping")
+    public ResultModel pingpongtest(@RequestParam("id") String param) {
+    	ResultModel result = new ResultModel();
+    	
+    	result.setStatus("fail");
+   	 	result.setMessage("ping이 아닙니다.");
+    	
+    	if(param.equals("ping")) {
+    		result.setStatus("success");
+       	 	result.setMessage("pong");
     	}
     	return result;
     }
