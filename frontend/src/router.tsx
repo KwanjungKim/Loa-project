@@ -13,7 +13,6 @@ import Auth from "./components/kakaoLogin/Auth";
 import ErrorPage from "./error-page";
 import CalendarRoute from "./routes/Test/CalendarRoute";
 import MyCalendarRoute from "./routes/MyCalendarRoute";
-import CharacterAuth from "./components/kakaoLogin/CharacterAuth";
 import MyPage from "./components/MyPage";
 
 const router = createBrowserRouter([
@@ -33,10 +32,6 @@ const router = createBrowserRouter([
       {
         path: "oauth/kakao/callback",
         element: <Auth />,
-      },
-      {
-        path: "character-auth",
-        element: <CharacterAuth />,
       },
       {
         path: "my-page",

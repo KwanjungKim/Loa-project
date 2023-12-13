@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { LoginState } from "../atoms/login";
+import axios from "axios";
 
 export interface IProfileData {
   id: string;
@@ -12,9 +13,10 @@ export interface IProfileData {
 
 const useProfile = () => {
   const [profileData, setProfileData] = useState<IProfileData | null>(null);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [isCharacterCheck, setIsCharacterCheck] = useState<boolean>(false);
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(LoginState);
-  const [isLoaded, setIsLoaded] = useState(false);
   const handleError = (str: string, callback?: () => void) => {
     alert(str);
     if (callback) {
@@ -43,18 +45,37 @@ const useProfile = () => {
       });
       setIsLoggedIn(true);
       setIsLoaded(true);
+
+      const paramMap = {
+        user_number: data?.id.toString(),
+      };
+
+      axios
+        .post("/api/login", paramMap, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          timeout: 5000,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data.character_name != null) {
+            setIsCharacterCheck(true);
+            console.log(isCharacterCheck);
+          }
+        });
     } catch (err) {
       handleError("프로필 정보를 불러오는데 실패했습니다.", () => {
         navigate("/");
       });
     }
-  }, [isLoaded, navigate, setIsLoggedIn]);
+  }, [isLoaded, navigate, setIsLoggedIn, isCharacterCheck]);
 
   useEffect(() => {
     getProfile();
   }, [getProfile]);
 
-  return { profileData, isLoaded };
+  return { profileData, isLoaded, isCharacterCheck, setIsLoaded };
 };
 
 export default useProfile;

@@ -37,6 +37,13 @@ public class HelloController {
     }
     
     @RequestMapping("/api/addUser2")
+
+    public String addUser2(@RequestBody UserModel model) {
+    	//auth_key, user_number, timeline_addr
+    	System.out.println(model.getAuth_key());
+    	sv.addUser2(model);
+    	return "TEST";
+	}
     public ResultModel addUser2(@RequestBody UserModel model) {
     	ResultModel result = new ResultModel();
     	
@@ -52,6 +59,7 @@ public class HelloController {
         	result.setMessage("이미 회원 가입된 계정입니다.");
     	}
     	return result;
+
     }
     
     @RequestMapping("/api/login")

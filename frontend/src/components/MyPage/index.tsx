@@ -1,9 +1,22 @@
-import MyInfo from "./MyInfo";
+import useProfile from "../../hooks/useProfile";
+import CharacterInput from "../kakaoLogin/CharacterInput";
 
 const MyPage = () => {
+  const { profileData, isLoaded, isCharacterCheck } = useProfile();
+  console.log("1", isCharacterCheck);
   return (
     <>
-      <MyInfo />
+      {isLoaded ? (
+        isCharacterCheck ? (
+          123
+        ) : (
+          <div>
+            <CharacterInput profileData={profileData} />
+          </div>
+        )
+      ) : (
+        <h2>로딩중</h2>
+      )}
     </>
   );
 };
