@@ -1,6 +1,9 @@
 import axios from "axios";
 
+const baseURL = import.meta.env.VITE_APP_API_URL || "http://localhost:8080";
+
 const Axios = axios.create({
+  baseURL,
   headers: {
     "Content-type": "application/json",
   },
@@ -9,22 +12,33 @@ const Axios = axios.create({
 
 Axios.interceptors.request.use(
   (config) => {
-    console.log("============ REQUEST STARTS ============");
+    console.log("=========== request starts ===========");
     console.log("config", config);
-    console.log("============ REQUEST ENDS ============");
+    console.log("=========== request ends ===========");
     return config;
   },
   (error) => {
+    console.log("=========== request error starts ===========");
+    console.log("error", error);
+    console.log("=========== request error ends ===========");
     return Promise.reject(error);
   },
 );
 
 Axios.interceptors.response.use(
   (response) => {
+    console.log("=========== response starts ===========");
+    console.log("response", response);
+    console.log("=========== response ends ===========");
     return response;
   },
   (error) => {
-    return Promise.reject(error);
+    {
+      console.log("=========== response error starts ===========");
+      console.log("error", error);
+      console.log("=========== response error ends ===========");
+      return Promise.reject(error);
+    }
   },
 );
 
@@ -43,8 +57,8 @@ const fetchUtils = {
   post: async (url: string, data: any) => {
     return await Axios.post(url, data);
   },
-  patch: async (url: string) => {
-    return await Axios.patch(url);
+  patch: async (url: string, data: any) => {
+    return await Axios.patch(url, data);
   },
   delete: async (url: string) => {
     return await Axios.delete(url);

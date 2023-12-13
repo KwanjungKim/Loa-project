@@ -1,10 +1,18 @@
-import { Button } from "@mui/material";
-import styles from "./index.module.scss";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+
+// utils
 import fetchUtils from "../../utils/fetchUtils";
 
+// styles
+import styles from "./index.module.scss";
+
+// components
+import { Button } from "@mui/material";
+
 const TestRoute = () => {
+  const [ping, setPing] = useState("🏓 PING");
+
   const navigate = useNavigate();
 
   const getHello = async () => {
@@ -17,6 +25,11 @@ const TestRoute = () => {
       id: "ping",
     });
     console.log(res);
+    if (res.status !== 200) {
+      setPing("❗️ No PONG");
+    } else {
+      setPing("🏓 PONG");
+    }
   };
 
   useEffect(() => {
@@ -27,6 +40,9 @@ const TestRoute = () => {
   return (
     <div className={styles.wrapper}>
       <h2>Test</h2>
+      <div>
+        <p>{ping}</p>
+      </div>
       <div>
         <Button
           variant="contained"
