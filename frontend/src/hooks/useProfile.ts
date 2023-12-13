@@ -13,10 +13,10 @@ export interface IProfileData {
 
 const useProfile = () => {
   const [profileData, setProfileData] = useState<IProfileData | null>(null);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [isCharacterCheck, setIsCharacterCheck] = useState<boolean>(false);
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(LoginState);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isCharacterCheck, setIsCharacterCheck] = useState(false);
   const handleError = (str: string, callback?: () => void) => {
     alert(str);
     if (callback) {
@@ -49,6 +49,7 @@ const useProfile = () => {
       const paramMap = {
         user_number: data?.id.toString(),
       };
+
       axios
         .post("/api/login", paramMap, {
           headers: {
@@ -60,6 +61,7 @@ const useProfile = () => {
           console.log(response);
           if (response.data.character_name != null) {
             setIsCharacterCheck(true);
+            console.log(isCharacterCheck);
           }
         });
     } catch (err) {
@@ -67,13 +69,13 @@ const useProfile = () => {
         navigate("/");
       });
     }
-  }, [isLoaded, navigate, setIsLoggedIn]);
+  }, [isLoaded, navigate, setIsLoggedIn, isCharacterCheck]);
 
   useEffect(() => {
     getProfile();
   }, [getProfile]);
 
-  return { profileData, isLoaded, isCharacterCheck };
+  return { profileData, isLoaded, isCharacterCheck, setIsLoaded };
 };
 
 export default useProfile;

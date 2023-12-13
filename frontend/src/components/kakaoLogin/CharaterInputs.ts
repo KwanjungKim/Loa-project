@@ -36,18 +36,26 @@ export const HandleAuth = (
     });
 };
 
-export const CharacterCheck = (profileData: IProfileData | null) => {
+export const CharacterCheck = (
+  profileData: IProfileData | null,
+  setIsLoaded: React.Dispatch<React.SetStateAction<boolean | null>>,
+) => {
   const paramMap = {
     user_number: profileData?.id.toString(),
   };
-  axios
-    .post("/api/login", paramMap, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      timeout: 5000,
-    })
-    .then((response: any) => {
-      console.log(response);
-    });
+  try {
+    axios
+      .post("/api/login", paramMap, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        timeout: 5000,
+      })
+      .then((response: any) => {
+        console.log(response);
+        setIsLoaded(false);
+      });
+  } catch (err) {
+    console.log(err);
+  }
 };
