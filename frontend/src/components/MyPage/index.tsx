@@ -2,7 +2,8 @@ import useProfile from "../../hooks/useProfile";
 import CharacterInput from "../kakaoLogin/CharacterInput";
 
 const MyPage = () => {
-  const { profileData, isLoaded, isCharacterCheck } = useProfile();
+  const { profileData, isLoaded, isCharacterCheck, setIsLoaded } = useProfile();
+
   console.log("1", isCharacterCheck);
   return (
     <>
@@ -11,7 +12,10 @@ const MyPage = () => {
           123
         ) : (
           <div>
-            <CharacterInput profileData={profileData} />
+            <CharacterInput
+              profileData={profileData}
+              setIsLoaded={setIsLoaded}
+            />
           </div>
         )
       ) : (

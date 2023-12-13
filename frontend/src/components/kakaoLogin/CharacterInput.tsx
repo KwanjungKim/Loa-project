@@ -4,15 +4,46 @@ import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import { SmallButton } from "../common/Button";
 import IconWrapper from "../common/Wrapper/IconWrapper";
 import ModalPortal from "./Modal";
-import { HandleAuth, HandleCopyClipBoard, auth_key } from "./CharaterInputs";
+import axios from "axios";
 
-const CharacterInput = ({
-  profileData,
-}: {
+const auth_key = Math.random().toString(16).substring(2, 24);
+interface Iprops extends React.AllHTMLAttributes<HTMLDivElement> {
   profileData: IProfileData | null;
-}) => {
+  setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const CharacterInput = ({ profileData, setIsLoaded }: Iprops) => {
   const [timeline_addr, setTimeLineAddr] = useState<string>("");
 
+  const HandleAuth = () => {
+    const paramMap = {
+      user_number: profileData?.id.toString(),
+      auth_key: auth_key,
+      memberNo: timeline_addr,
+    };
+    console.log(paramMap);
+    axios
+      .post("/api/addUser2", paramMap, {
+        headers: {
+          // headers: API 응답에 대한 정보를 담음
+          "content-type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        timeout: 5000,
+      })
+      .then((response) => {
+        console.log({ response });
+        setIsLoaded(false);
+      });
+  };
+
+  const HandleCopyClipBoard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (err) {
+      console.log(err);
+      alert("다시 시도해주세요");
+    }
+  };
   return (
     <>
       <div>
@@ -54,7 +85,7 @@ const CharacterInput = ({
       <SmallButton
         type="submit"
         variant="contained"
-        onClick={() => HandleAuth(profileData, timeline_addr)}
+        onClick={() => HandleAuth()}
       >
         인증
       </SmallButton>
