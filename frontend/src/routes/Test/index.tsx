@@ -1,32 +1,46 @@
-import { Button } from "@mui/material";
-import styles from "./index.module.scss";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+
+// utils
 import fetchUtils from "../../utils/fetchUtils";
 
+// styles
+import styles from "./index.module.scss";
+
+// components
+import { Button } from "@mui/material";
+import useSWR from "swr";
+
+type IPingData = {
+  success: boolean;
+  data: string | null;
+};
+
 const TestRoute = () => {
-  const navigate = useNavigate();
+  const [ping, setPing] = useState("🏓 PING");
 
-  const getHello = async () => {
-    const res = await fetchUtils.get("/api/hello");
-    console.log(res);
-  };
-
-  const pingPong = async () => {
-    const res = await fetchUtils.post("/api/ping", {
-      id: "ping",
-    });
-    console.log(res);
-  };
+  const { data, isLoading } = useSWR<IPingData>("/api/ping", (url: string) =>
+    fetchUtils.post(url, { id: "ping" }),
+  );
 
   useEffect(() => {
-    getHello();
-    pingPong();
-  }, []);
+    if (!isLoading) {
+      if (data?.success) {
+        setPing("🏓 PONG");
+      } else {
+        setPing("NO PONG 😢");
+      }
+    }
+  }, [data, isLoading]);
+
+  const navigate = useNavigate();
 
   return (
     <div className={styles.wrapper}>
       <h2>Test</h2>
+      <div>
+        <p>{ping}</p>
+      </div>
       <div>
         <Button
           variant="contained"
