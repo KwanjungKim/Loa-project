@@ -14,6 +14,7 @@ import ErrorPage from "./error-page";
 import CalendarRoute from "./routes/Test/CalendarRoute";
 import MyCalendarRoute from "./routes/MyCalendarRoute";
 import MyPage from "./components/MyPage";
+import PingPongRoute from "./routes/Test/PingPongRoute";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
           {
             path: "calendar",
             element: <CalendarRoute />,
+          },
+          {
+            path: "pingpong",
+            element: <PingPongRoute />,
           },
         ],
       },

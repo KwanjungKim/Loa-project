@@ -63,6 +63,13 @@ const TestRoute = () => {
         >
           calendar
         </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/test/pingpong")}
+        >
+          pingpong
+        </Button>
       </div>
     </div>
   );
