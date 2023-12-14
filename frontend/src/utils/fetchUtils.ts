@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 const baseURL = import.meta.env.VITE_APP_API_URL || "http://localhost:8080";
 
@@ -51,101 +51,88 @@ const TestAxios = axios.create({
   timeout: 5000,
 });
 
+export interface IResponseData {
+  success: boolean;
+  data: any;
+  message: string;
+}
+
 const fetchUtils = {
   get: async (url: string) => {
-    // return await Axios.get(url);
     try {
       const response = await Axios.get(url);
-      if (response.status === 200) {
-        return {
-          success: true,
-          data: response.data,
-        };
-      } else {
-        return {
-          success: false,
-          data: null,
-        };
-      }
+      return fetchUtils.handleResponse(response);
     } catch (err) {
       console.log(err);
       return {
         success: false,
         data: null,
+        message: "오류가 발생했습니다.",
       };
     }
   },
   post: async (url: string, data: any) => {
-    // return await Axios.post(url, data);
     try {
       const response = await Axios.post(url, data);
-      if (response.status === 200) {
-        return {
-          success: true,
-          data: response.data,
-        };
-      } else {
-        return {
-          success: false,
-          data: null,
-        };
-      }
+      return fetchUtils.handleResponse(response);
     } catch (err) {
       console.log(err);
       return {
         success: false,
         data: null,
+        message: "오류가 발생했습니다.",
       };
     }
   },
   patch: async (url: string, data: any) => {
-    // return await Axios.patch(url, data);
     try {
       const response = await Axios.patch(url, data);
-      if (response.status === 200) {
-        return {
-          success: true,
-          data: response.data,
-        };
-      } else {
-        return {
-          success: false,
-          data: null,
-        };
-      }
+      return fetchUtils.handleResponse(response);
     } catch (err) {
       console.log(err);
       return {
         success: false,
         data: null,
+        message: "오류가 발생했습니다.",
       };
     }
   },
   delete: async (url: string) => {
-    // return await Axios.delete(url);
     try {
       const response = await Axios.delete(url);
-      if (response.status === 200) {
-        return {
-          success: true,
-          data: response.data,
-        };
-      } else {
-        return {
-          success: false,
-          data: null,
-        };
-      }
+      return fetchUtils.handleResponse(response);
     } catch (err) {
       console.log(err);
       return {
         success: false,
         data: null,
+        message: "오류가 발생했습니다.",
       };
     }
   },
   testGet: async (url: string) => {
     return await TestAxios.get(url);
+  },
+  handleResponse: (response: AxiosResponse<any, any>) => {
+    if (
+      !response.data ||
+      !response.data.resultmodel ||
+      response.data.resultmodel.status !== "success"
+    ) {
+      return {
+        success: false,
+        data: null,
+        message:
+          (response.data.resultmodel.message as string) ||
+          "오류가 발생했습니다.",
+      };
+    } else {
+      return {
+        success: true,
+        data: response.data,
+        message: (response.data.resultmodel.message as string) || "",
+      };
+    }
   },
 };
 
