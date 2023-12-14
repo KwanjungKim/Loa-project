@@ -1,11 +1,11 @@
 package loa.backend.Controller;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import loa.backend.Service.UserService;
@@ -54,13 +54,14 @@ public class HelloController {
     }
     
     @RequestMapping("/api/ping")
-    public ResultModel pingpongtest(@RequestParam("id") String param) {
+    public ResultModel pingpongtest(@RequestBody JSONObject param) {
+    	System.out.println(param.get("id"));
     	ResultModel result = new ResultModel();
     	
     	result.setStatus("fail");
    	 	result.setMessage("ping이 아닙니다.");
     	
-    	if(param.equals("ping")) {
+    	if(param.get("id").equals("ping")) {
     		result.setStatus("success");
        	 	result.setMessage("pong");
     	}
@@ -68,14 +69,13 @@ public class HelloController {
     }
     
     @RequestMapping("/api/ping2")
-    public UserModel pingpongtest2(@RequestParam("id") String param) {
-    	
+    public UserModel pingpongtest2(@RequestBody JSONObject param) {
+    	System.out.println(param.get("id"));
     	ResultModel result = new ResultModel();
     	
     	result.setStatus("fail");
    	 	result.setMessage("ping이 아닙니다.");
-    	System.out.println(param);
-    	if(param.equals("ping")) {
+    	if(param.get("id").equals("ping")) {
     		result.setStatus("success");
        	 	result.setMessage("pong");
     	}
