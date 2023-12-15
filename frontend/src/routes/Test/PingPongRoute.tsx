@@ -1,43 +1,72 @@
+import { useState } from "react";
 import useSWR from "swr";
+
+// components
 import { SmallButton } from "../../components/common/Button";
-import fetchUtils, { IResponseData } from "../../utils/fetchUtils";
 
-const PingPongRoute = () => {
-  const { data, isLoading } = useSWR<IResponseData>(
-    "/api/ping",
-    (url: string) => {
-      return fetchUtils.post(url, { id: "ping" });
-    },
-  );
+type IPingPongResponse = {
+  character_name: string | null;
+  message: string;
+  status: "success" | "fail";
+};
 
-  const testPingPong1 = async () => {
-    const response = await fetch("http://localhost:8080/api/ping", {
-      method: "POST",
+const fetcher = async (
+  url: string,
+  method: string,
+  data: any,
+): Promise<IPingPongResponse> => {
+  try {
+    const response = await fetch(url, {
+      method,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: "ping" }),
+      body: JSON.stringify(data),
     });
-    const data = await response.json();
-    console.log(data);
-  };
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.log("error", error);
+    return {
+      character_name: null,
+      message: "error happened",
+      status: "fail",
+    };
+  }
+};
 
-  const testPingPong2 = async () => {
-    const response = await fetchUtils.post("/api/ping", {
-      id: "ping",
-    });
-    console.log(response);
+const PingPongRoute = () => {
+  const [isPong, setIsPong] = useState(false);
+
+  const { data, isLoading } = useSWR<IPingPongResponse>(
+    "/api/ping",
+    (url: string) => {
+      return fetcher(url, "POST", { id: "ping" });
+    },
+  );
+
+  const testPingPong = async () => {
+    setIsPong(false);
+    const pingPongData = await fetcher(
+      "http://localhost:8080/api/ping",
+      "POST",
+      { id: "ping" },
+    );
+    console.log("pingPongData", pingPongData);
+    setIsPong(pingPongData.status === "success");
   };
 
   return (
     <div>
       <div>
-        <SmallButton variant="contained" onClick={testPingPong1}>
-          Ping 1
+        <SmallButton
+          disabled={isPong}
+          variant="contained"
+          onClick={testPingPong}
+        >
+          Ping
         </SmallButton>
-        <SmallButton variant="contained" onClick={testPingPong2}>
-          Ping 2
-        </SmallButton>
+        <p>{isPong ? "🏓 PONG" : "PING 🏓"}</p>
       </div>
       <br />
       <div>
