@@ -17,4 +17,6 @@ public interface UserMapper {
 	void addUser(UserModel model);
 	
 	UserModel login(UserModel model);
+	
+	void deleteUser(UserModel model);
 }

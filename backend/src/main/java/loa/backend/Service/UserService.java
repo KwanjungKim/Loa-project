@@ -214,4 +214,18 @@ public class UserService {
    	 	user.setResultModel(result);
 		return user;
 	}
+	
+	public ResultModel deleteUser(UserModel model) {
+		ResultModel result = new ResultModel();
+		UserModel user = login(model);
+		
+		result.setStatus("fail");
+		result.setMessage("존재하지 않는 유저입니다.");
+		if(user.getCharacter_name() != null) {
+			result.setStatus("success");
+			result.setMessage(user.getCharacter_name()+" 삭제되었습니다.");
+			mapper.deleteUser(model);
+		}
+		return result;
+	}
 }

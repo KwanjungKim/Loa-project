@@ -18,4 +18,10 @@
         from loain.user_info
         where user_number = #{user_number}
     </select>
+    
+    <delete id="deleteUser">
+        delete
+        from loain.user_info
+        where user_number = #{user_number}
+    </delete>
 </mapper>
