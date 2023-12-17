@@ -84,4 +84,10 @@ public class HelloController {
     	return user;
     }
     
+    @RequestMapping("/api/deleteUser")
+    public ResultModel deleteUser(@RequestBody UserModel model) {
+    	ResultModel result = sv.deleteUser(model);
+    	return result;
+    }
+    
 }
