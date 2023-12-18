@@ -19,40 +19,26 @@ public class HelloController {
 	
 	@Autowired
 	private UserService sv;
-	
-    @GetMapping("/api/hello")
-    public String test() {
-        return "Hello, world!";
-    }
     
-    @RequestMapping("/api/addUser")
-    public String addUser(@RequestBody UserModel model) {
-    	//auth_key, user_number, timeline_addr
-    	sv.addUser(model);
-    	return "TEST";
-    }
-    
-    @RequestMapping("/api/getUser")
-    public String getUser() {
-    	System.out.println(sv.getUser().get(0));
-    	return "TEST";
-    }
-    
-    @RequestMapping("/api/addUser2")
-    public ResultModel addUser2(@RequestBody UserModel model) {
-    	
-    	ResultModel result = sv.addUser2(model);
-    	
+    @RequestMapping("/user/join")
+    public ResultModel join(@RequestBody UserModel model) {
+    	ResultModel result = sv.join(model);
     	return result;
-
     }
     
-    @RequestMapping("/api/login")
+    @RequestMapping("/user/login")
     public UserModel login(@RequestBody UserModel model) {
     	UserModel user = sv.login(model);
     	return user;
     }
     
+    @RequestMapping("/user/delete")
+    public ResultModel deleteUser(@RequestBody UserModel model) {
+    	ResultModel result = sv.deleteUser(model);
+    	return result;
+    }
+    
+    //TEST APIs
     @RequestMapping("/api/ping")
     public ResultModel pingpongtest(@RequestBody JSONObject param) {
     	System.out.println(param.get("id"));
@@ -84,10 +70,22 @@ public class HelloController {
     	return user;
     }
     
-    @RequestMapping("/api/deleteUser")
-    public ResultModel deleteUser(@RequestBody UserModel model) {
-    	ResultModel result = sv.deleteUser(model);
-    	return result;
+    @GetMapping("/api/hello")
+    public String test() {
+        return "Hello, world!";
     }
     
+    @RequestMapping("/api/addUser")
+    public String addUser(@RequestBody UserModel model) {
+    	//auth_key, user_number, timeline_addr
+    	sv.addUser(model);
+    	return "TEST";
+    }
+    
+    @RequestMapping("/api/getUser")
+    public String getUser() {
+    	System.out.println(sv.getUser().get(0));
+    	return "TEST";
+    }
+
 }

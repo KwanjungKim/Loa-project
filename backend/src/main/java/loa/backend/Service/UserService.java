@@ -35,51 +35,7 @@ public class UserService {
 		this.mapper = mapper;
 	}
 	
-	public List<Map<String, Object>> getUser() {
-		return mapper.getUser();
-	}
-	
-	public void addUser(UserModel model) {
-		String URL = model.getTimeline_addr();
-		String timeline_key = "";
-		System.out.println("크롬드라이버 시작");
-		//버전 119.0.6045.200
-	    try {
-	    	
-	    	System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver/chromedriver.exe");
-	    	
-	    	ChromeOptions options = new ChromeOptions();
-	    	options.addArguments("headless");
-	    	WebDriver driver = new ChromeDriver(options);
-	    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	    	driver.get(URL);
-	    	
-	    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("profile-name")));
-
-	    	List<WebElement> element = driver.findElements(By.tagName("meta"));
-	    	for(int i = 0; i<element.size(); i++) {
-	    		if(element.get(i).getAttribute("name").toString().equals("description")) {
-	    			timeline_key = element.get(i).getAttribute("content");
-	    			System.out.println("result "+timeline_key);
-	    		}
-	    	}
-	    	driver.quit();
-	    	
-	    } catch(Exception e) {
-	    	e.printStackTrace();
-	    }
-	    
-	    System.out.println("인증키 비교");
-	    if(timeline_key.equals(model.getAuth_key())) {
-	    	System.out.println("인증키 확인 매퍼 설정");
-	    	model.setCharacter_name("테스트");
-	    	mapper.addUser(model);
-	    } else {
-	    	System.out.println(timeline_key+"  "+model.getAuth_key());
-	    }
-	}
-	
-	public ResultModel addUser2(UserModel model) {
+	public ResultModel join(UserModel model) {
 		ResultModel result = new ResultModel();
 		result.setStatus("fail");
     	result.setMessage("이미 회원 가입된 계정입니다.");
@@ -227,5 +183,49 @@ public class UserService {
 			mapper.deleteUser(model);
 		}
 		return result;
+	}
+	
+	public List<Map<String, Object>> getUser() {
+		return mapper.getUser();
+	}
+	
+	public void addUser(UserModel model) {
+		String URL = model.getTimeline_addr();
+		String timeline_key = "";
+		System.out.println("크롬드라이버 시작");
+		//버전 119.0.6045.200
+	    try {
+	    	
+	    	System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver/chromedriver.exe");
+	    	
+	    	ChromeOptions options = new ChromeOptions();
+	    	options.addArguments("headless");
+	    	WebDriver driver = new ChromeDriver(options);
+	    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    	driver.get(URL);
+	    	
+	    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("profile-name")));
+
+	    	List<WebElement> element = driver.findElements(By.tagName("meta"));
+	    	for(int i = 0; i<element.size(); i++) {
+	    		if(element.get(i).getAttribute("name").toString().equals("description")) {
+	    			timeline_key = element.get(i).getAttribute("content");
+	    			System.out.println("result "+timeline_key);
+	    		}
+	    	}
+	    	driver.quit();
+	    	
+	    } catch(Exception e) {
+	    	e.printStackTrace();
+	    }
+	    
+	    System.out.println("인증키 비교");
+	    if(timeline_key.equals(model.getAuth_key())) {
+	    	System.out.println("인증키 확인 매퍼 설정");
+	    	model.setCharacter_name("테스트");
+	    	mapper.addUser(model);
+	    } else {
+	    	System.out.println(timeline_key+"  "+model.getAuth_key());
+	    }
 	}
 }
