@@ -58,10 +58,9 @@ const useProfile = () => {
           timeout: 5000,
         })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response.data.character_name != null) {
             setIsCharacterCheck(true);
-            console.log(isCharacterCheck);
           }
         });
     } catch (err) {
@@ -69,13 +68,19 @@ const useProfile = () => {
         navigate("/");
       });
     }
-  }, [isLoaded, navigate, setIsLoggedIn, isCharacterCheck]);
+  }, [isLoaded, navigate, setIsLoggedIn]);
 
   useEffect(() => {
     getProfile();
   }, [getProfile]);
 
-  return { profileData, isLoaded, isCharacterCheck, setIsLoaded };
+  return {
+    profileData,
+    isLoaded,
+    isCharacterCheck,
+    setIsLoaded,
+    setIsCharacterCheck,
+  };
 };
 
 export default useProfile;
