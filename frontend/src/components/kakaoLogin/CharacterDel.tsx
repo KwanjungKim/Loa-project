@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IProfileData } from "../../hooks/useProfile";
+import { MediumButton } from "../common/Button";
 
 interface Iprops extends React.AllHTMLAttributes<HTMLDivElement> {
   profileData: IProfileData | null;
@@ -7,7 +8,7 @@ interface Iprops extends React.AllHTMLAttributes<HTMLDivElement> {
 }
 const DelProfile = ({ profileData, setIsCharacterCheck }: Iprops) => {
   const DelUser = () => {
-    if (confirm("삭제 하시겠습니까?")) {
+    if (confirm("등록된 캐릭터를 삭제 하시겠습니까?")) {
       const paramMap = {
         user_number: profileData?.id.toString(),
       };
@@ -28,7 +29,9 @@ const DelProfile = ({ profileData, setIsCharacterCheck }: Iprops) => {
   };
   return (
     <>
-      <button onClick={() => DelUser()}>계정 삭제</button>
+      <MediumButton variant="contained" onClick={() => DelUser()}>
+        계정 삭제
+      </MediumButton>
     </>
   );
 };
