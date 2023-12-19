@@ -169,11 +169,13 @@ public class UserService {
 			result.setStatus("fail");
 	   	 	result.setMessage("회원가입이 필요합니다.");
 	   	 	res.setResultModel(result);
+	   	 	res.setUserModel(model);
 	   	 	return res;
 		}
 		
 		result.setStatus("success");
    	 	result.setMessage("로그인되었습니다.");
+   	 	res.setUserModel(model);
    	 	res.setResultModel(result);
 		return res;
 	}
