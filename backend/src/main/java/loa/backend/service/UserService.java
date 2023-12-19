@@ -1,4 +1,4 @@
-package loa.backend.Service;
+package loa.backend.service;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import loa.backend.mapper.UserMapper;
+import loa.backend.model.ResponseModel;
 import loa.backend.model.ResultModel;
 import loa.backend.model.UserModel;
 
@@ -35,14 +36,15 @@ public class UserService {
 		this.mapper = mapper;
 	}
 	
-	public ResultModel join(UserModel model) {
+	public ResponseModel join(UserModel model) {
 		ResultModel result = new ResultModel();
+		
 		result.setStatus("fail");
     	result.setMessage("이미 회원 가입된 계정입니다.");
     	
-    	UserModel user = login(model);
+    	ResponseModel res = login(model);
     	
-    	if(user.getCharacter_name() == null) {
+    	if(res.getUserModel().getCharacter_name() == null) {
     		try {
         		URL url = new URL("http://api.onstove.com/tm/v1/preferences/"+model.getMemberNo());
 
@@ -69,11 +71,13 @@ public class UserService {
                 	    	
                 	    	result.setStatus("success");
                 	    	result.setMessage("회원가입되었습니다.");
-                	    	return result;
+                	    	res.setResultModel(result);
+                	    	return res;
                 	    } else {
                 	    	result.setStatus("fail");
                 	    	result.setMessage("인증번호가 다릅니다.");
-                	    	return result;
+                	    	res.setResultModel(result);
+                	    	return res;
                 	    }
                     }
                 }
@@ -82,9 +86,10 @@ public class UserService {
         	}
     		result.setStatus("fail");
         	result.setMessage("서버오류입니다.");
-        	return result;
+        	res.setResultModel(result);
+        	return res;
     	}
-    	return result;
+    	return res;
 	}
 	
 	public String getEncryptMemberNo(String memberNo) {
@@ -153,36 +158,39 @@ public class UserService {
 		return CharacterName;
 	}
 	
-	public UserModel login(UserModel model) {
+	public ResponseModel login(UserModel model) {
 		ResultModel result = new ResultModel();
+		ResponseModel res = new ResponseModel();
+		
 		UserModel user = mapper.login(model);
    	 	
 		if(user == null) {
 			user = new UserModel();
 			result.setStatus("fail");
 	   	 	result.setMessage("회원가입이 필요합니다.");
-	   	 	user.setResultModel(result);
-	   	 	return user;
+	   	 	res.setResultModel(result);
+	   	 	return res;
 		}
 		
 		result.setStatus("success");
    	 	result.setMessage("로그인되었습니다.");
-   	 	user.setResultModel(result);
-		return user;
+   	 	res.setResultModel(result);
+		return res;
 	}
 	
-	public ResultModel deleteUser(UserModel model) {
+	public ResponseModel deleteUser(UserModel model) {
 		ResultModel result = new ResultModel();
-		UserModel user = login(model);
+		ResponseModel res = login(model);
 		
 		result.setStatus("fail");
 		result.setMessage("존재하지 않는 유저입니다.");
-		if(user.getCharacter_name() != null) {
+		if(res.getUserModel().getCharacter_name() != null) {
 			result.setStatus("success");
-			result.setMessage(user.getCharacter_name()+" 삭제되었습니다.");
+			result.setMessage(res.getUserModel().getCharacter_name()+" 삭제되었습니다.");
 			mapper.deleteUser(model);
 		}
-		return result;
+		res.setResultModel(result);
+		return res;
 	}
 	
 	public List<Map<String, Object>> getUser() {

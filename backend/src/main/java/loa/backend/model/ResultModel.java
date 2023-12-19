@@ -7,7 +7,6 @@ public class ResultModel {
 
 	private String status;
 	private String message;
-	private String character_name;
 
 	public String getStatus() {
 		return status;
@@ -20,11 +19,5 @@ public class ResultModel {
 	}
 	public void setMessage(String message) {
 		this.message = message;
-	}
-	public String getCharacter_name() {
-		return character_name;
-	}
-	public void setCharacter_name(String character_name) {
-		this.character_name = character_name;
 	}
 }

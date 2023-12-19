@@ -10,7 +10,6 @@ public class UserModel {
 	private String auth_key;
 	private String timeline_addr;
 	private String memberNo;
-	private ResultModel resultModel;
 	
 	public String getUser_number() {
 		return user_number;
@@ -41,11 +40,5 @@ public class UserModel {
 	}
 	public void setMemberNo(String memberNo) {
 		this.memberNo = memberNo;
-	}
-	public ResultModel getResultModel() {
-		return resultModel;
-	}
-	public void setResultModel(ResultModel resultModel) {
-		this.resultModel = resultModel;
 	}
 }
