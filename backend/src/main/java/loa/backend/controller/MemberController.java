@@ -1,4 +1,4 @@
-package loa.backend.Controller;
+package loa.backend.controller;
 
 import java.time.Duration;
 import java.util.List;

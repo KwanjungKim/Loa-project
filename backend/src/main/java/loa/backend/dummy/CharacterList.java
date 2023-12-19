@@ -1,4 +1,4 @@
-package loa.backend.Dummy;
+package loa.backend.dummy;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
