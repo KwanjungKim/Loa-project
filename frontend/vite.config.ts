@@ -18,6 +18,11 @@ export default defineConfig({
         secure: false,
         // rewrite: (path) => path.replace(/^\/member/, "/"),
       },
+      "/user": {
+        target: apiUrl,
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
   test: {

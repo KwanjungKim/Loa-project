@@ -4,7 +4,7 @@ import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import { SmallButton } from "../common/Button";
 import IconWrapper from "../common/Wrapper/IconWrapper";
 import ModalPortal from "./Modal";
-import axios from "axios";
+import fetchUtils from "../../utils/fetchUtils";
 
 const auth_key = Math.random().toString(16).substring(2, 24);
 interface Iprops extends React.AllHTMLAttributes<HTMLDivElement> {
@@ -21,19 +21,11 @@ const CharacterInput = ({ profileData, setIsLoaded }: Iprops) => {
       memberNo: timeline_addr,
     };
     console.log(paramMap);
-    axios
-      .post("/api/addUser2", paramMap, {
-        headers: {
-          // headers: API 응답에 대한 정보를 담음
-          "content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        timeout: 5000,
-      })
-      .then((response) => {
-        console.log({ response });
-        setIsLoaded(false);
-      });
+    fetchUtils.post("/user/join", paramMap).then((res) => {
+      console.log(res);
+      alert(`${res.data.resultModel.message}`);
+      setIsLoaded(false);
+    });
   };
 
   const HandleCopyClipBoard = async (text: string) => {

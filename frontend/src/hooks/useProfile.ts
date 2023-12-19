@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { LoginState } from "../atoms/login";
-import axios from "axios";
+import fetchUtils from "../utils/fetchUtils";
 
 export interface IProfileData {
   id: string;
@@ -49,20 +49,11 @@ const useProfile = () => {
       const paramMap = {
         user_number: data?.id.toString(),
       };
-
-      axios
-        .post("/api/login", paramMap, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          timeout: 5000,
-        })
-        .then((response) => {
-          // console.log(response);
-          if (response.data.character_name != null) {
-            setIsCharacterCheck(true);
-          }
-        });
+      fetchUtils.post("user/login", paramMap).then((res) => {
+        if (res.data.userModel.character_name != null) {
+          setIsCharacterCheck(true);
+        }
+      });
     } catch (err) {
       handleError("프로필 정보를 불러오는데 실패했습니다.", () => {
         navigate("/");
