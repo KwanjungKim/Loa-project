@@ -22,7 +22,7 @@ const CharacterInput = ({ profileData, setIsLoaded }: Iprops) => {
     };
     console.log(paramMap);
     axios
-      .post("/api/addUser2", paramMap, {
+      .post("/user/join", paramMap, {
         headers: {
           // headers: API 응답에 대한 정보를 담음
           "content-type": "application/json",
@@ -32,6 +32,7 @@ const CharacterInput = ({ profileData, setIsLoaded }: Iprops) => {
       })
       .then((response) => {
         console.log({ response });
+        alert(`${response.data.resultModel.message}`);
         setIsLoaded(false);
       });
   };

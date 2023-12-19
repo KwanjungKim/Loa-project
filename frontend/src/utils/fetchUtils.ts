@@ -116,21 +116,21 @@ const fetchUtils = {
   handleResponse: (response: AxiosResponse<any, any>) => {
     if (
       !response.data ||
-      !response.data.resultmodel ||
-      response.data.resultmodel.status !== "success"
+      !response.data.resultModel ||
+      response.data.resultModel.status !== "success"
     ) {
       return {
         success: false,
         data: null,
         message:
-          (response.data.resultmodel.message as string) ||
+          (response.data.resultModel.message as string) ||
           "오류가 발생했습니다.",
       };
     } else {
       return {
         success: true,
         data: response.data,
-        message: (response.data.resultmodel.message as string) || "",
+        message: (response.data.resultModel.message as string) || "",
       };
     }
   },
