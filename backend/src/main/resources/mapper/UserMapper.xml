@@ -24,4 +24,17 @@
         from loain.user_info
         where user_number = #{user_number}
     </delete>
+    
+    <insert id="addCharacter">
+    	insert into loain.character_info (user_number, ServerName, character_name, CharacterLevel, CharacterClassName, ItemAvgLevel, ItemMaxLevel) 
+    	value (#{user_number},#{ServerName},#{character_name},#{CharacterLevel},#{CharacterClassName},#{ItemAvgLevel},#{ItemMaxLevel})
+    </insert>
+    
+    <update id="updateCharacter">
+    	update loain.character_info set 
+    	CharacterLevel = #{CharacterLevel},
+    	ItemAvgLevel = #{ItemAvgLevel},
+    	ItemMaxLevel = #{ItemMaxLevel}
+    	where character_name = #{character_name}
+    </update>
 </mapper>

@@ -3,12 +3,15 @@ package loa.backend.service;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.By;
@@ -22,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import loa.backend.mapper.UserMapper;
+import loa.backend.model.CharacterModel;
 import loa.backend.model.ResponseModel;
 import loa.backend.model.ResultModel;
 import loa.backend.model.UserModel;
@@ -68,7 +72,7 @@ public class UserService {
                 	    	String encryptMemberNo = getEncryptMemberNo(model.getMemberNo());
                 	    	model.setCharacter_name(getCharacterName(encryptMemberNo));
                 	    	mapper.addUser(model);
-                	    	
+                	    	addCharacter(model);
                 	    	result.setStatus("success");
                 	    	result.setMessage("회원가입되었습니다.");
                 	    	res.setResultModel(result);
@@ -193,6 +197,44 @@ public class UserService {
 		}
 		res.setResultModel(result);
 		return res;
+	}
+	
+	public void addCharacter(UserModel model) throws Exception {
+
+		String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwODk0MDEifQ.JqWNtjriyi1wXQrT32-byWWLg_-11Ou3kilsa4b4zwBjY6QkBxIdpTK_SQgJyN77OxqHJpJR0r1SeUc3Evj675X8I5ub5qYooOJe8SNw1xxp9BKYDi6lQ-gPz1ofK3POA0PfFkn08_263PoVNcu5NTnTq7v9EQa5n0HXonuxdGhJi_qmAM90QkcrdcR5_OLgqpaXdpC3AK7TqyrQHGVKkA46LGojM7ANjDa2aJtTw6a5bN3YKBnjtXFw8ewDWyXBaYu4uyhCsseeMxatA4J2y_82MDEy-9bDRtW0c9gTCAblfSnYxHlo6xu8OfvBGtHov_JO3C3CISF-D6A6BbfpWw";
+		String user = URLEncoder.encode(model.getCharacter_name(), "UTF-8");
+		URL url = new URL("https://developer-lostark.game.onstove.com/characters/"+user+"/siblings");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestProperty("Authorization","Bearer " + token);
+	    conn.setRequestProperty("Content-Type","application/json");
+	    conn.setRequestMethod("GET");
+	    
+	    Map<String, List<String>> map = conn.getHeaderFields();
+	    System.out.println("Limit remain : "+map.get("x-ratelimit-remaining").get(0));
+	    
+
+	    try (BufferedReader bf = new BufferedReader(new InputStreamReader(conn.getInputStream())))
+        {
+            String line;
+            while ((line = bf.readLine()) != null) {
+                JSONArray jsonArr = new JSONArray();
+                JSONParser jsonParser = new JSONParser();
+                jsonArr = (JSONArray) jsonParser.parse(line);
+
+                for (int i = 0; i < jsonArr.size(); i++) {
+                    JSONObject jsonObj = (JSONObject) jsonArr.get(i);
+                    CharacterModel character = new CharacterModel();
+                    character.setUser_number(model.getUser_number());
+                    character.setServerName(jsonObj.get("ServerName").toString());
+                    character.setCharacter_name(jsonObj.get("CharacterName").toString());
+                    character.setCharacterLevel(jsonObj.get("CharacterLevel").toString());
+                    character.setCharacterClassName(jsonObj.get("CharacterClassName").toString());
+                    character.setItemAvgLevel(jsonObj.get("ItemAvgLevel").toString());
+                    character.setItemMaxLevel(jsonObj.get("ItemMaxLevel").toString());
+                    mapper.addCharacter(character);
+                }
+            }
+        }
 	}
 	
 	public List<Map<String, Object>> getUser() {
