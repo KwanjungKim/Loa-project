@@ -2,7 +2,10 @@ package loa.backend.mapper;
 
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import loa.backend.model.CharacterModel;
 import loa.backend.model.UserModel;
 
 @Mapper
@@ -19,4 +22,8 @@ public interface UserMapper {
 	UserModel login(UserModel model);
 	
 	void deleteUser(UserModel model);
+	
+	void addCharacter(CharacterModel model);
+	
+	void updateCharacter(CharacterModel model);
 }
