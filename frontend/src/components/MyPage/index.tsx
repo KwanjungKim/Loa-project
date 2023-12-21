@@ -1,6 +1,6 @@
 import useProfile from "../../hooks/useProfile";
 import { MediumButton } from "../common/Button";
-import DelProfile from "../kakaoLogin/CharacterDel";
+import DeleteCharacter from "../kakaoLogin/DeleteCharacter";
 import CharacterInput from "../kakaoLogin/CharacterInput";
 
 const MyPage = () => {
@@ -18,7 +18,9 @@ const MyPage = () => {
         isCharacterCheck ? (
           <MediumButton
             variant="contained"
-            onClick={() => DelProfile({ profileData, setIsCharacterCheck })}
+            onClick={() =>
+              DeleteCharacter({ profileData, setIsCharacterCheck })
+            }
           >
             계정 삭제
           </MediumButton>
