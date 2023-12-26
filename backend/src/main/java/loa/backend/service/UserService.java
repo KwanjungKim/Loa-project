@@ -179,6 +179,7 @@ public class UserService {
 		
 		result.setStatus("success");
    	 	result.setMessage("로그인되었습니다.");
+   	 	res.setCharacterModel(mapper.getCharacterName(model));
    	 	res.setUserModel(user);
    	 	res.setResultModel(result);
 		return res;

@@ -21,6 +21,8 @@ public interface UserMapper {
 	
 	UserModel login(UserModel model);
 	
+	List<CharacterModel> getCharacterName(UserModel model);
+	
 	void deleteUser(UserModel model);
 	
 	void addCharacter(CharacterModel model);
