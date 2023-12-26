@@ -19,6 +19,12 @@
         where user_number = #{user_number}
     </select>
     
+    <select id="getCharacterName" parameterType="UserModel" resultType="CharacterModel">
+        select *
+        from loain.character_info
+        where user_number = #{user_number}
+    </select>
+    
     <delete id="deleteUser">
         delete
         from loain.user_info
