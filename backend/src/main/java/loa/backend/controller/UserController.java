@@ -33,6 +33,12 @@ public class UserController {
     	return res;
     }
     
+    @RequestMapping("/user/getAllCharacters")
+    public ResponseModel getAllCharacters(@RequestBody UserModel model) {
+    	ResponseModel res = sv.getAllCharacters(model);
+    	return res;
+    }
+    
     @RequestMapping("/user/delete")
     public ResponseModel deleteUser(@RequestBody UserModel model) {
     	ResponseModel res = sv.deleteUser(model);

@@ -200,6 +200,24 @@ public class UserService {
 		return res;
 	}
 	
+	public ResponseModel getAllCharacters(UserModel model) {
+		ResultModel result = new ResultModel();
+		ResponseModel res = login(model);
+		UserModel user = mapper.login(model);
+		
+		if(user == null) {
+			user = new UserModel();
+			result.setStatus("fail");
+	   	 	res.setResultModel(result);
+	   	 	res.setUserModel(user);
+		}
+		result.setStatus("success");
+   	 	res.setCharacterModel(mapper.getCharacterName(model));
+   	 	res.setUserModel(user);
+   	 	res.setResultModel(result);
+		return res;
+	}
+	
 	public void addCharacter(UserModel model) throws Exception {
 
 		String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwODk0MDEifQ.JqWNtjriyi1wXQrT32-byWWLg_-11Ou3kilsa4b4zwBjY6QkBxIdpTK_SQgJyN77OxqHJpJR0r1SeUc3Evj675X8I5ub5qYooOJe8SNw1xxp9BKYDi6lQ-gPz1ofK3POA0PfFkn08_263PoVNcu5NTnTq7v9EQa5n0HXonuxdGhJi_qmAM90QkcrdcR5_OLgqpaXdpC3AK7TqyrQHGVKkA46LGojM7ANjDa2aJtTw6a5bN3YKBnjtXFw8ewDWyXBaYu4uyhCsseeMxatA4J2y_82MDEy-9bDRtW0c9gTCAblfSnYxHlo6xu8OfvBGtHov_JO3C3CISF-D6A6BbfpWw";
