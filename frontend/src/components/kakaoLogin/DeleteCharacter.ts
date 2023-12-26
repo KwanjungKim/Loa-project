@@ -5,7 +5,7 @@ interface Iprops extends React.AllHTMLAttributes<HTMLDivElement> {
   profileData: IProfileData | null;
   setIsCharacterCheck: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const DelProfile = ({ profileData, setIsCharacterCheck }: Iprops) => {
+const DeleteCharacter = ({ profileData, setIsCharacterCheck }: Iprops) => {
   if (confirm("등록된 캐릭터를 삭제 하시겠습니까?")) {
     const paramMap = {
       user_number: profileData?.id.toString(),
@@ -18,4 +18,4 @@ const DelProfile = ({ profileData, setIsCharacterCheck }: Iprops) => {
   }
 };
 
-export default DelProfile;
+export default DeleteCharacter;
