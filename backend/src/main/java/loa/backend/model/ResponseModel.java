@@ -1,5 +1,7 @@
 package loa.backend.model;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -8,6 +10,7 @@ public class ResponseModel {
 	private UserModel userModel;
 	private BoardModel boardModel;
 	private ResultModel resultModel;
+	private List<CharacterModel> characterModel;
 	
 	public UserModel getUserModel() {
 		return userModel;
@@ -26,5 +29,11 @@ public class ResponseModel {
 	}
 	public void setResultModel(ResultModel resultModel) {
 		this.resultModel = resultModel;
+	}
+	public List<CharacterModel> getCharacterModel() {
+		return characterModel;
+	}
+	public void setCharacterModel(List<CharacterModel> characterModel) {
+		this.characterModel = characterModel;
 	}
 }
