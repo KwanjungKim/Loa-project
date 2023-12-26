@@ -39,6 +39,16 @@ public class UserController {
     	return res;
     }
     
+    @RequestMapping("/user/updateCharacters")
+    public void updateCharacters(@RequestBody UserModel model) {
+    	try {
+			sv.addCharacter(model);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
     @RequestMapping("/user/delete")
     public ResponseModel deleteUser(@RequestBody UserModel model) {
     	ResponseModel res = sv.deleteUser(model);

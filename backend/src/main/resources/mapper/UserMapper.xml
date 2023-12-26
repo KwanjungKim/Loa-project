@@ -34,6 +34,10 @@
     <insert id="addCharacter">
     	insert into loain.character_info (user_number, ServerName, character_name, CharacterLevel, CharacterClassName, ItemAvgLevel, ItemMaxLevel) 
     	value (#{user_number},#{ServerName},#{character_name},#{CharacterLevel},#{CharacterClassName},#{ItemAvgLevel},#{ItemMaxLevel})
+    	on duplicate key update
+    		CharacterLevel = #{CharacterLevel},
+    		ItemAvgLevel = #{ItemAvgLevel},
+    		ItemMaxLevel = #{ItemMaxLevel}
     </insert>
     
     <update id="updateCharacter">
