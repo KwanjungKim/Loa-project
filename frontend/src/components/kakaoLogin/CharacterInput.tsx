@@ -23,6 +23,7 @@ const CharacterInput = ({ profileData, setIsLoaded }: Iprops) => {
     console.log(paramMap);
     fetchUtils.post("/user/join", paramMap).then((res) => {
       console.log(res);
+      console.log("1");
       alert(`${res.data.resultModel.message}`);
       setIsLoaded(false);
     });
