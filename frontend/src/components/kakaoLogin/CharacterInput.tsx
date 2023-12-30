@@ -5,6 +5,8 @@ import { SmallButton } from "../common/Button";
 import IconWrapper from "../common/Wrapper/IconWrapper";
 import ModalPortal from "./Modal";
 import fetchUtils from "../../utils/fetchUtils";
+import { useSetRecoilState } from "recoil";
+import { MainCharState } from "../../atoms/MainCharacter";
 
 const auth_key = Math.random().toString(16).substring(2, 24);
 interface Iprops extends React.AllHTMLAttributes<HTMLDivElement> {
@@ -13,7 +15,7 @@ interface Iprops extends React.AllHTMLAttributes<HTMLDivElement> {
 }
 const CharacterInput = ({ profileData, setIsLoaded }: Iprops) => {
   const [timeline_addr, setTimeLineAddr] = useState<string>("");
-
+  const setIsMainCharacter = useSetRecoilState(MainCharState);
   const HandleAuth = () => {
     const paramMap = {
       user_number: profileData?.id.toString(),
@@ -22,9 +24,8 @@ const CharacterInput = ({ profileData, setIsLoaded }: Iprops) => {
     };
     console.log(paramMap);
     fetchUtils.post("/user/join", paramMap).then((res) => {
-      console.log(res);
-      console.log("1");
       alert(`${res.data.resultModel.message}`);
+      setIsMainCharacter(res.data.userModel.character_name);
       setIsLoaded(false);
     });
   };

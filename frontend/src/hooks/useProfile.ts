@@ -1,8 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { LoginState } from "../atoms/login";
+import { LoginState } from "../atoms/Login";
 import fetchUtils from "../utils/fetchUtils";
+import { MainCharState } from "../atoms/MainCharacter";
 
 export interface IProfileData {
   id: string;
@@ -17,6 +18,7 @@ const useProfile = () => {
   const [isCharacterCheck, setIsCharacterCheck] = useState<boolean>(false);
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(LoginState);
+  const setIsCharId = useSetRecoilState(MainCharState);
   const handleError = (str: string, callback?: () => void) => {
     alert(str);
     if (callback) {
@@ -49,7 +51,11 @@ const useProfile = () => {
       const paramMap = {
         user_number: data?.id.toString(),
       };
-      fetchUtils.post("user/login", paramMap).then((res) => {
+      fetchUtils.post("/user/login", paramMap).then((res) => {
+        setIsCharId({
+          user_number: res.data.userModel.user_number,
+          character_name: res.data.userModel.character_name,
+        });
         if (res.data.userModel.character_name != null) {
           setIsCharacterCheck(true);
         }
@@ -59,7 +65,7 @@ const useProfile = () => {
         navigate("/");
       });
     }
-  }, [isLoaded, navigate, setIsLoggedIn]);
+  }, [isLoaded, navigate, setIsLoggedIn, setIsCharId]);
 
   useEffect(() => {
     getProfile();
