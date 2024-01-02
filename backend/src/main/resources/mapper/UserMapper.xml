@@ -26,9 +26,12 @@
     </select>
     
     <delete id="deleteUser">
-        delete
-        from loain.user_info
-        where user_number = #{user_number}
+        delete from 
+		loain.user_info, loain.character_info
+		Using loain.user_info
+		left join loain.character_info
+		on loain.user_info.user_number = loain.character_info.user_number 
+		where loain.character_info.user_number = #{user_number}
     </delete>
     
     <insert id="addCharacter">

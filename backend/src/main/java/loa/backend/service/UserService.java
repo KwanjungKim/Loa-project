@@ -48,6 +48,8 @@ public class UserService {
     	
     	ResponseModel res = login(model);
     	
+    	res.setResultModel(result);
+    	
     	if(res.getUserModel().getCharacter_name() == null) {
     		try {
         		URL url = new URL("http://api.onstove.com/tm/v1/preferences/"+model.getMemberNo());
