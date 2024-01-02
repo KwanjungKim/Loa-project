@@ -40,13 +40,22 @@ public class UserController {
     }
     
     @RequestMapping("/user/updateCharacters")
-    public void updateCharacters(@RequestBody UserModel model) {
+    public ResponseModel updateCharacters(@RequestBody UserModel model) {
+    	ResponseModel res = new ResponseModel();
+    	ResultModel result = new ResultModel();
     	try {
 			sv.addCharacter(model);
+			result.setMessage("갱신되었습니다.");
+			result.setStatus("success");
+			res.setResultModel(result);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			result.setMessage("서버오류입니다.");
+			result.setStatus("fail");
+			res.setResultModel(result);
 		}
+    	return res;
     }
     
     @RequestMapping("/user/delete")
