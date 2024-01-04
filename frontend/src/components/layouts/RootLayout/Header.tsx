@@ -18,11 +18,10 @@ import loginUtils from "../../../utils/loginUtils";
 const Header = () => {
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(LoginState);
-
   const [paletteMode, setPaletteMode] = useRecoilState(paletteModeState);
+
   const isLoggedin = useRecoilValue(LoginState);
   const isMobile = useMediaQuery("(max-width: 480px)");
-  console.log(isLoggedin);
   const headerViewProps: IHeaderViewProps = {
     isLoggedin,
     handleClickLogin: () => loginUtils.loginKakao(),

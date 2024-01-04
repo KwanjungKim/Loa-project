@@ -24,8 +24,12 @@ const CharacterInput = ({ profileData, setIsLoaded }: Iprops) => {
     };
     console.log(paramMap);
     fetchUtils.post("/user/join", paramMap).then((res) => {
+      console.log(res);
       alert(`${res.data.resultModel.message}`);
-      setIsMainCharacter(res.data.userModel.character_name);
+      setIsMainCharacter({
+        user_number: profileData?.id,
+        character_name: res.data.userModel.character_name,
+      });
       setIsLoaded(false);
     });
   };

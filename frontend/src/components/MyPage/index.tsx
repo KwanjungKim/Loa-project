@@ -6,20 +6,17 @@ const MyPage = () => {
   const {
     profileData,
     isLoaded,
-    isCharacterCheck,
     setIsLoaded,
-    setIsCharacterCheck,
+    isCharacterState,
+    setIsCharAuth,
   } = useProfile();
 
   return (
     <>
       {isLoaded ? (
-        isCharacterCheck ? (
+        isCharacterState ? (
           <>
-            <MyInfo
-              profileData={profileData}
-              setIsCharacterCheck={setIsCharacterCheck}
-            />
+            <MyInfo setIsCharAuth={setIsCharAuth} />
           </>
         ) : (
           <div>
