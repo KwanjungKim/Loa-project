@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { LoginState, characterState } from "../atoms/Login";
+import { loginState, characterState } from "../atoms/Login";
 import fetchUtils from "../utils/fetchUtils";
 import { MainCharState } from "../atoms/MainCharacter";
 
@@ -16,7 +16,7 @@ const useProfile = () => {
   const [profileData, setProfileData] = useState<IProfileData | null>(null);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const navigate = useNavigate();
-  const setIsLoggedIn = useSetRecoilState(LoginState);
+  const setIsLoggedIn = useSetRecoilState(loginState);
   const setIsCharId = useSetRecoilState(MainCharState);
   const setIsCharAuth = useSetRecoilState(characterState);
   const isCharacterState = useRecoilValue(characterState);
