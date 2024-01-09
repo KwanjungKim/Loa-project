@@ -28,4 +28,6 @@ public interface UserMapper {
 	void addCharacter(CharacterModel model);
 	
 	void updateCharacter(CharacterModel model);
+	
+	CharacterModel getCharacter(UserModel model);
 }
