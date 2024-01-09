@@ -1,5 +1,7 @@
 package loa.backend.model;
 
+import org.json.simple.JSONObject;
+
 import lombok.Data;
 
 @Data
@@ -11,8 +13,8 @@ public class CharacterModel {
 	private String CharacterClassName;
 	private String ItemAvgLevel;
 	private String ItemMaxLevel;
-	private String CardEffects;
-	private String ArmoryGem;
+	private JSONObject CardEffects;
+	private JSONObject ArmoryGem;
 	
 	public String getUser_number() {
 		return user_number;
@@ -56,16 +58,16 @@ public class CharacterModel {
 	public void setItemMaxLevel(String itemMaxLevel) {
 		ItemMaxLevel = itemMaxLevel;
 	}
-	public String getCardEffects() {
+	public JSONObject getCardEffects() {
 		return CardEffects;
 	}
-	public void setCardEffects(String cardEffects) {
+	public void setCardEffects(JSONObject cardEffects) {
 		CardEffects = cardEffects;
 	}
-	public String getArmoryGem() {
+	public JSONObject getArmoryGem() {
 		return ArmoryGem;
 	}
-	public void setArmoryGem(String armoryGem) {
+	public void setArmoryGem(JSONObject armoryGem) {
 		ArmoryGem = armoryGem;
 	}
 	

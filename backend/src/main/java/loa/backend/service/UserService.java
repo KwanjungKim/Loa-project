@@ -284,8 +284,8 @@ public class UserService {
                 JSONParser jsonParser = new JSONParser();
                 JSONObject jsonObj = (JSONObject) jsonParser.parse(line);
                 character = mapper.getCharacter(model);
-                character.setCardEffects(jsonObj.get("ArmoryCard").toString());
-                character.setArmoryGem(jsonObj.get("ArmoryGem").toString());
+                character.setCardEffects((JSONObject)jsonObj.get("ArmoryCard"));
+                character.setArmoryGem((JSONObject)jsonObj.get("ArmoryGem"));
                 result.setStatus("success");
         		result.setMessage("가져오기 성공.");
             }
