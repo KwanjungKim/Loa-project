@@ -33,6 +33,12 @@ public class UserController {
     	return res;
     }
     
+    @RequestMapping("/user/getCharacter")
+    public ResponseModel getCharacter(@RequestBody UserModel model) throws Exception {
+    	ResponseModel res = sv.getCharacter(model);
+    	return res;
+    }
+    
     @RequestMapping("/user/getAllCharacters")
     public ResponseModel getAllCharacters(@RequestBody UserModel model) {
     	ResponseModel res = sv.getAllCharacters(model);
