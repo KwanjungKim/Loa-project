@@ -50,4 +50,10 @@
     	ItemMaxLevel = #{ItemMaxLevel}
     	where character_name = #{character_name}
     </update>
+    
+    <select id="getCharacter" parameterType="UserModel" resultType="CharacterModel">
+        select *
+        from loain.character_info
+        where character_name = #{character_name}
+    </select>
 </mapper>

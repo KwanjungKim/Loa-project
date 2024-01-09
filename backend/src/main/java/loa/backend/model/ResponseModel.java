@@ -10,7 +10,8 @@ public class ResponseModel {
 	private UserModel userModel;
 	private BoardModel boardModel;
 	private ResultModel resultModel;
-	private List<CharacterModel> characterModel;
+	private CharacterModel characterModel;
+	private List<CharacterModel> characterModelList;
 	
 	public UserModel getUserModel() {
 		return userModel;
@@ -30,10 +31,16 @@ public class ResponseModel {
 	public void setResultModel(ResultModel resultModel) {
 		this.resultModel = resultModel;
 	}
-	public List<CharacterModel> getCharacterModel() {
+	public CharacterModel getCharacterModel() {
 		return characterModel;
 	}
-	public void setCharacterModel(List<CharacterModel> characterModel) {
+	public void setCharacterModel(CharacterModel characterModel) {
 		this.characterModel = characterModel;
+	}
+	public List<CharacterModel> getCharacterModelList() {
+		return characterModelList;
+	}
+	public void setCharacterModelList(List<CharacterModel> characterModel) {
+		this.characterModelList = characterModel;
 	}
 }
