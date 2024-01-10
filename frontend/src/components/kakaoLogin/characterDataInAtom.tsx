@@ -58,19 +58,29 @@ const TestAtomData = () => {
     }
     return GemEffect;
   };
+  // const gemsMap = () => {
+  //   const Gem: any[] = [];
+
+  //   let i: number;
+  //   for (i = 0; i < isCharacterData.armoryGem.Gems.length; i++) {
+  //     if (isCharacterData.armoryGem.Gems[i].Name.includes("레벨 멸화의 보석")) {
+  //       Gem.push(isCharacterData.armoryGem.Gems[i].Level + "레벨 멸화의 보석");
+  //       console.log("1", isCharacterData.armoryGem.Gems[i].Level);
+  //     }
+  //     if (isCharacterData.armoryGem.Gems[i].Name.includes("레벨 홍염의 보석")) {
+  //       Gem.push(isCharacterData.armoryGem.Gems[i].Level + "레벨 홍염의 보석");
+  //       console.log("1", isCharacterData.armoryGem.Gems[i].Level);
+  //     }
+  //   }
+  //   console.log(Gem);
+  //   return Gem;
+  // };
   const gemsMap = () => {
     const Gem: any[] = [];
 
     let i: number;
     for (i = 0; i < isCharacterData.armoryGem.Gems.length; i++) {
-      if (isCharacterData.armoryGem.Gems[i].Name.includes("레벨 멸화의 보석")) {
-        Gem.push(isCharacterData.armoryGem.Gems[i].Level + "레벨 멸화의 보석");
-        console.log("1", isCharacterData.armoryGem.Gems[i].Level);
-      }
-      if (isCharacterData.armoryGem.Gems[i].Name.includes("레벨 홍염의 보석")) {
-        Gem.push(isCharacterData.armoryGem.Gems[i].Level + "레벨 홍염의 보석");
-        console.log("1", isCharacterData.armoryGem.Gems[i].Level);
-      }
+      Gem.push(isCharacterData.armoryGem.Gems[i].Name);
     }
     console.log(Gem);
     return Gem;
@@ -97,20 +107,28 @@ const TestAtomData = () => {
         <br />
         카드 :{" "}
         {Object.values(MainCharacterData.CardEffects).map((value, i) => (
-          <div key={i}>{value.Name}</div>
+          <>
+            <div key={i} style={{ color: "#fbc02d" }}>
+              {value.Name}
+            </div>
+            <div style={{ fontSize: "14px" }}> ■ {value.Description}</div>
+          </>
         ))}
-        카드 세트 효과 :
+        {/* 카드 세트 효과 :
         {Object.values(MainCharacterData.CardEffects).map((value, i) => (
           <div key={i}>{value.Description}</div>
-        ))}
+        ))} */}
         보석 :
         {Object.values(MainCharacterData.ArmoryGemEffects).map((value, i) => (
-          <div key={i}>
-            {value.Name} : {value.Description}
-          </div>
+          <>
+            <div key={i} style={{ display: "inline-block", color: "#fbc02d" }}>
+              {value.Name}
+            </div>
+            : {value.Description} <br />
+          </>
         ))}
         {Object.values(MainCharacterData.ArmoryGems).map((value, i) => (
-          <div key={i}>{value}</div>
+          <div key={i} dangerouslySetInnerHTML={{ __html: value }}></div>
         ))}
         <button onClick={() => getData()}>111</button>
         <button onClick={() => gemsMap()}>222</button>
