@@ -12,15 +12,15 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import paletteModeState, {
   paletteModeActions,
 } from "../../../atoms/paletteMode";
-import { LoginState } from "../../../atoms/Login";
+import { loginState } from "../../../atoms/Login";
 import loginUtils from "../../../utils/loginUtils";
 
 const Header = () => {
   const navigate = useNavigate();
-  const setIsLoggedIn = useSetRecoilState(LoginState);
+  const setIsLoggedIn = useSetRecoilState(loginState);
   const [paletteMode, setPaletteMode] = useRecoilState(paletteModeState);
 
-  const isLoggedin = useRecoilValue(LoginState);
+  const isLoggedin = useRecoilValue(loginState);
   const isMobile = useMediaQuery("(max-width: 480px)");
   const headerViewProps: IHeaderViewProps = {
     isLoggedin,
