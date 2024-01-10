@@ -6,7 +6,8 @@ export type ICharData = {
   CharacterClassName: string;
   ItemMaxLevel: string;
   CardEffects: object;
-  ArmoryGem: object;
+  ArmoryGemEffects: object;
+  ArmoryGems: object;
 };
 export const MainCharData = atom<ICharData>({
   key: "MainCharacterData",
@@ -16,6 +17,7 @@ export const MainCharData = atom<ICharData>({
     CharacterClassName: "",
     ItemMaxLevel: "",
     CardEffects: {},
-    ArmoryGem: {},
+    ArmoryGemEffects: {},
+    ArmoryGems: {},
   },
 });

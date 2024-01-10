@@ -20,6 +20,7 @@ const useProfile = () => {
   const setIsCharId = useSetRecoilState(MainCharState);
   const setIsCharAuth = useSetRecoilState(characterState);
   const isCharacterState = useRecoilValue(characterState);
+
   const handleError = (str: string, callback?: () => void) => {
     alert(str);
     if (callback) {
@@ -36,6 +37,7 @@ const useProfile = () => {
       });
       return;
     }
+
     try {
       // Kakao SDK API를 이용해 사용자 정보 획득
       const data = await window.Kakao.API.request({

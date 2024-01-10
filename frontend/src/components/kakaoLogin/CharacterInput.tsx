@@ -22,7 +22,7 @@ const CharacterInput = ({ profileData, setIsLoaded }: Iprops) => {
       auth_key: auth_key,
       memberNo: timeline_addr,
     };
-    console.log(paramMap);
+
     fetchUtils.post("/user/join", paramMap).then((res) => {
       console.log(res);
       alert(`${res.data.resultModel.message}`);
