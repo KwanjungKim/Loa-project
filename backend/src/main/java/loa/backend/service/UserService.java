@@ -286,6 +286,7 @@ public class UserService {
                 character = mapper.getCharacter(model);
                 character.setCardEffects((JSONObject)jsonObj.get("ArmoryCard"));
                 character.setArmoryGem((JSONObject)jsonObj.get("ArmoryGem"));
+                character.setArmoryEngraving((JSONObject)jsonObj.get("ArmoryEngraving"));
                 result.setStatus("success");
         		result.setMessage("가져오기 성공.");
             }
