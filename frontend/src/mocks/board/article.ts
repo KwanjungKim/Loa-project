@@ -1,5 +1,6 @@
 type IDifficulty = "노말" | "하드" | "익스트림";
 type IProficiency = "트라이" | "클경" | "반숙" | "숙련";
+type IStatus = "모집중" | "모집완료" | "모집취소";
 
 export interface IArticle {
   id?: string;
@@ -11,10 +12,15 @@ export interface IArticle {
   difficulty: IDifficulty;
   gate: string; // 1, 2, 3 ...
   party_members: string[];
-  date: string; // 2021-08-01 ??
+  createdAt?: string;
+  departureDate: string; // 2021-09-01T12:00
   card: string;
   level: string;
   proficiency: IProficiency;
+  status: IStatus;
+
+  // todo
+  // status: "모집중" | "모집완료" | "모집취소";
 }
 
 const articles: IArticle[] = [];
@@ -47,9 +53,17 @@ const articles: IArticle[] = [];
 */
 
 export const addArticle = async (article: IArticle) => {
-  setTimeout(() => {
-    articles.push(article);
-  }, 1500);
+  return new Promise<IArticle>((resolve) => {
+    setTimeout(() => {
+      const newArticle = {
+        ...article,
+        id: Date.now().toString(),
+        createdAt: new Date().toISOString(),
+      };
+      articles.push(newArticle);
+      resolve(newArticle);
+    }, 1500);
+  });
 };
 
 export const getArticles = async () => {
