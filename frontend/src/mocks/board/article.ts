@@ -12,7 +12,7 @@ export interface IArticle {
   difficulty: IDifficulty;
   gate: string; // 1, 2, 3 ...
   party_members: string[];
-  createdAt: string;
+  createdAt?: string;
   departureDate: string; // 2021-09-01T12:00
   card: string;
   level: string;
@@ -53,9 +53,17 @@ const articles: IArticle[] = [];
 */
 
 export const addArticle = async (article: IArticle) => {
-  setTimeout(() => {
-    articles.push(article);
-  }, 1500);
+  return new Promise<IArticle>((resolve) => {
+    setTimeout(() => {
+      const newArticle = {
+        ...article,
+        id: Date.now().toString(),
+        createdAt: new Date().toISOString(),
+      };
+      articles.push(newArticle);
+      resolve(newArticle);
+    }, 1500);
+  });
 };
 
 export const getArticles = async () => {
