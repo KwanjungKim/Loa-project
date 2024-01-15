@@ -15,6 +15,7 @@ public class CharacterModel {
 	private String ItemMaxLevel;
 	private JSONObject CardEffects;
 	private JSONObject ArmoryGem;
+	private JSONObject ArmoryEngraving;
 	
 	public String getUser_number() {
 		return user_number;
@@ -69,6 +70,12 @@ public class CharacterModel {
 	}
 	public void setArmoryGem(JSONObject armoryGem) {
 		ArmoryGem = armoryGem;
+	}
+	public JSONObject getArmoryEngraving() {
+		return ArmoryEngraving;
+	}
+	public void setArmoryEngraving(JSONObject armoryEngraving) {
+		ArmoryEngraving = armoryEngraving;
 	}
 	
 	
