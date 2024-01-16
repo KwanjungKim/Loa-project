@@ -8,6 +8,7 @@ export type ICharData = {
   CardEffects: object;
   ArmoryGemEffects: object;
   ArmoryGems: object;
+  ArmoryEngraving: object;
 };
 export const MainCharData = atom<ICharData>({
   key: "MainCharacterData",
@@ -19,5 +20,6 @@ export const MainCharData = atom<ICharData>({
     CardEffects: {},
     ArmoryGemEffects: {},
     ArmoryGems: {},
+    ArmoryEngraving: {},
   },
 });
