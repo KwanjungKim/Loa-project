@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { LoginState } from "../atoms/Login";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { loginState, characterState } from "../atoms/Login";
 import fetchUtils from "../utils/fetchUtils";
 import { MainCharState } from "../atoms/MainCharacter";
 
@@ -15,10 +15,12 @@ export interface IProfileData {
 const useProfile = () => {
   const [profileData, setProfileData] = useState<IProfileData | null>(null);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [isCharacterCheck, setIsCharacterCheck] = useState<boolean>(false);
   const navigate = useNavigate();
-  const setIsLoggedIn = useSetRecoilState(LoginState);
+  const setIsLoggedIn = useSetRecoilState(loginState);
   const setIsCharId = useSetRecoilState(MainCharState);
+  const setIsCharAuth = useSetRecoilState(characterState);
+  const isCharacterState = useRecoilValue(characterState);
+
   const handleError = (str: string, callback?: () => void) => {
     alert(str);
     if (callback) {
@@ -35,6 +37,7 @@ const useProfile = () => {
       });
       return;
     }
+
     try {
       // Kakao SDK API를 이용해 사용자 정보 획득
       const data = await window.Kakao.API.request({
@@ -52,12 +55,12 @@ const useProfile = () => {
         user_number: data?.id.toString(),
       };
       fetchUtils.post("/user/login", paramMap).then((res) => {
-        setIsCharId({
-          user_number: res.data.userModel.user_number,
-          character_name: res.data.userModel.character_name,
-        });
-        if (res.data.userModel.character_name != null) {
-          setIsCharacterCheck(true);
+        if (res.data?.userModel.character_name != null) {
+          setIsCharAuth(true);
+          setIsCharId({
+            user_number: res.data.userModel.user_number,
+            character_name: res.data.userModel.character_name,
+          });
         }
       });
     } catch (err) {
@@ -65,7 +68,7 @@ const useProfile = () => {
         navigate("/");
       });
     }
-  }, [isLoaded, navigate, setIsLoggedIn, setIsCharId]);
+  }, [isLoaded, navigate, setIsLoggedIn, setIsCharId, setIsCharAuth]);
 
   useEffect(() => {
     getProfile();
@@ -74,9 +77,9 @@ const useProfile = () => {
   return {
     profileData,
     isLoaded,
-    isCharacterCheck,
     setIsLoaded,
-    setIsCharacterCheck,
+    isCharacterState,
+    setIsCharAuth,
   };
 };
 

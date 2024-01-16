@@ -1,35 +1,46 @@
 import { useEffect, useState } from "react";
-import { IProfileData } from "../../hooks/useProfile";
 import fetchUtils from "../../utils/fetchUtils";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { MainCharState } from "../../atoms/MainCharacter";
+import { characterState } from "../../atoms/Login";
+import GetCharacterListView, {
+  IGetCharacterViewProps,
+} from "./getCharacterListView";
 
-interface Iprops extends React.AllHTMLAttributes<HTMLDivElement> {
-  profileData: IProfileData | null;
-}
-
-const GetCharacterList = ({ profileData }: Iprops) => {
+const GetCharacterList = () => {
   const [charList, setCharList] = useState({});
+  const setMainCharState = useSetRecoilState(MainCharState);
+  const isMainChar = useRecoilValue(MainCharState);
+  const isCharacterState = useRecoilValue(characterState);
+  const isLoginState = useRecoilValue(characterState);
+
   useEffect(() => {
     const paramMap = {
-      user_number: profileData?.id.toString(),
+      user_number: isMainChar.user_number?.toString(),
     };
     fetchUtils.post("/user/getAllCharacters", paramMap).then((res) => {
-      setCharList(res.data.characterModel);
+      setCharList(res.data.characterModelList);
     });
-  }, [profileData?.id]);
+  }, [isMainChar.user_number]);
 
-  return (
-    <>
-      <select style={{ height: "40px", borderRadius: "5px" }}>
-        {Object.entries(charList).map(([key, value]: any, i: any) => (
-          <option key={i}>
-            {key}. {"  "}
-            {value.serverName} {value.character_name}
-            Lv.{value.itemMaxLevel} {value.characterClassName}
-          </option>
-        ))}
-      </select>
-    </>
-  );
+  const handleSelect = (e: any) => {
+    setMainCharState((prev) => {
+      return {
+        ...prev,
+        character_name: e,
+      };
+    });
+  };
+
+  const characterListViewProps: IGetCharacterViewProps = {
+    isCharacterState,
+    isLoginState,
+    charList,
+    isMainChar,
+    handleSelect,
+  };
+
+  return <GetCharacterListView {...characterListViewProps} />;
 };
 
 export default GetCharacterList;

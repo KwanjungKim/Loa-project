@@ -1,30 +1,37 @@
-import { IProfileData } from "../../hooks/useProfile";
 import { MediumButton } from "../common/Button";
-import DeleteCharacter from "../kakaoLogin/DeleteCharacter";
-import UpdateChar from "../kakaoLogin/UpdateChar";
-import GetCharacterList from "../kakaoLogin/getCharacterList";
+import { SetterOrUpdater, useRecoilValue } from "recoil";
+import { MainCharState } from "../../atoms/MainCharacter";
+import characterUtils from "../../utils/characterUtils";
+import CharacterDetailData from "../kakaoLogin/CharacterDetailData";
+// import TestAtomData from "../kakaoLogin/characterDataInAtom";
 
-interface Iprops extends React.AllHTMLAttributes<HTMLDivElement> {
-  profileData: IProfileData | null;
-  setIsCharacterCheck: React.Dispatch<React.SetStateAction<boolean>>;
+export interface Iprops extends React.AllHTMLAttributes<HTMLDivElement> {
+  setIsCharAuth: SetterOrUpdater<boolean>;
 }
 
-const MyInfo = ({ profileData, setIsCharacterCheck }: Iprops) => {
+const MyInfo = ({ setIsCharAuth }: Iprops) => {
+  const MainCharacterName = useRecoilValue(MainCharState);
+
   return (
     <>
-      <GetCharacterList profileData={profileData} />
       <MediumButton
         variant="contained"
-        onClick={() => UpdateChar({ profileData })}
+        onClick={() => {
+          characterUtils.update(MainCharacterName);
+        }}
       >
         갱신하기
       </MediumButton>
+
       <MediumButton
         variant="contained"
-        onClick={() => DeleteCharacter({ profileData, setIsCharacterCheck })}
+        onClick={() => characterUtils.delete(MainCharacterName, setIsCharAuth)}
       >
         계정 삭제
       </MediumButton>
+      <div>
+        <CharacterDetailData />
+      </div>
     </>
   );
 };

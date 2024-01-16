@@ -17,6 +17,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 import { SmallButton } from "../../common/Button";
+import GetCharacterList from "../../kakaoLogin/getCharacterList";
 
 export interface IHeaderViewProps
   extends React.AllHTMLAttributes<HTMLDivElement> {
@@ -44,6 +45,7 @@ const HeaderView = ({
       <IconWrapper aria-label="open home page" onClick={handleClickLogo}>
         LOGO
       </IconWrapper>
+      <GetCharacterList />
       <div className={styles.buttons_wrapper}>
         {isLoggedin ? (
           isMobile ? (
