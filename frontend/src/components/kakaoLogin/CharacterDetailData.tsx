@@ -1,5 +1,4 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { ICharData, MainCharData } from "../../atoms/MainCharacterData";
 import { MainCharState } from "../../atoms/MainCharacter";
 import fetchUtils from "../../utils/fetchUtils";
 import { useCallback, useEffect, useState } from "react";
@@ -37,9 +36,8 @@ const emptyState: ICharDetailData = {
   armoryEngraving: { Effects: [] },
 };
 const CharacterDetailData = () => {
-  const MainCharacterData: ICharData = useRecoilValue(MainCharData);
   const isMainChar = useRecoilValue(MainCharState);
-  const setIsMainCharacterDataIn = useSetRecoilState(MainCharData);
+  const setIsMainCharacterDataIn = useSetRecoilState(MainCharState);
   const [isCharacterData, setIsCharacterData] =
     useState<ICharDetailData>(emptyState);
 
@@ -86,27 +84,30 @@ const CharacterDetailData = () => {
       return engravingEffect;
     };
 
-    if (isMainChar.character_name != MainCharacterData.CharacterName) {
+    if (isMainChar.character_name != isMainChar.CharacterName) {
       const paramMap = {
-        character_name: isMainChar.character_name?.toString(),
+        character_name: isMainChar.character_name,
       };
       fetchUtils.post("/user/getCharacter", paramMap).then((res) => {
         setIsCharacterData(res.data.characterModel);
       });
-      setIsMainCharacterDataIn({
-        ServerName: isCharacterData.serverName,
-        CharacterName: isCharacterData.character_name,
-        CharacterClassName: isCharacterData.characterClassName,
-        ItemMaxLevel: isCharacterData.itemMaxLevel,
-        CardEffects: cardMap(),
-        ArmoryGemEffects: gemEffectMap(),
-        ArmoryGems: gemsMap(),
-        ArmoryEngraving: engravingMap(),
+      setIsMainCharacterDataIn((prev) => {
+        return {
+          ...prev,
+          ServerName: isCharacterData.serverName,
+          CharacterName: isCharacterData.character_name,
+          CharacterClassName: isCharacterData.characterClassName,
+          ItemMaxLevel: isCharacterData.itemMaxLevel,
+          CardEffects: cardMap(),
+          ArmoryGemEffects: gemEffectMap(),
+          ArmoryGems: gemsMap(),
+          ArmoryEngraving: engravingMap(),
+        };
       });
     }
   }, [
     isMainChar.character_name,
-    MainCharacterData.CharacterName,
+    isMainChar.CharacterName,
     isCharacterData.serverName,
     isCharacterData.character_name,
     isCharacterData.characterClassName,
@@ -123,7 +124,7 @@ const CharacterDetailData = () => {
   }, [getData]);
 
   const CharDetailDataViewProps: IDetailData = {
-    MainCharacterData,
+    isMainChar,
   };
 
   return <CharacterDetailDataView {...CharDetailDataViewProps} />;

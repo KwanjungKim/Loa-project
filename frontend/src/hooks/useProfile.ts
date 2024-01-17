@@ -57,9 +57,12 @@ const useProfile = () => {
       fetchUtils.post("/user/login", paramMap).then((res) => {
         if (res.data?.userModel.character_name != null) {
           setIsCharAuth(true);
-          setIsCharId({
-            user_number: res.data.userModel.user_number,
-            character_name: res.data.userModel.character_name,
+          setIsCharId((prev) => {
+            return {
+              ...prev,
+              user_number: res.data.userModel.user_number,
+              character_name: res.data.userModel.character_name,
+            };
           });
         }
       });

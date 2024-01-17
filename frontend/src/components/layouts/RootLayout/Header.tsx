@@ -12,12 +12,13 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import paletteModeState, {
   paletteModeActions,
 } from "../../../atoms/paletteMode";
-import { loginState } from "../../../atoms/Login";
+import { characterState, loginState } from "../../../atoms/Login";
 import loginUtils from "../../../utils/loginUtils";
 
 const Header = () => {
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(loginState);
+  const setIsCharacterState = useSetRecoilState(characterState);
   const [paletteMode, setPaletteMode] = useRecoilState(paletteModeState);
 
   const isLoggedin = useRecoilValue(loginState);
@@ -28,6 +29,7 @@ const Header = () => {
     handleClickLogout: () => {
       loginUtils.logoutKakao();
       setIsLoggedIn(false);
+      setIsCharacterState(false);
       navigate("/");
     },
     handleClickLogo: () => navigate("/"),

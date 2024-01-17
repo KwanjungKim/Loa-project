@@ -1,22 +1,22 @@
-import { ICharData } from "../../atoms/MainCharacterData";
+import { ICharProps } from "../../atoms/MainCharacter";
 
 export interface IDetailData extends React.AllHTMLAttributes<HTMLDivElement> {
-  MainCharacterData: ICharData;
+  isMainChar: ICharProps;
 }
 
-const CharDetailDataView = ({ MainCharacterData }: IDetailData) => {
+const CharDetailDataView = ({ isMainChar }: IDetailData) => {
   return (
     <>
       <div>
-        서버 : {MainCharacterData.ServerName} <br />
-        캐릭터명 : {MainCharacterData.CharacterName}
+        서버 : {isMainChar.ServerName} <br />
+        캐릭터명 : {isMainChar.CharacterName}
         <br />
-        클래스 : {MainCharacterData.CharacterClassName}
+        클래스 : {isMainChar.CharacterClassName}
         <br />
-        level : {MainCharacterData.ItemMaxLevel}
+        level : {isMainChar.ItemMaxLevel}
         <br />
         카드 :{" "}
-        {Object.values(MainCharacterData.CardEffects).map((value, i) => (
+        {Object.values(isMainChar.CardEffects).map((value, i) => (
           <>
             <div key={i} style={{ color: "#fbc02d" }}>
               {value.Name}
@@ -25,7 +25,7 @@ const CharDetailDataView = ({ MainCharacterData }: IDetailData) => {
           </>
         ))}
         보석 :
-        {Object.values(MainCharacterData.ArmoryGemEffects).map((value, i) => (
+        {Object.values(isMainChar.ArmoryGemEffects).map((value, i) => (
           <>
             <div key={i} style={{ display: "inline-block", color: "#fbc02d" }}>
               <img
@@ -37,7 +37,7 @@ const CharDetailDataView = ({ MainCharacterData }: IDetailData) => {
             : {value.Description} <br />
           </>
         ))}
-        {Object.values(MainCharacterData.ArmoryGems).map((value, i) => (
+        {Object.values(isMainChar.ArmoryGems).map((value, i) => (
           <>
             <img
               src={value.Icon}
@@ -47,7 +47,7 @@ const CharDetailDataView = ({ MainCharacterData }: IDetailData) => {
           </>
         ))}
         각인 :
-        {Object.values(MainCharacterData.ArmoryEngraving).map((value, i) => (
+        {Object.values(isMainChar.ArmoryEngraving).map((value, i) => (
           <div key={i}>
             <img
               src={value.Icon}
@@ -56,7 +56,7 @@ const CharDetailDataView = ({ MainCharacterData }: IDetailData) => {
             {value.Name} : {value.Description}
           </div>
         ))}
-        <button onClick={() => console.log(MainCharacterData)}>123123</button>
+        <button onClick={() => console.log(isMainChar)}>123123</button>
       </div>
     </>
   );

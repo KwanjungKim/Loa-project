@@ -4,7 +4,11 @@ import fetchUtils from "./fetchUtils";
 
 const characterUtils = {
   update: (data: ICharProps) => {
-    fetchUtils.post("/user/updateCharacters", data).then((res) => {
+    const paramMap = {
+      user_number: data.user_number,
+      character_name: data.character_name,
+    };
+    fetchUtils.post("/user/updateCharacters", paramMap).then((res) => {
       alert(`${res.data.resultModel.message}`);
     });
   },
