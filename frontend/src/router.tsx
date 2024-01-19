@@ -5,6 +5,7 @@ import RootLayout from "./components/layouts/RootLayout";
 
 // routes
 import HomeRoute from "./routes/HomeRoute";
+import RaidRoute from "./routes/RaidRoute";
 import TestRoute from "./routes/Test";
 import ButtonsRoute from "./routes/Test/ButtonsRoute";
 import ModalsRoute from "./routes/Test/ModalsRoute";
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "my-page",
         element: <MyPage />,
+      },
+      {
+        path: "raid",
+        element: <RaidRoute />,
       },
       {
         path: "/test",

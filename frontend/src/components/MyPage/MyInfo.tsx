@@ -2,7 +2,7 @@ import { MediumButton } from "../common/Button";
 import { SetterOrUpdater, useRecoilValue } from "recoil";
 import { MainCharState } from "../../atoms/MainCharacter";
 import characterUtils from "../../utils/characterUtils";
-import TestAtomData from "../kakaoLogin/characterDataInAtom";
+import CharacterDetailData from "../kakaoLogin/CharacterDetailData";
 // import TestAtomData from "../kakaoLogin/characterDataInAtom";
 
 export interface Iprops extends React.AllHTMLAttributes<HTMLDivElement> {
@@ -18,7 +18,6 @@ const MyInfo = ({ setIsCharAuth }: Iprops) => {
         variant="contained"
         onClick={() => {
           characterUtils.update(MainCharacterName);
-          // UpdateChar(MainCharacterName);
         }}
       >
         갱신하기
@@ -26,13 +25,12 @@ const MyInfo = ({ setIsCharAuth }: Iprops) => {
 
       <MediumButton
         variant="contained"
-        // onClick={() => DeleteCharacter({ MainCharacterName, setIsCharAuth })}
         onClick={() => characterUtils.delete(MainCharacterName, setIsCharAuth)}
       >
         계정 삭제
       </MediumButton>
       <div>
-        <TestAtomData />
+        <CharacterDetailData />
       </div>
     </>
   );
