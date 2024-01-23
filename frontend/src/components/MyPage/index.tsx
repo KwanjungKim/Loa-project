@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import useProfile from "../../hooks/useProfile";
 import MyInfo from "./MyInfo";
-import { characterState } from "../../atoms/login";
+import { characterState } from "../../atoms/123";
 import CharacterAuth from "../kakaoLogin/CharacterAuth";
 
 const MyPage = () => {

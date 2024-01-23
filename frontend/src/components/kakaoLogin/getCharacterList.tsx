@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import fetchUtils from "../../utils/fetchUtils";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { mainCharState } from "../../atoms/mainCharacter";
-import { characterState } from "../../atoms/login";
+import { mainCharState } from "../../atoms/1234";
+import { characterState } from "../../atoms/123";
 import GetCharacterListView, {
   IGetCharacterViewProps,
 } from "./getCharacterListView";

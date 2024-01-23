@@ -1,4 +1,4 @@
-import { ICharProps } from "../../atoms/mainCharacter";
+import { ICharProps } from "../../atoms/1234";
 import React from "react";
 
 export interface IGetCharacterViewProps

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IProfileData } from "../../hooks/useProfile";
 import fetchUtils from "../../utils/fetchUtils";
 import { useSetRecoilState } from "recoil";
-import { mainCharState } from "../../atoms/mainCharacter";
+import { mainCharState } from "../../atoms/1234";
 import CharacterAuthView, {
   ICharacterListViewProps,
 } from "./CharacterAuthView";
