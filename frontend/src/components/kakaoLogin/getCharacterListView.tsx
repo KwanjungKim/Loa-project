@@ -1,4 +1,4 @@
-import { ICharProps } from "../../atoms/MainCharacter";
+import { ICharProps } from "../../atoms/mainCharacter";
 import React from "react";
 
 export interface IGetCharacterViewProps
@@ -21,7 +21,7 @@ const GetCharacterListView = ({
     <>
       <select
         onChange={(e) => handleSelect(e.target.value)}
-        value={isMainChar.character_name.toString()}
+        value={isMainChar.character_name}
         style={{
           display: isCharacterState && isLoginState ? "block" : "none",
           height: "35px",
