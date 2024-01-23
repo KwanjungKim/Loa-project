@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import HelpOutlineRounded from "@mui/icons-material/HelpOutlineRounded";
 
-import AuthHelp from "./CharacterAuthHelp";
+import AuthHelp from "./CharacterAuthModal";
 
 const ModalPortal = () => {
   const [isModal, setIsModal] = useState<boolean>(false);

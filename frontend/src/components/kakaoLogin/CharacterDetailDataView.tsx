@@ -1,4 +1,4 @@
-import { ICharProps } from "../../atoms/MainCharacter";
+import { ICharProps } from "../../atoms/mainCharacter";
 
 export interface IDetailData extends React.AllHTMLAttributes<HTMLDivElement> {
   isMainChar: ICharProps;

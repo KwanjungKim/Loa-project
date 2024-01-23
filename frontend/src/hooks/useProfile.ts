@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { loginState, characterState } from "../atoms/Login";
+import { useSetRecoilState } from "recoil";
+import { loginState, characterState } from "../atoms/login";
 import fetchUtils from "../utils/fetchUtils";
-import { MainCharState } from "../atoms/MainCharacter";
+import { mainCharState } from "../atoms/mainCharacter";
 
 export interface IProfileData {
   id: string;
@@ -17,9 +17,8 @@ const useProfile = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(loginState);
-  const setIsCharId = useSetRecoilState(MainCharState);
+  const setIsCharId = useSetRecoilState(mainCharState);
   const setIsCharAuth = useSetRecoilState(characterState);
-  const isCharacterState = useRecoilValue(characterState);
 
   const handleError = (str: string, callback?: () => void) => {
     alert(str);
@@ -81,8 +80,6 @@ const useProfile = () => {
     profileData,
     isLoaded,
     setIsLoaded,
-    isCharacterState,
-    setIsCharAuth,
   };
 };
 
