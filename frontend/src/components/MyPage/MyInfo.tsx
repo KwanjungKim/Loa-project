@@ -1,9 +1,9 @@
 import { MediumButton } from "../common/Button";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { mainCharState } from "../../atoms/mainCharacter";
+import { mainCharState } from "../../atoms/1234";
 import characterUtils from "../../utils/characterUtils";
 import CharacterDetailData from "../kakaoLogin/CharacterDetailData";
-import { characterState } from "../../atoms/login";
+import { characterState } from "../../atoms/123";
 // import TestAtomData from "../kakaoLogin/characterDataInAtom";
 
 const MyInfo = () => {

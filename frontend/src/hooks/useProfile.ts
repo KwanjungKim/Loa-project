@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { loginState, characterState } from "../atoms/login";
+import { loginState, characterState } from "../atoms/123";
 import fetchUtils from "../utils/fetchUtils";
-import { mainCharState } from "../atoms/mainCharacter";
+import { mainCharState } from "../atoms/1234";
 
 export interface IProfileData {
   id: string;

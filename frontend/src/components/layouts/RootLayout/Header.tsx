@@ -12,7 +12,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import paletteModeState, {
   paletteModeActions,
 } from "../../../atoms/paletteMode";
-import { characterState, loginState } from "../../../atoms/login";
+import { characterState, loginState } from "../../../atoms/123";
 import loginUtils from "../../../utils/loginUtils";
 
 const Header = () => {

@@ -1,5 +1,5 @@
 import { SetterOrUpdater } from "recoil";
-import { ICharProps } from "../atoms/MainCharacter";
+import { ICharProps } from "../atoms/1234";
 import fetchUtils from "./fetchUtils";
 
 const characterUtils = {

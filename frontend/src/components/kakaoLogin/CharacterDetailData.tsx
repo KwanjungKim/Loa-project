@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { mainCharState } from "../../atoms/mainCharacter";
+import { mainCharState } from "../../atoms/1234";
 import fetchUtils from "../../utils/fetchUtils";
 import { useCallback, useEffect } from "react";
 import CharacterDetailDataView, {
