@@ -55,7 +55,6 @@ const useProfile = () => {
       };
       if (characterAuthState == false) {
         fetchUtils.post("/user/login", paramMap).then((res) => {
-          console.log("로그인");
           if (res.data?.userModel.character_name != null) {
             setIsCharAuth(true);
             setIsCharId((prev) => {
@@ -73,7 +72,14 @@ const useProfile = () => {
         navigate("/");
       });
     }
-  }, [isLoaded, navigate, setIsLoggedIn, setIsCharId, setIsCharAuth]);
+  }, [
+    isLoaded,
+    navigate,
+    setIsLoggedIn,
+    setIsCharId,
+    setIsCharAuth,
+    characterAuthState,
+  ]);
 
   useEffect(() => {
     getProfile();
