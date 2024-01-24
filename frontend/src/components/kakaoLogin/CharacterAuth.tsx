@@ -23,10 +23,9 @@ const CharacterAuth = ({ profileData, setIsLoaded }: Iprops) => {
     };
 
     fetchUtils.post("/user/join", paramMap).then((res) => {
-      if (res.success == false) {
+      if (!res.success) {
         alert(`${res.message}`); // 인증번호 또는 타임라인주소를 확인하세요 출력
-      }
-      if (res.success == true) {
+      } else {
         alert(`${res.message}`);
         setIsMainCharacter((prev) => {
           return {

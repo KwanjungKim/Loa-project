@@ -17,13 +17,9 @@ const CharacterDetailData = () => {
       };
 
       fetchUtils.post("/user/getCharacter", paramMap).then((res) => {
-        // 실패
         if (!res.success) {
           alert(`${res.message}`); // 오류가 발생했습니다 메시지 출력
-        }
-
-        // 성공
-        if (res.success) {
+        } else {
           // 카드 효과
           const cardMap = () => {
             const CardEffect: any[] = [];
