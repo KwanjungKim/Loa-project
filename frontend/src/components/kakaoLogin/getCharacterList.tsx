@@ -19,7 +19,12 @@ const GetCharacterList = () => {
       user_number: isMainChar.user_number?.toString(),
     };
     fetchUtils.post("/user/getAllCharacters", paramMap).then((res) => {
-      setCharList(res.data.characterModelList);
+      if (!res.success) {
+        alert(`${res.message}`);
+      }
+      if (res.success) {
+        setCharList(res.data.characterModelList);
+      }
     });
   }, [isMainChar.user_number]);
 

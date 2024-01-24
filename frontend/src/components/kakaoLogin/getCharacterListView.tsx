@@ -30,7 +30,7 @@ const GetCharacterListView = ({
         }}
       >
         {Object.values(charList).map((value: any, i: any) => (
-          <option key={i} value={value.character_name}>
+          <option key={i} value={value.character_name || ""}>
             {value.serverName} {value.character_name}
             Lv.{value.itemMaxLevel} {value.characterClassName}
           </option>

@@ -23,16 +23,20 @@ const CharacterAuth = ({ profileData, setIsLoaded }: Iprops) => {
     };
 
     fetchUtils.post("/user/join", paramMap).then((res) => {
-      console.log(res);
-      alert(`${res.data.resultModel.message}`);
-      setIsMainCharacter((prev) => {
-        return {
-          ...prev,
-          user_number: profileData?.id,
-          character_name: res.data.userModel.character_name,
-        };
-      });
-      setIsLoaded(false);
+      if (res.success == false) {
+        alert(`${res.message}`); // 인증번호 또는 타임라인주소를 확인하세요 출력
+      }
+      if (res.success == true) {
+        alert(`${res.message}`);
+        setIsMainCharacter((prev) => {
+          return {
+            ...prev,
+            user_number: profileData?.id,
+            character_name: res.data.userModel.character_name,
+          };
+        });
+        setIsLoaded(false);
+      }
     });
   };
 
