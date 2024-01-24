@@ -18,15 +18,17 @@ const GetCharacterList = () => {
     const paramMap = {
       user_number: isMainChar.user_number?.toString(),
     };
-    fetchUtils.post("/user/getAllCharacters", paramMap).then((res) => {
-      if (!res.success) {
-        alert(`${res.message}`);
-      }
-      if (res.success) {
-        setCharList(res.data.characterModelList);
-      }
-    });
-  }, [isMainChar.user_number]);
+    if (isCharacterState) {
+      fetchUtils.post("/user/getAllCharacters", paramMap).then((res) => {
+        if (!res.success) {
+          alert(`${res.message}`);
+        }
+        if (res.success) {
+          setCharList(res.data.characterModelList);
+        }
+      });
+    }
+  }, [isMainChar.user_number, isCharacterState]);
 
   const handleSelect = (e: any) => {
     setMainCharState((prev) => {
