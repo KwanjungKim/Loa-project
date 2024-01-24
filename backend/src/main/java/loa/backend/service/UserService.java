@@ -213,6 +213,7 @@ public class UserService {
 			result.setMessage("일치하는 캐릭터가 없습니다.");
 	   	 	res.setResultModel(result);
 	   	 	res.setUserModel(user);
+	   	 	return res;
 		}
 		result.setStatus("success");
    	 	res.setCharacterModelList(mapper.getCharacterName(model));
