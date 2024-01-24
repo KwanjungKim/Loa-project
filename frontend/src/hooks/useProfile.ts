@@ -38,6 +38,7 @@ const useProfile = () => {
       return;
     }
     try {
+      console.log("이게 이게 이게 이게");
       // Kakao SDK API를 이용해 사용자 정보 획득
       const data = await window.Kakao.API.request({
         url: "/v2/user/me",
