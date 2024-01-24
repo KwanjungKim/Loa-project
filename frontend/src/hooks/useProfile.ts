@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { loginState, characterState } from "../atoms/login";
 import fetchUtils from "../utils/fetchUtils";
 import { mainCharState } from "../atoms/mainCharacter";
@@ -19,6 +19,7 @@ const useProfile = () => {
   const setIsLoggedIn = useSetRecoilState(loginState);
   const setIsCharId = useSetRecoilState(mainCharState);
   const setIsCharAuth = useSetRecoilState(characterState);
+  const characterAuthState = useRecoilValue(characterState);
 
   const handleError = (str: string, callback?: () => void) => {
     alert(str);
@@ -36,7 +37,6 @@ const useProfile = () => {
       });
       return;
     }
-
     try {
       // Kakao SDK API를 이용해 사용자 정보 획득
       const data = await window.Kakao.API.request({
@@ -53,18 +53,21 @@ const useProfile = () => {
       const paramMap = {
         user_number: data?.id.toString(),
       };
-      fetchUtils.post("/user/login", paramMap).then((res) => {
-        if (res.data?.userModel.character_name != null) {
-          setIsCharAuth(true);
-          setIsCharId((prev) => {
-            return {
-              ...prev,
-              user_number: res.data.userModel.user_number,
-              character_name: res.data.userModel.character_name,
-            };
-          });
-        }
-      });
+      if (characterAuthState == false) {
+        fetchUtils.post("/user/login", paramMap).then((res) => {
+          console.log("로그인");
+          if (res.data?.userModel.character_name != null) {
+            setIsCharAuth(true);
+            setIsCharId((prev) => {
+              return {
+                ...prev,
+                user_number: res.data.userModel.user_number,
+                character_name: res.data.userModel.character_name,
+              };
+            });
+          }
+        });
+      }
     } catch (err) {
       handleError("프로필 정보를 불러오는데 실패했습니다.", () => {
         navigate("/");
