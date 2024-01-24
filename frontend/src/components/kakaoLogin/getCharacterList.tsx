@@ -20,11 +20,10 @@ const GetCharacterList = () => {
     };
     if (isCharacterState) {
       fetchUtils.post("/user/getAllCharacters", paramMap).then((res) => {
-        if (!res.success) {
-          alert(`${res.message}`);
-        }
         if (res.success) {
           setCharList(res.data.characterModelList);
+        } else {
+          alert(`${res.message}`);
         }
       });
     }
