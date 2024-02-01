@@ -1,7 +1,27 @@
-import { RaidList, phase2, phase3, phase4 } from "./ListData";
 import { useState } from "react";
+import raidList from "../kakaoLogin/saraminData.json";
+import { useRecoilValue } from "recoil";
+import { mainCharState } from "../../atoms/mainCharacter";
 
 const TestSaramIn = () => {
+  const mainCharacter = useRecoilValue(mainCharState);
+
+  const paramMap = {
+    user_number: mainCharacter.user_number,
+    character_name: mainCharacter.character_name,
+    leader: mainCharacter.character_name,
+    title: "",
+    difficulty: "노말",
+    content: "발탄",
+    minGate: "1관문",
+    maxGate: "1관문",
+    card: "세구빛 18이상",
+    proficiency: "트라이",
+    detail: "",
+  };
+  const [isParamMap, setIsParamMap] = useState(paramMap);
+
+  // 체크 박스 단일 선택
   const checkOnlyOne = (checkThis: any) => {
     const checkboxes: any = document.getElementsByName("RaidDiff");
     for (let i = 0; i < checkboxes.length; i++) {
@@ -9,32 +29,30 @@ const TestSaramIn = () => {
         checkboxes[i].checked = false;
       }
     }
-    setIsCheckBox(checkThis.value);
+    setIsParamMap((prev) => ({
+      ...prev,
+      difficulty: `${checkThis.value}`,
+    }));
   };
-  const [isTest, setIsTest] = useState<string>("발탄");
-  const [isTest2, setIsTest2] = useState<string[]>(phase2);
-  const [isTest3, setIsTest3] = useState<string>("1관문");
-  const [isCheckBox, setIsCheckBox] = useState<boolean>();
-  // 1 :
-  const handleTest = (e: any) => {
-    setIsTest(e.target.value);
-    console.log("1", e.target.value);
-    if (e.target.value === "발탄" || e.target.value === "카양겔") {
-      setIsTest2(phase2);
-    }
-    if (e.target.value === "비아키스" || e.target.value === "쿠크세이튼") {
-      setIsTest2(phase3);
-    }
-    if (e.target.value === "아브렐슈드") {
-      setIsTest2(phase4);
-    }
-  };
-  const handleTest2 = (e: any) => {
-    setIsTest3(e.target.value);
+
+  const handleData = (data: string, e: any) => {
+    setIsParamMap((prev) => {
+      return {
+        ...prev,
+        [data]: e,
+      };
+    });
   };
 
   return (
     <div>
+      <button onClick={() => console.log(isParamMap)}>123</button>글 제목{" "}
+      <input
+        type="text"
+        maxLength={50}
+        onChange={(e) => handleData("title", e.target.value)}
+      />{" "}
+      <br />
       <input
         type="checkbox"
         name="RaidDiff"
@@ -56,23 +74,72 @@ const TestSaramIn = () => {
         onChange={(e) => checkOnlyOne(e.target)}
       />{" "}
       extream <br />
-      <select onChange={(e) => handleTest(e)}>
-        {Object.values(RaidList).map((i) => (
-          <option value={i.value}>{i.value} </option>
+      레이드 종류
+      <select onChange={(e) => handleData("content", e.target.value)}>
+        {raidList.raidName.map((raidName: { id: number; name: string }) => (
+          <option key={raidName.id} value={raidName.name}>
+            {" "}
+            {raidName.name}
+          </option>
+        ))}
+      </select>{" "}
+      <br />
+      최소 관문
+      <select onChange={(e) => handleData("minGate", e.target.value)}>
+        {raidList.MinRaidGate.map((MinRaidGate) => (
+          <option key={MinRaidGate.id} value={MinRaidGate.gate}>
+            {" "}
+            {MinRaidGate.gate}
+          </option>
+        ))}
+      </select>{" "}
+      ~ 최대 관문
+      <select onChange={(e) => handleData("maxGate", e.target.value)}>
+        {raidList.MaxRaidGate.map((MaxRaidGate) => (
+          <option key={MaxRaidGate.id} value={MaxRaidGate.gate}>
+            {" "}
+            {MaxRaidGate.gate}
+          </option>
+        ))}
+      </select>{" "}
+      <br />
+      숙련도
+      <select onChange={(e) => handleData("proficiency", e.target.value)}>
+        {raidList.proficiencyLevel.map((proficiency) => (
+          <option key={proficiency.id} value={proficiency.proficiency}>
+            {" "}
+            {proficiency.proficiency}
+          </option>
         ))}
       </select>
-      <select onChange={(e) => handleTest2(e)}>
-        {isTest2.map((it) => (
-          <option>{it}</option>
+      카드
+      <select onChange={(e) => handleData("card", e.target.value)}>
+        {raidList.cardLevel.map((card) => (
+          <option key={card.id} value={card.card}>
+            {" "}
+            {card.card}
+          </option>
         ))}
       </select>
-      <button
-        onClick={() =>
-          console.log("난이도", isCheckBox, "레이드", isTest, "관문", isTest3)
-        }
-      >
-        123
-      </button>
+      <br />
+      세부사항 <br />
+      <textarea
+        onChange={(e) => handleData("detail", e.target.value)}
+        placeholder="세부사항을 적어주세요."
+        style={{ width: "400px", height: "300px", resize: "none" }}
+      />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 };
