@@ -1,0 +1,36 @@
+{
+  "raidName": [
+    { "id": 1, "name": "발탄" },
+    { "id": 2, "name": "비아키스" },
+    { "id": 3, "name": "쿠크세이튼" },
+    { "id": 4, "name": "아브렐슈드" },
+    { "id": 5, "name": "일리아칸" },
+    { "id": 6, "name": "카멘" },
+    { "id": 7, "name": "카양겔" },
+    { "id": 8, "name": "상아탑" }
+  ],
+  "MinRaidGate": [
+    { "id": 1, "gate": "1관문" },
+    { "id": 2, "gate": "2관문" },
+    { "id": 3, "gate": "3관문" },
+    { "id": 4, "gate": "4관문" }
+  ],
+  "MaxRaidGate": [
+    { "id": 1, "gate": "1관문" },
+    { "id": 2, "gate": "2관문" },
+    { "id": 3, "gate": "3관문" },
+    { "id": 4, "gate": "4관문" }
+  ],
+  "proficiencyLevel": [
+    { "id": 1, "proficiency": "트라이" },
+    { "id": 2, "proficiency": "클경" },
+    { "id": 3, "proficiency": "반숙" },
+    { "id": 4, "proficiency": "숙련" }
+  ],
+  "cardLevel": [
+    { "id": 1, "card": "세구빛18" },
+    { "id": 2, "card": "세구빛30" },
+    { "id": 3, "card": "암구빛18" },
+    { "id": 4, "card": "암구빛30" }
+  ]
+}
