@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import loa.backend.model.BoardModel;
-import loa.backend.model.ResultModel;
+import loa.backend.model.ResponseModel;
 import loa.backend.service.BoardService;
 
 @RestController
@@ -17,10 +17,10 @@ public class BoardController {
 	@Autowired
 	private BoardService sv;
 	
-	@RequestMapping("/board/create")
-	public ResultModel createArticle(@RequestBody BoardModel model) {
-		ResultModel result = sv.createArticle(model);
-		return result;
+	@RequestMapping("/board/addArticle")
+	public ResponseModel addArticle(@RequestBody BoardModel model) {
+		System.out.println(model.getCharacter_name());
+		ResponseModel res = sv.addArticle(model);
+		return res;
 	}
-	
 }

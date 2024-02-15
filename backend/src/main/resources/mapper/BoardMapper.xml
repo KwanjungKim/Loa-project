@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 		"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="loa.backend.mapper.UserMapper">
+<mapper namespace="loa.backend.mapper.BoardMapper">
 
 	<select id="getAllArticle" resultType="BoardModel">
 		select * 
@@ -10,4 +10,23 @@
 		where status = '모집중'
 	</select>
 
+	<insert id="addArticle1" parameterType="BoardModel">
+    	insert into loain.board_info (title, content, user_number, view_cnt, raid_leader, status) value (#{title},#{content},#{user_number},"0",#{raid_leader},"모집중");
+    </insert>
+    
+    <insert id="addArticle2" parameterType="BoardModel">
+    	insert into loain.board_party_filter (board_number, proficiency, card_level, minLevel) value (#{board_number},#{proficiency},#{card_level},"0");
+    </insert>
+    
+    <insert id="addArticle3" parameterType="BoardModel">
+    	insert into loain.board_party_info (board_number, raid_member) value (#{board_number},#{party_member});
+    </insert>
+    
+    <insert id="addArticle4" parameterType="BoardModel">
+    	insert into loain.board_raid_info (board_number, raid_type, raid_difficulty, minGate, maxGate, startDate) value (#{board_number},#{raid_type},#{raid_difficulty},#{minGate},#{maxGate},#{startDate});
+    </insert>
+    
+    <select id="checkBoardNum" resultType="BoardModel">
+    	select board_number from loain.board_info order by board_number desc limit 1
+    </select>
 </mapper>
