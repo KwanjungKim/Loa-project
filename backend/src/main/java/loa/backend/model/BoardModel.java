@@ -16,8 +16,8 @@ public class BoardModel {
 	private String raid_type;
 	private String raid_difficulty;
 	private String startDate;
-	private int minGate;
-	private int maxGate;
+	private String minGate;
+	private String maxGate;
 	private String[] member;
 	private String party_member;
 	
@@ -87,16 +87,16 @@ public class BoardModel {
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-	public int getMinGate() {
+	public String getMinGate() {
 		return minGate;
 	}
-	public void setMinGate(int minGate) {
+	public void setMinGate(String minGate) {
 		this.minGate = minGate;
 	}
-	public int getMaxGate() {
+	public String getMaxGate() {
 		return maxGate;
 	}
-	public void setMaxGate(int maxGate) {
+	public void setMaxGate(String maxGate) {
 		this.maxGate = maxGate;
 	}
 	public String[] getMember() {
