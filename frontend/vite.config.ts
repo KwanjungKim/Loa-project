@@ -23,6 +23,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      "/board": {
+        target: apiUrl,
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
   test: {

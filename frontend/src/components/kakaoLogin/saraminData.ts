@@ -1,21 +1,21 @@
 export type IPropsSelect = {
-  [proficiencyLevel: string]: {
+  [proficiency: string]: {
     id: number;
     name: string;
   }[];
 
-  cardLevel: { id: number; name: string }[];
+  card_Level: { id: number; name: string }[];
 };
 
 export type IPropsSelectList = {
-  content: {
+  raidtype: {
     id: number;
     name: string;
     maxGate: number[];
   }[];
 };
-export const selectRaidList: IPropsSelectList = {
-  content: [
+export const selectRaidType: IPropsSelectList = {
+  raidtype: [
     { id: 1, name: "발탄", maxGate: [2, 2, 3] },
     { id: 2, name: "비아키스", maxGate: [3, 3, 3] },
     { id: 3, name: "쿠크세이튼", maxGate: [3, 3, 3] },
@@ -29,13 +29,13 @@ export const selectRaidList: IPropsSelectList = {
 };
 
 export const selectList: IPropsSelect = {
-  proficiencyLevel: [
+  proficiency: [
     { id: 1, name: "트라이" },
     { id: 2, name: "클경" },
     { id: 3, name: "반숙" },
     { id: 4, name: "숙련" },
   ],
-  cardLevel: [
+  card_Level: [
     { id: 1, name: "조건 없음" },
     { id: 2, name: "세구빛18" },
     { id: 3, name: "세구빛30" },
