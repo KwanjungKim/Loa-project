@@ -19,7 +19,7 @@ public class BoardController {
 	
 	@RequestMapping("/board/addArticle")
 	public ResponseModel addArticle(@RequestBody BoardModel model) {
-		System.out.println(model.getCharacter_name());
+		System.out.println("테스트용  "+model.getStartDate());
 		ResponseModel res = sv.addArticle(model);
 		return res;
 	}
