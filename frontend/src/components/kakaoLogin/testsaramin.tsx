@@ -41,12 +41,13 @@ const TestSaramIn = () => {
     proficiency: "트라이",
     minGate: "1관문",
     maxGate: "1관문",
-    card_level: "세구빛 18이상",
+    card_level: "조건 없음",
     startDate: "",
     member: [mainCharacter.character_name],
   };
   const [isParamMap, setIsParamMap] = useState<IparamMap>(paramMap);
 
+  // title, diff, raid type, gate, content
   // input data => isparamMap
   const handleData = (data: string, e: any) => {
     setIsParamMap((prev) => {
@@ -57,19 +58,12 @@ const TestSaramIn = () => {
     });
   };
 
-  // select data => isparamMap
+  //  proficiency, card
+  //  select data => isparamMap
   const handleSelect = (
     str: string,
-    setIsParamMap: React.Dispatch<React.SetStateAction<IparamMap>>,
+    handleData: (str: string, e: any) => void,
   ) => {
-    const handleData = (str: string, e: any) => {
-      setIsParamMap((prev: any) => {
-        return {
-          ...prev,
-          [str]: e,
-        };
-      });
-    };
     return (
       <>
         <select onChange={(e) => handleData(str, e.target.value)}>
@@ -84,6 +78,7 @@ const TestSaramIn = () => {
     );
   };
 
+  // startDate
   // date data => isparamMap
   const handleDateChange = (str: string, date: dayjs.Dayjs | null) => {
     const formattedDate = dayjs(date).format(datePickerFormat);
@@ -117,6 +112,8 @@ const TestSaramIn = () => {
 
     return arr;
   };
+
+  // add member
   const getCharacter = () => {
     const paramMap = {
       character_name: isCharacter,
@@ -125,7 +122,7 @@ const TestSaramIn = () => {
       if (isParamMap.member.length < 8) {
         fetchUtils.post("/user/getCharacter", paramMap).then((res) => {
           if (!res.success) {
-            alert(`${res.message}`); // 오류가 발생했습니다 메시지 출력
+            alert(`${res.message}`);
           } else {
             setIsParamMap((prev) => {
               return {
@@ -147,6 +144,7 @@ const TestSaramIn = () => {
     }
   };
 
+  // isParamMap => server
   const addArticle = () => {
     fetchUtils.post("/board/addArticle", isParamMap).then((res) => {
       if (!res.success) {
@@ -160,12 +158,6 @@ const TestSaramIn = () => {
   return (
     <div>
       <button onClick={() => console.log(isParamMap)}>123</button>
-      <button
-        onClick={() => console.log(selectRaidType.raidtype[isGate].maxGate[1])}
-      >
-        maxgate
-      </button>
-      <button onClick={() => console.log(isGate)}>gateFilter</button> <br />
       <input
         placeholder="제목을 입력해주세요."
         type="text"
@@ -214,7 +206,8 @@ const TestSaramIn = () => {
         onChange={(e) => handleData("raid_difficulty", e.target.value)}
       />{" "}
       Extream
-      <br /> 레이드 종류
+      <br />
+      레이드 종류
       <select
         onChange={(e) => {
           handleData("raid_type", e.target.value);
@@ -244,9 +237,9 @@ const TestSaramIn = () => {
       </select>
       <br />
       숙련도
-      {handleSelect("proficiency", setIsParamMap)}
+      {handleSelect("proficiency", handleData)}
       카드
-      {handleSelect("card_Level", setIsParamMap)}
+      {handleSelect("card_level", handleData)}
       <br />
       세부사항 <br />
       <textarea
@@ -267,26 +260,8 @@ const TestSaramIn = () => {
       {isParamMap.member[7]} {"  "} <br />
       <input onChange={(e) => setIsCharacter(e.target.value)} />
       <button onClick={() => getCharacter()}>getCharacter</button>
+      <br />
       <button onClick={() => addArticle()}>글 작성</button>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </div>
   );
 };

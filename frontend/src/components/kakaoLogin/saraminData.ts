@@ -4,7 +4,7 @@ export type IPropsSelect = {
     name: string;
   }[];
 
-  card_Level: { id: number; name: string }[];
+  card_level: { id: number; name: string }[];
 };
 
 export type IPropsSelectList = {
@@ -35,7 +35,7 @@ export const selectList: IPropsSelect = {
     { id: 3, name: "반숙" },
     { id: 4, name: "숙련" },
   ],
-  card_Level: [
+  card_level: [
     { id: 1, name: "조건 없음" },
     { id: 2, name: "세구빛18" },
     { id: 3, name: "세구빛30" },
