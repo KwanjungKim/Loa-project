@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { useRecoilValue } from "recoil";
 import { mainCharState } from "../../atoms/mainCharacter";
@@ -24,33 +24,64 @@ type IparamMap = {
   startDate: string; // 출발 시간
   member: string[];
 };
+
+interface ISelectProps {
+  str: string;
+  setParamMap: React.Dispatch<React.SetStateAction<IparamMap>>;
+}
+
+//  proficiency, card
+//  select data => paramMap
+const HandleSelect = ({ str, setParamMap }: ISelectProps) => {
+  const handleData = (str: string, e: string) => {
+    setParamMap((prev: any) => {
+      return {
+        ...prev,
+        [str]: e,
+      };
+    });
+  };
+  return (
+    <>
+      <select onChange={(e) => handleData(str, e.target.value)}>
+        {selectList[str].map((value) => (
+          <option key={value.id} value={value.name}>
+            {" "}
+            {value.name}
+          </option>
+        ))}
+      </select>
+    </>
+  );
+};
+
 const TestSaramIn = () => {
   const mainCharacter = useRecoilValue(mainCharState);
   const datePickerFormat = "YYYY-MM-DD HH:mm";
-  const [isCharacter, setIsCharacter] = useState<string>("");
-  const [isGate, setIsGate] = useState<number>(0);
+  const [characterName, setCharacterName] = useState<string>("");
+  const [Gate, setGate] = useState<number>(0);
 
-  const paramMap: IparamMap = {
+  const defaultParamMap: IparamMap = {
     title: "",
     content: "",
     user_number: mainCharacter.user_number,
     character_name: mainCharacter.character_name,
     raid_leader: mainCharacter.character_name,
-    raid_difficulty: "normal",
-    raid_type: "발탄",
-    proficiency: "트라이",
-    minGate: "1관문",
-    maxGate: "1관문",
+    raid_difficulty: "",
+    raid_type: "",
+    proficiency: "",
+    minGate: "",
+    maxGate: "",
     card_level: "조건 없음",
     startDate: "",
     member: [mainCharacter.character_name],
   };
-  const [isParamMap, setIsParamMap] = useState<IparamMap>(paramMap);
+  const [paramMap, setParamMap] = useState<IparamMap>(defaultParamMap);
 
   // title, diff, raid type, gate, content
-  // input data => isparamMap
-  const handleData = (data: string, e: any) => {
-    setIsParamMap((prev) => {
+  // input data => paramMap
+  const handleData = (data: string, e: string) => {
+    setParamMap((prev) => {
       return {
         ...prev,
         [data]: e,
@@ -58,31 +89,11 @@ const TestSaramIn = () => {
     });
   };
 
-  //  proficiency, card
-  //  select data => isparamMap
-  const handleSelect = (
-    str: string,
-    handleData: (str: string, e: any) => void,
-  ) => {
-    return (
-      <>
-        <select onChange={(e) => handleData(str, e.target.value)}>
-          {selectList[str].map((value: { id: number; name: string }) => (
-            <option key={value.id} value={value.name}>
-              {" "}
-              {value.name}
-            </option>
-          ))}
-        </select>
-      </>
-    );
-  };
-
   // startDate
-  // date data => isparamMap
+  // date data => paramMap
   const handleDateChange = (str: string, date: dayjs.Dayjs | null) => {
     const formattedDate = dayjs(date).format(datePickerFormat);
-    setIsParamMap((prev) => {
+    setParamMap((prev) => {
       return {
         ...prev,
         [str]: formattedDate,
@@ -90,21 +101,18 @@ const TestSaramIn = () => {
     });
   };
 
-  const difficultyFilter = () => {
-    if (isParamMap.raid_difficulty === "normal") {
-      return 0;
-    } else if (isParamMap.raid_difficulty === "hard") {
-      return 1;
-    } else {
-      return 2;
-    }
-  };
+  const difficultyFilter =
+    paramMap.raid_difficulty === "normal"
+      ? 0
+      : paramMap.raid_difficulty === "hard"
+      ? 1
+      : 2;
 
   const gateFilter = () => {
     const arr: number[] = [];
     for (
       let i: number = 0;
-      i < selectRaidType.raidtype[isGate].maxGate[difficultyFilter()];
+      i < selectRaidType.raidtype[Gate].maxGate[difficultyFilter];
       i++
     ) {
       arr.push(i + 1);
@@ -115,16 +123,16 @@ const TestSaramIn = () => {
 
   // add member
   const getCharacter = () => {
-    const paramMap = {
-      character_name: isCharacter,
+    const params = {
+      character_name: characterName,
     };
-    if (!isParamMap.member.includes(isCharacter)) {
-      if (isParamMap.member.length < 8) {
-        fetchUtils.post("/user/getCharacter", paramMap).then((res) => {
+    if (!paramMap.member.includes(characterName)) {
+      if (paramMap.member.length < 8) {
+        fetchUtils.post("/user/getCharacter", params).then((res) => {
           if (!res.success) {
             alert(`${res.message}`);
           } else {
-            setIsParamMap((prev) => {
+            setParamMap((prev) => {
               return {
                 ...prev,
                 member: [
@@ -146,7 +154,7 @@ const TestSaramIn = () => {
 
   // isParamMap => server
   const addArticle = () => {
-    fetchUtils.post("/board/addArticle", isParamMap).then((res) => {
+    fetchUtils.post("/board/addArticle", paramMap).then((res) => {
       if (!res.success) {
         alert(res.message);
       } else {
@@ -157,7 +165,7 @@ const TestSaramIn = () => {
 
   return (
     <div>
-      <button onClick={() => console.log(isParamMap)}>123</button>
+      <button onClick={() => console.log(paramMap)}>123</button>
       <input
         placeholder="제목을 입력해주세요."
         type="text"
@@ -211,16 +219,14 @@ const TestSaramIn = () => {
       <select
         onChange={(e) => {
           handleData("raid_type", e.target.value);
-          setIsGate(e.target.selectedIndex);
+          setGate(e.target.selectedIndex);
         }}
       >
-        {selectRaidType.raidtype.map(
-          (value: { id: number; name: string; maxGate: number[] }) => (
-            <>
-              <option key={value.id}>{value.name}</option>
-            </>
-          ),
-        )}
+        {selectRaidType.raidtype.map((value) => (
+          <>
+            <option key={value.id}>{value.name}</option>
+          </>
+        ))}
       </select>{" "}
       <br />
       최소
@@ -237,9 +243,9 @@ const TestSaramIn = () => {
       </select>
       <br />
       숙련도
-      {handleSelect("proficiency", handleData)}
+      <HandleSelect str={"proficiency"} setParamMap={setParamMap} />
       카드
-      {handleSelect("card_level", handleData)}
+      <HandleSelect str={"card_level"} setParamMap={setParamMap} />
       <br />
       세부사항 <br />
       <textarea
@@ -249,16 +255,16 @@ const TestSaramIn = () => {
         style={{ width: "400px", height: "300px", resize: "none" }}
       />
       <br />
-      {isParamMap.member[0]} {"  "}
-      {isParamMap.member[1]} {"  "}
-      {isParamMap.member[2]} {"  "}
-      {isParamMap.member[3]} {"  "}
+      {paramMap.member[0]} {"  "}
+      {paramMap.member[1]} {"  "}
+      {paramMap.member[2]} {"  "}
+      {paramMap.member[3]} {"  "}
       <br />
-      {isParamMap.member[4]} {"  "}
-      {isParamMap.member[5]} {"  "}
-      {isParamMap.member[6]} {"  "}
-      {isParamMap.member[7]} {"  "} <br />
-      <input onChange={(e) => setIsCharacter(e.target.value)} />
+      {paramMap.member[4]} {"  "}
+      {paramMap.member[5]} {"  "}
+      {paramMap.member[6]} {"  "}
+      {paramMap.member[7]} {"  "} <br />
+      <input onChange={(e) => setCharacterName(e.target.value)} />
       <button onClick={() => getCharacter()}>getCharacter</button>
       <br />
       <button onClick={() => addArticle()}>글 작성</button>
