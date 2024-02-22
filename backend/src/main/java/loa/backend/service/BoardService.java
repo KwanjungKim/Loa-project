@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import loa.backend.mapper.BoardMapper;
 import loa.backend.model.BoardModel;
-import loa.backend.model.ResultModel;
+import loa.backend.model.ResponseModel;
 
 @Service
 public class BoardService {
@@ -17,10 +17,16 @@ public class BoardService {
 		this.mapper = mapper;
 	}
 	
-	public ResultModel createArticle(BoardModel model) {
-		ResultModel result = new ResultModel();
-		
-		
-		return result;
+	public ResponseModel addArticle(BoardModel model) {
+		ResponseModel res = new ResponseModel();
+		model.setBoard_number(mapper.checkBoardNum().getBoard_number()+1);
+		mapper.addArticle1(model);
+		mapper.addArticle2(model);
+		for(int i=0; i < model.getMember().length; i++ ) {
+			model.setParty_member(model.getMember()[i]);
+			mapper.addArticle3(model);
+		}
+		mapper.addArticle4(model);
+		return res;
 	}
 }

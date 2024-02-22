@@ -16,7 +16,7 @@ export type ICharProps = {
   ArmoryEngraving: object;
 };
 
-export const MainCharState = atom<ICharProps>({
+export const mainCharState = atom<ICharProps>({
   key: "MainCharacterState",
   default: {
     user_number: "",

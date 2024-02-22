@@ -1,26 +1,23 @@
+import { useRecoilValue } from "recoil";
 import useProfile from "../../hooks/useProfile";
-import CharacterInput from "../kakaoLogin/CharacterInput";
 import MyInfo from "./MyInfo";
+import { characterState } from "../../atoms/login";
+import CharacterAuth from "../kakaoLogin/CharacterAuth";
 
 const MyPage = () => {
-  const {
-    profileData,
-    isLoaded,
-    setIsLoaded,
-    isCharacterState,
-    setIsCharAuth,
-  } = useProfile();
+  const isCharacterState = useRecoilValue(characterState);
+  const { profileData, isLoaded, setIsLoaded } = useProfile();
 
   return (
     <>
       {isLoaded ? (
         isCharacterState ? (
           <>
-            <MyInfo setIsCharAuth={setIsCharAuth} />
+            <MyInfo />
           </>
         ) : (
           <div>
-            <CharacterInput
+            <CharacterAuth
               profileData={profileData}
               setIsLoaded={setIsLoaded}
             />

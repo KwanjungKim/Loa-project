@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import fetchUtils from "../../utils/fetchUtils";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { MainCharState } from "../../atoms/MainCharacter";
-import { characterState } from "../../atoms/Login";
+import { mainCharState } from "../../atoms/mainCharacter";
+import { characterState } from "../../atoms/login";
 import GetCharacterListView, {
   IGetCharacterViewProps,
 } from "./getCharacterListView";
 
 const GetCharacterList = () => {
   const [charList, setCharList] = useState({});
-  const setMainCharState = useSetRecoilState(MainCharState);
-  const isMainChar = useRecoilValue(MainCharState);
+  const setMainCharState = useSetRecoilState(mainCharState);
+  const isMainChar = useRecoilValue(mainCharState);
   const isCharacterState = useRecoilValue(characterState);
   const isLoginState = useRecoilValue(characterState);
 
@@ -18,10 +18,16 @@ const GetCharacterList = () => {
     const paramMap = {
       user_number: isMainChar.user_number?.toString(),
     };
-    fetchUtils.post("/user/getAllCharacters", paramMap).then((res) => {
-      setCharList(res.data.characterModelList);
-    });
-  }, [isMainChar.user_number]);
+    if (isCharacterState) {
+      fetchUtils.post("/user/getAllCharacters", paramMap).then((res) => {
+        if (res.success) {
+          setCharList(res.data.characterModelList);
+        } else {
+          alert(`${res.message}`);
+        }
+      });
+    }
+  }, [isMainChar.user_number, isCharacterState]);
 
   const handleSelect = (e: any) => {
     setMainCharState((prev) => {

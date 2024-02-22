@@ -1,23 +1,23 @@
 import { MediumButton } from "../common/Button";
-import { SetterOrUpdater, useRecoilValue } from "recoil";
-import { MainCharState } from "../../atoms/MainCharacter";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { mainCharState } from "../../atoms/mainCharacter";
 import characterUtils from "../../utils/characterUtils";
 import CharacterDetailData from "../kakaoLogin/CharacterDetailData";
+import { characterState } from "../../atoms/login";
+import TestSaramIn from "../kakaoLogin/testsaramin";
 // import TestAtomData from "../kakaoLogin/characterDataInAtom";
 
-export interface Iprops extends React.AllHTMLAttributes<HTMLDivElement> {
-  setIsCharAuth: SetterOrUpdater<boolean>;
-}
-
-const MyInfo = ({ setIsCharAuth }: Iprops) => {
-  const MainCharacterName = useRecoilValue(MainCharState);
+const MyInfo = () => {
+  const mainCharacterName = useRecoilValue(mainCharState);
+  const setIsCharAuth = useSetRecoilState(characterState);
 
   return (
     <>
+      <TestSaramIn />
       <MediumButton
         variant="contained"
         onClick={() => {
-          characterUtils.update(MainCharacterName);
+          characterUtils.update(mainCharacterName);
         }}
       >
         갱신하기
@@ -25,7 +25,7 @@ const MyInfo = ({ setIsCharAuth }: Iprops) => {
 
       <MediumButton
         variant="contained"
-        onClick={() => characterUtils.delete(MainCharacterName, setIsCharAuth)}
+        onClick={() => characterUtils.delete(mainCharacterName, setIsCharAuth)}
       >
         계정 삭제
       </MediumButton>

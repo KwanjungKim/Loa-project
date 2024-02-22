@@ -91,7 +91,7 @@ public class UserService {
         		e.printStackTrace();
         	}
     		result.setStatus("fail");
-        	result.setMessage("서버오류입니다.");
+        	result.setMessage("타임라인 페이지를 찾을 수 없습니다. 타임라인 주소를 다시 확인해주세요.");
         	res.setResultModel(result);
         	return res;
     	}
@@ -210,8 +210,10 @@ public class UserService {
 		if(user == null) {
 			user = new UserModel();
 			result.setStatus("fail");
+			result.setMessage("일치하는 캐릭터가 없습니다.");
 	   	 	res.setResultModel(result);
 	   	 	res.setUserModel(user);
+	   	 	return res;
 		}
 		result.setStatus("success");
    	 	res.setCharacterModelList(mapper.getCharacterName(model));
@@ -264,7 +266,7 @@ public class UserService {
 		CharacterModel character = new CharacterModel();
 		ResultModel result = new ResultModel();
 		result.setStatus("fail");
-		result.setMessage("존재하지 않는 유저입니다.");
+		result.setMessage("일치하는 캐릭터가 없습니다.");
 		
 		String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwODk0MDEifQ.JqWNtjriyi1wXQrT32-byWWLg_-11Ou3kilsa4b4zwBjY6QkBxIdpTK_SQgJyN77OxqHJpJR0r1SeUc3Evj675X8I5ub5qYooOJe8SNw1xxp9BKYDi6lQ-gPz1ofK3POA0PfFkn08_263PoVNcu5NTnTq7v9EQa5n0HXonuxdGhJi_qmAM90QkcrdcR5_OLgqpaXdpC3AK7TqyrQHGVKkA46LGojM7ANjDa2aJtTw6a5bN3YKBnjtXFw8ewDWyXBaYu4uyhCsseeMxatA4J2y_82MDEy-9bDRtW0c9gTCAblfSnYxHlo6xu8OfvBGtHov_JO3C3CISF-D6A6BbfpWw";
 		String user = URLEncoder.encode(model.getCharacter_name(), "UTF-8");
