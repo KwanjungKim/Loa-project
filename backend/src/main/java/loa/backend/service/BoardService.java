@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import loa.backend.mapper.BoardMapper;
 import loa.backend.model.BoardModel;
 import loa.backend.model.ResponseModel;
+import loa.backend.model.ResultModel;
 
 @Service
 public class BoardService {
@@ -19,6 +20,8 @@ public class BoardService {
 	
 	public ResponseModel addArticle(BoardModel model) {
 		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		
 		model.setBoard_number(mapper.checkBoardNum().getBoard_number()+1);
 		mapper.addArticle1(model);
 		mapper.addArticle2(model);
@@ -27,6 +30,10 @@ public class BoardService {
 			mapper.addArticle3(model);
 		}
 		mapper.addArticle4(model);
+		
+		result.setMessage("레이드 일정이 등록되었습니다.");
+		result.setStatus("success");
+		res.setResultModel(result);
 		return res;
 	}
 }
