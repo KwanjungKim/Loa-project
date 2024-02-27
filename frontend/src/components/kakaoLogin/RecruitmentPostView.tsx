@@ -141,7 +141,9 @@ const RecruitmentPostView = ({
         {paramMap.member[6]} {"  "}
         {paramMap.member[7]} {"  "} <br />
         <input onChange={(e) => setCharacterName(e.target.value)} />
-        <button onClick={() => getCharacter()}>getCharacter</button>
+        <button type="button" onClick={() => getCharacter()}>
+          getCharacter
+        </button>
         <br />
         <div>
           <input type="submit" value={"글작성"} />
