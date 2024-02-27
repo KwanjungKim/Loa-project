@@ -1,19 +1,19 @@
-export type IPropsSelect = {
+export interface IPropsSelect {
   [proficiency: string]: {
     id: number;
     name: string;
   }[];
 
   card_level: { id: number; name: string }[];
-};
+}
 
-export type IPropsSelectList = {
+export interface IPropsSelectList {
   raidtype: {
     id: number;
     name: string;
     maxGate: number[];
   }[];
-};
+}
 export const selectRaidType: IPropsSelectList = {
   raidtype: [
     { id: 1, name: "발탄", maxGate: [2, 2, 3] },
