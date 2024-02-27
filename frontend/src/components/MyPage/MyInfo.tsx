@@ -4,7 +4,7 @@ import { mainCharState } from "../../atoms/mainCharacter";
 import characterUtils from "../../utils/characterUtils";
 import CharacterDetailData from "../kakaoLogin/CharacterDetailData";
 import { characterState } from "../../atoms/login";
-import TestSaramIn from "../kakaoLogin/testsaramin";
+import TestSaramIn from "../kakaoLogin/RecruitmentPost";
 // import TestAtomData from "../kakaoLogin/characterDataInAtom";
 
 const MyInfo = () => {
