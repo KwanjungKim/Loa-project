@@ -117,6 +117,7 @@ const RecruitmentPost = () => {
           if (!res.success) {
             alert(`${res.message}`);
           } else {
+            console.log(res);
             setParamMap((prev) => {
               return {
                 ...prev,

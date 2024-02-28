@@ -13,7 +13,13 @@ const HandleSelect = ({ str, setParamMap }: ISelectProps) => {
   };
   return (
     <>
-      <select onChange={(e) => handleData(str, e.target.value)}>
+      <select
+        style={{
+          borderRadius: "5px",
+          border: "3px solid #fbc02d",
+        }}
+        onChange={(e) => handleData(str, e.target.value)}
+      >
         {selectList[str].map((value) => (
           <option key={value.id} value={value.name}>
             {" "}
