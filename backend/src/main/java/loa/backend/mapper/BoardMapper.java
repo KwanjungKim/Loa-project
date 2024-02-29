@@ -1,5 +1,7 @@
 package loa.backend.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import loa.backend.model.BoardModel;
@@ -15,6 +17,6 @@ public interface BoardMapper {
 	
 	BoardModel checkBoardNum();
 	
-	BoardModel getRaid(CharacterModel model);
+	List<BoardModel> getRaid(CharacterModel model);
 	
 }
