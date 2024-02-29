@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import loa.backend.mapper.BoardMapper;
 import loa.backend.model.BoardModel;
+import loa.backend.model.CharacterModel;
 import loa.backend.model.ResponseModel;
 import loa.backend.model.ResultModel;
 
@@ -33,6 +34,19 @@ public class BoardService {
 		
 		result.setMessage("레이드 일정이 등록되었습니다.");
 		result.setStatus("success");
+		res.setResultModel(result);
+		return res;
+	}
+	
+	public ResponseModel getRaid(CharacterModel model) {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		
+		BoardModel bModel = mapper.getRaid(model);
+		
+		result.setMessage("레이드 일정을 가져왔습니다.");
+		result.setStatus("success");
+		res.setBoardModel(bModel);
 		res.setResultModel(result);
 		return res;
 	}
