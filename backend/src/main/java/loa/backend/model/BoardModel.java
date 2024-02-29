@@ -23,6 +23,7 @@ public class BoardModel {
 	private String[] member;
 	private String party_member;
 	private List<BoardModel> board_list;
+	private int member_count;
 	
 	public int getBoard_number() {
 		return board_number;
@@ -119,6 +120,12 @@ public class BoardModel {
 	}
 	public void setBoard_list(List<BoardModel> board_list) {
 		this.board_list = board_list;
+	}
+	public int getMember_count() {
+		return member_count;
+	}
+	public void setMember_count(int member_count) {
+		this.member_count = member_count;
 	}
 	
 }
