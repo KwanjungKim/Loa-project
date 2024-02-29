@@ -5,9 +5,15 @@
 <mapper namespace="loa.backend.mapper.BoardMapper">
 
 	<select id="getAllArticle" resultType="BoardModel">
-		select * 
-		from loain.board_info
-		where status = '모집중'
+		select *
+		from (
+			select board_number,COUNT(*)OVER(PARTITION BY bpi.board_number) as member_count
+			from board_party_info bpi) t1 
+		join board_info bi on t1.board_number = bi.board_number
+		join board_raid_info bri on t1.board_number = bri.board_number 
+		join board_party_filter bpf on t1.board_number = bpf.board_number
+		group by t1.board_number
+		order by t1.board_number desc
 	</select>
 
 	<insert id="addArticle1" parameterType="BoardModel">
