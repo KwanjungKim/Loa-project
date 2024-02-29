@@ -19,7 +19,7 @@
     </insert>
     
     <insert id="addArticle3" parameterType="BoardModel">
-    	insert into loain.board_party_info (board_number, raid_member) value (#{board_number},#{party_member});
+    	insert into loain.board_party_info (board_number, party_member) value (#{board_number},#{party_member});
     </insert>
     
     <insert id="addArticle4" parameterType="BoardModel">
@@ -29,4 +29,14 @@
     <select id="checkBoardNum" resultType="BoardModel">
     	select board_number from loain.board_info order by board_number desc limit 1
     </select>
+    
+    <select id="getRaid" resultType="BoardModel">
+		select * 
+		FROM board_info bi 
+		join board_raid_info bri on bi.board_number = bri.board_number
+		join board_party_info bpi on bi.board_number = bpi.board_number 
+		join character_info ci on ci.character_name = bpi.party_member
+		where ci.user_number  = #{user_number}
+		order by bi.board_number 
+	</select>
 </mapper>

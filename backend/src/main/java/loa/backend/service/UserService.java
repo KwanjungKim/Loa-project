@@ -285,7 +285,11 @@ public class UserService {
             while ((line = bf.readLine()) != null) {
                 JSONParser jsonParser = new JSONParser();
                 JSONObject jsonObj = (JSONObject) jsonParser.parse(line);
-                character = mapper.getCharacter(model);
+                if(mapper.getCharacter(model) == null) {
+                	character.setCharacter_name(model.getCharacter_name());
+                }else {
+                	character = mapper.getCharacter(model);
+                }
                 character.setCardEffects((JSONObject)jsonObj.get("ArmoryCard"));
                 character.setArmoryGem((JSONObject)jsonObj.get("ArmoryGem"));
                 character.setArmoryEngraving((JSONObject)jsonObj.get("ArmoryEngraving"));

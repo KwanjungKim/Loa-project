@@ -3,6 +3,7 @@ package loa.backend.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import loa.backend.model.BoardModel;
+import loa.backend.model.CharacterModel;
 
 @Mapper
 public interface BoardMapper {
@@ -13,4 +14,7 @@ public interface BoardMapper {
 	void addArticle4(BoardModel model);
 	
 	BoardModel checkBoardNum();
+	
+	BoardModel getRaid(CharacterModel model);
+	
 }
