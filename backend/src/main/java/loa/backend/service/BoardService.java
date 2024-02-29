@@ -1,5 +1,7 @@
 package loa.backend.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,8 +43,10 @@ public class BoardService {
 	public ResponseModel getRaid(CharacterModel model) {
 		ResponseModel res = new ResponseModel();
 		ResultModel result = new ResultModel();
+		BoardModel bModel = new BoardModel();
 		
-		BoardModel bModel = mapper.getRaid(model);
+		List<BoardModel> boardList = mapper.getRaid(model);
+		bModel.setBoard_list(boardList);
 		
 		result.setMessage("레이드 일정을 가져왔습니다.");
 		result.setStatus("success");
