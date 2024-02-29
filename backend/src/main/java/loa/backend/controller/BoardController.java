@@ -30,4 +30,10 @@ public class BoardController {
 		ResponseModel res = sv.getRaid(model);
 		return res;
 	}
+	
+	@RequestMapping("/board/deleteArticle")
+	public ResponseModel deleteArticle(@RequestBody BoardModel model) {
+		ResponseModel res = sv.deleteArticle(model);
+		return res;
+	}
 }
