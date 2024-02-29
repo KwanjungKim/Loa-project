@@ -40,6 +40,18 @@ public class BoardService {
 		return res;
 	}
 	
+	public ResponseModel deleteArticle(BoardModel model) {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		
+		mapper.deleteArticle(model);
+		
+		result.setMessage("게시글이 삭제되었습니다.");
+		result.setStatus("success");
+		res.setResultModel(result);
+		return res;
+	}
+	
 	public ResponseModel getRaid(CharacterModel model) {
 		ResponseModel res = new ResponseModel();
 		ResultModel result = new ResultModel();

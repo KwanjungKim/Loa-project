@@ -34,9 +34,20 @@
 		select * 
 		FROM board_info bi 
 		join board_raid_info bri on bi.board_number = bri.board_number
-		join board_party_info bpi on bi.board_number = bpi.board_number 
+		join board_party_info bpi on bi.board_number = bpi.board_number
+		join board_party_filter bpf on bi.board_number = bpf.board_number 
 		join character_info ci on ci.character_name = bpi.party_member
 		where ci.user_number  = #{user_number}
 		order by bi.board_number 
 	</select>
+	
+	<delete id="deleteArticle">
+		delete from 
+		board_info, board_party_filter, board_party_info, board_raid_info
+		Using board_info
+		left join board_party_filter on board_info.board_number = board_party_filter.board_number
+		left join board_party_info on board_info.board_number = board_party_info.board_number
+		left join board_raid_info on board_info.board_number = board_raid_info.board_number
+		where board_info.board_number = #{board_number}
+	</delete>
 </mapper>

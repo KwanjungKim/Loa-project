@@ -19,4 +19,5 @@ public interface BoardMapper {
 	
 	List<BoardModel> getRaid(CharacterModel model);
 	
+	void deleteArticle(BoardModel model);
 }
