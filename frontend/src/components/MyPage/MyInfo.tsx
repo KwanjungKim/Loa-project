@@ -5,6 +5,7 @@ import characterUtils from "../../utils/characterUtils";
 import CharacterDetailData from "../kakaoLogin/CharacterDetailData";
 import { characterState } from "../../atoms/login";
 import TestSaramIn from "../kakaoLogin/RecruitmentPost";
+import GetRaid from "../../getRaid/getRaid";
 // import TestAtomData from "../kakaoLogin/characterDataInAtom";
 
 const MyInfo = () => {
@@ -13,6 +14,7 @@ const MyInfo = () => {
 
   return (
     <>
+      <GetRaid />
       <TestSaramIn />
       <MediumButton
         variant="contained"
