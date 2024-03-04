@@ -1,5 +1,7 @@
 package loa.backend.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,21 @@ public class BoardService {
 	@Autowired
 	public BoardService(BoardMapper mapper) {
 		this.mapper = mapper;
+	}
+	
+	public ResponseModel getAllArticle() {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		BoardModel bModel = new BoardModel();
+		
+		List<BoardModel> boardList = mapper.getAllArticle();
+		bModel.setBoard_list(boardList);
+		
+		result.setMessage("게시글 목록을 가져왔습니다.");
+		result.setStatus("success");
+		res.setBoardModel(bModel);
+		res.setResultModel(result);
+		return res;
 	}
 	
 	public ResponseModel addArticle(BoardModel model) {
@@ -38,11 +55,25 @@ public class BoardService {
 		return res;
 	}
 	
-	public ResponseModel getRaid(CharacterModel model) {
+	public ResponseModel deleteArticle(BoardModel model) {
 		ResponseModel res = new ResponseModel();
 		ResultModel result = new ResultModel();
 		
-		BoardModel bModel = mapper.getRaid(model);
+		mapper.deleteArticle(model);
+		
+		result.setMessage("게시글이 삭제되었습니다.");
+		result.setStatus("success");
+		res.setResultModel(result);
+		return res;
+	}
+	
+	public ResponseModel getRaid(CharacterModel model) {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		BoardModel bModel = new BoardModel();
+		
+		List<BoardModel> boardList = mapper.getRaid(model);
+		bModel.setBoard_list(boardList);
 		
 		result.setMessage("레이드 일정을 가져왔습니다.");
 		result.setStatus("success");
