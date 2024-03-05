@@ -10,10 +10,15 @@ interface FormValues {
 }
 
 const Raid = () => {
-  const { articles, nextPage, handleParams } = useArticles();
+  const { articles, handleParams } = useArticles();
   const { register, handleSubmit } = useForm<FormValues>();
   const handleClickSubmit = handleSubmit((data) => {
     console.log("data", data);
+    handleParams({
+      prof: data.proficiency,
+      diff: data.raid_difficulty,
+      leader: data.raid_leader,
+    });
   });
 
   return (
@@ -41,7 +46,12 @@ const Raid = () => {
         <button onClick={handleClickSubmit}>submit</button>
       </div>
       {articles.map((article) => (
-        <div key={article.board_number}>
+        <div
+          key={article.board_number}
+          style={{
+            height: "480px",
+          }}
+        >
           {/* articles */}
           <p>{article.title}</p>
           <p>{article.content}</p>

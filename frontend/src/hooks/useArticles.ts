@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import fetchUtils from "../utils/fetchUtils";
+import useInfinteScroll from "./useInfiniteScroll";
 
 /*
 filters
@@ -140,6 +141,8 @@ const useArticles = () => {
   }, [getAricles]);
 
   console.log(list);
+
+  useInfinteScroll(nextPage);
 
   return {
     articles: list,
