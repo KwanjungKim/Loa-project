@@ -8,7 +8,7 @@ export interface IDateTimePicker {
 }
 
 const RaidDate = ({ setParamMap }: IDateTimePicker) => {
-  const datePickerFormat = "YYYY-MM-DD HH:mm";
+  const datePickerFormat = "YYYY-MM-DD HH:mm ";
   // startDate
   // date data => paramMap
   const handleDateChange = (str: string, date: dayjs.Dayjs | null) => {
@@ -22,7 +22,7 @@ const RaidDate = ({ setParamMap }: IDateTimePicker) => {
   };
   return (
     <>
-      <LocalizationProvider adapterLocale="en" dateAdapter={AdapterDayjs}>
+      <LocalizationProvider adapterLocale="ko" dateAdapter={AdapterDayjs}>
         <DateTimePicker
           format="YYYY년 MM월 DD일 A HH시 mm분"
           defaultValue={null}
@@ -37,7 +37,7 @@ const RaidDate = ({ setParamMap }: IDateTimePicker) => {
             handleDateChange("startDate", newValue);
           }}
           sx={{
-            width: "305px",
+            width: "355px",
             margin: "10px",
           }}
         />

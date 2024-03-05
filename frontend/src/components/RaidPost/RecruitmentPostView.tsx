@@ -5,9 +5,6 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 import { FormValue, IparamMap } from "./RecruitmentPost";
-// import dayjs from "dayjs";
-// import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
-// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { IPropsSelectList } from "./raidData";
 import HandleSelect from "./HandleSelect";
 import RaidDate from "./RaidDate";
@@ -22,7 +19,6 @@ export interface IRecruitmentPostViewProps
   onSubmitHandler: SubmitHandler<FormValue>;
   getCharacter: () => void;
   gateFilter: () => number[];
-  //   handleDateChange: (str: string, date: dayjs.Dayjs | null) => void;
   setParamMap: React.Dispatch<React.SetStateAction<IparamMap>>;
   setGate: React.Dispatch<React.SetStateAction<number>>;
   setCharacterName: React.Dispatch<React.SetStateAction<string>>;
@@ -38,7 +34,6 @@ const RecruitmentPostView = ({
   onSubmitHandler,
   getCharacter,
   gateFilter,
-  //   handleDateChange,
   setParamMap,
   setGate,
   setCharacterName,
@@ -102,9 +97,7 @@ const RecruitmentPostView = ({
           }}
         >
           {selectRaidType.raidtype.map((value) => (
-            <>
-              <option key={value.id}>{value.name}</option>
-            </>
+            <option key={value.id}>{value.name}</option>
           ))}
         </select>{" "}
         <br />

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { SmallButton } from "../common/Button";
 import timelineAddr from "./helpImage/timelineAddr.svg";

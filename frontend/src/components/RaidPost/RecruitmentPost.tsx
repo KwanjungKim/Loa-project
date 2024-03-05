@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { mainCharState } from "../../atoms/mainCharacter";
 
-// import dayjs from "dayjs";
 import { selectRaidType } from "./raidData";
 import fetchUtils from "../../utils/fetchUtils";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -41,7 +40,6 @@ export interface ISelectProps {
 
 const RecruitmentPost = () => {
   const mainCharacter = useRecoilValue(mainCharState);
-  // const datePickerFormat = "YYYY-MM-DD HH:mm";
   const [characterName, setCharacterName] = useState<string>("");
   const [Gate, setGate] = useState<number>(0);
 
@@ -72,19 +70,6 @@ const RecruitmentPost = () => {
       };
     });
   };
-
-  // startDate
-  // date data => paramMap
-  // const handleDateChange = (str: string, date: dayjs.Dayjs | null) => {
-  // const handleDateChange = (str: string, e: any) => {
-  //   const formattedDate = dayjs(e).format(datePickerFormat);
-  //   setParamMap((prev) => {
-  //     return {
-  //       ...prev,
-  //       [str]: formattedDate,
-  //     };
-  //   });
-  // };
 
   const difficultyFilter =
     paramMap.raid_difficulty === "normal"
