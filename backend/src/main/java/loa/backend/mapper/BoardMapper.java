@@ -9,7 +9,7 @@ import loa.backend.model.CharacterModel;
 
 @Mapper
 public interface BoardMapper {
-	List<BoardModel> getAllArticle();
+	List<BoardModel> getAllArticle(BoardModel model);
 	
 	void addArticle1(BoardModel model);
 	void addArticle2(BoardModel model);

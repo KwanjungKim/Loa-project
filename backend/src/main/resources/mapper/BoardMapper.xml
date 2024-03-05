@@ -4,7 +4,7 @@
 
 <mapper namespace="loa.backend.mapper.BoardMapper">
 
-	<select id="getAllArticle" resultType="BoardModel">
+	<select id="getAllArticle" parameterType="BoardModel" resultType="BoardModel">
 		select *
 		from (
 			select board_number,COUNT(*)OVER(PARTITION BY bpi.board_number) as member_count
