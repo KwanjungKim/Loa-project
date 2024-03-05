@@ -11,9 +11,10 @@ interface FormValues {
 
 const Raid = () => {
   const { articles, nextPage, handleParams } = useArticles();
-  const { register, watch } = useForm<FormValues>();
-  const { proficiency } = watch();
-  console.log("proficiency", proficiency);
+  const { register, handleSubmit } = useForm<FormValues>();
+  const handleClickSubmit = handleSubmit((data) => {
+    console.log("data", data);
+  });
 
   return (
     <div>
@@ -32,6 +33,12 @@ const Raid = () => {
           <option value="하드">하드</option>
           <option value="익스트림">익스트림</option>
         </select>
+        <input
+          type="text"
+          placeholder="레이드장"
+          {...register("raid_leader")}
+        />
+        <button onClick={handleClickSubmit}>submit</button>
       </div>
       {articles.map((article) => (
         <div key={article.board_number}>
