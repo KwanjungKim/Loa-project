@@ -22,14 +22,14 @@
 		<if test = 'raid_type != null  and raid_type !=""'>
 			and bi.raid_type = #{raid_type}
 		</if>
-		<if test = 'raid_difiiculty != null  and raid_difiiculty !=""'>
-			and bi.raid_difiiculty = #{raid_difiiculty}
+		<if test = 'raid_difficulty != null  and raid_difficulty !=""'>
+			and bi.raid_difficulty = #{raid_difficulty}
 		</if>
 		<if test = 'minGate != null  and minGate !=""'>
 			and bi.minGate = #{minGate}
 		</if>
 		<if test = 'startDate != null  and startDate !=""'>
-			<![CDATA[and bri.startDate >=#{startDate}]]>
+			and bri.startDate<![CDATA[ >= ]]>#{startDate}
 		</if>
 		group by t1.board_number
 		order by t1.board_number desc
