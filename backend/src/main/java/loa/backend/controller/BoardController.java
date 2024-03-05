@@ -24,6 +24,12 @@ public class BoardController {
 		return res;
 	}
 	
+	@RequestMapping("/board/getArticle")
+	public ResponseModel getArticle(@RequestBody BoardModel model) {
+		ResponseModel res = sv.getArticle(model);
+		return res;
+	}
+	
 	@RequestMapping("/board/addArticle")
 	public ResponseModel addArticle(@RequestBody BoardModel model) {
 		System.out.println("테스트용  "+model.getStartDate());
