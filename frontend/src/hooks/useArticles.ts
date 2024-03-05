@@ -43,8 +43,10 @@ interface Params {
   raid_leader?: string;
 }
 
+const limit = 10;
+
 const useArticles = () => {
-  const [limit, setLimit] = useState(10);
+  // const [limit, setLimit] = useState(10);
   const [pageNo, setPageNo] = useState(0);
   const [proficiency, setProficiency] = useState<IProficiency | "">("");
   const [raidDifficulty, setRaidDifficulty] = useState<IRaidDifficulty | "">(
@@ -107,7 +109,7 @@ const useArticles = () => {
     } else {
       setList([]);
     }
-  }, [limit, pageNo, proficiency, raidDifficulty, raidLeader]);
+  }, [pageNo, proficiency, raidDifficulty, raidLeader]);
 
   useEffect(() => {
     getAricles();
