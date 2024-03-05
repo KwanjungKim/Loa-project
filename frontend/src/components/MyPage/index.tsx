@@ -3,6 +3,7 @@ import useProfile from "../../hooks/useProfile";
 import MyInfo from "./MyInfo";
 import { characterState } from "../../atoms/login";
 import CharacterAuth from "../kakaoLogin/CharacterAuth";
+import { CircularProgress } from "@mui/material";
 
 const MyPage = () => {
   const isCharacterState = useRecoilValue(characterState);
@@ -10,21 +11,19 @@ const MyPage = () => {
 
   return (
     <>
-      {isLoaded ? (
-        isCharacterState ? (
-          <>
-            <MyInfo />
-          </>
-        ) : (
-          <div>
-            <CharacterAuth
-              profileData={profileData}
-              setIsLoaded={setIsLoaded}
-            />
-          </div>
-        )
+      {isLoaded && isCharacterState ? (
+        <>
+          <MyInfo />
+        </>
+      ) : isCharacterState ? (
+        <div>
+          <CharacterAuth profileData={profileData} setIsLoaded={setIsLoaded} />
+        </div>
       ) : (
-        <h2>로딩중</h2>
+        <CircularProgress
+          color="secondary"
+          sx={{ width: "100%", height: "10px", marginTop: "100px" }}
+        />
       )}
     </>
   );
