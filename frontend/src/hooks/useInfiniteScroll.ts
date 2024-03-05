@@ -4,8 +4,8 @@ const useInfinteScroll = (callback: () => void) => {
   useEffect(() => {
     const handleScroll = () => {
       if (
-        window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight
+        window.innerHeight + document.documentElement.scrollTop <=
+        document.documentElement.offsetHeight - 10
       )
         return;
       callback();

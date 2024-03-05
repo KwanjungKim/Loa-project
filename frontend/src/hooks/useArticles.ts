@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import fetchUtils from "../utils/fetchUtils";
 import useInfinteScroll from "./useInfiniteScroll";
 
@@ -14,7 +14,7 @@ minGate
 */
 
 type IProficiency = "트라이" | "클경" | "반숙" | "숙련";
-type IRaidDifficulty = "노말" | "하드" | "익스트림";
+type IRaidDifficulty = "normal" | "hard" | "extreme";
 
 export interface IBoard {
   board_list: IBoard[] | null;
@@ -46,9 +46,11 @@ interface Params {
   minGate?: string;
 }
 
-const limit = 10;
+const limit = 5;
 
 const useArticles = () => {
+  const loadingRef = useRef<boolean>(false);
+
   // const [limit, setLimit] = useState(10);
   const [pageNo, setPageNo] = useState(0);
   const [proficiency, setProficiency] = useState<IProficiency | "">("");
@@ -92,9 +94,14 @@ const useArticles = () => {
   }
 
   const getAricles = useCallback(async () => {
+    if (loadingRef.current) {
+      return;
+    }
     if (pageNo < 0) {
       return;
     }
+
+    loadingRef.current = true;
 
     const params: Params = {
       limit,
@@ -129,11 +136,13 @@ const useArticles = () => {
       if (data.boardModelList.length === 0) {
         setPageNo(-1);
       } else {
-        setList(data.boardModelList);
+        setList((prev) => [...prev, ...data.boardModelList]);
       }
     } else {
       setList([]);
     }
+
+    loadingRef.current = false;
   }, [pageNo, proficiency, raidDifficulty, raidLeader, startDate, minGate]);
 
   useEffect(() => {

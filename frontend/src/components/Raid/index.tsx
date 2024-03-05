@@ -3,7 +3,7 @@ import useArticles from "../../hooks/useArticles";
 
 interface FormValues {
   proficiency: "트라이" | "클경" | "반숙" | "숙련" | "";
-  raid_difficulty: "노말" | "하드" | "익스트림" | "";
+  raid_difficulty: "normal" | "hard" | "extreme" | "";
   raid_leader: string;
   startDate: string;
   minGate: string;
@@ -34,9 +34,9 @@ const Raid = () => {
         </select>
         <select {...register("raid_difficulty")}>
           <option value="">난이도</option>
-          <option value="노말">노말</option>
-          <option value="하드">하드</option>
-          <option value="익스트림">익스트림</option>
+          <option value="normal">노말</option>
+          <option value="hard">하드</option>
+          <option value="extreme">익스트림</option>
         </select>
         <input
           type="text"
@@ -49,11 +49,13 @@ const Raid = () => {
         <div
           key={article.board_number}
           style={{
-            height: "480px",
+            height: "240px",
           }}
         >
           {/* articles */}
-          <p>{article.title}</p>
+          <h3>
+            {article.title} ({article.member_count}명)
+          </h3>
           <p>{article.content}</p>
         </div>
       ))}
