@@ -26,6 +26,12 @@ const Raid = () => {
           <option value="반숙">반숙</option>
           <option value="숙련">숙련</option>
         </select>
+        <select {...register("raid_difficulty")}>
+          <option value="">난이도</option>
+          <option value="노말">노말</option>
+          <option value="하드">하드</option>
+          <option value="익스트림">익스트림</option>
+        </select>
       </div>
       {articles.map((article) => (
         <div key={article.board_number}>
