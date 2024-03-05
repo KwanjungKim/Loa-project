@@ -12,8 +12,28 @@
 		join board_info bi on t1.board_number = bi.board_number
 		join board_raid_info bri on t1.board_number = bri.board_number 
 		join board_party_filter bpf on t1.board_number = bpf.board_number
+		where 1 = 1
+		<if test = 'raid_leader != null  and raid_leader !=""'>
+			and bi.raid_leader = #{raid_leader}
+		</if>
+		<if test = 'proficiency != null  and proficiency !=""'>
+			and bi.proficiency = #{proficiency}
+		</if>
+		<if test = 'raid_type != null  and raid_type !=""'>
+			and bi.raid_type = #{raid_type}
+		</if>
+		<if test = 'raid_difiiculty != null  and raid_difiiculty !=""'>
+			and bi.raid_difiiculty = #{raid_difiiculty}
+		</if>
+		<if test = 'minGate != null  and minGate !=""'>
+			and bi.minGate = #{minGate}
+		</if>
+		<if test = 'startDate != null  and startDate !=""'>
+			<![CDATA[and bri.startDate >=#{startDate}]]>
+		</if>
 		group by t1.board_number
 		order by t1.board_number desc
+		limit #{offset},#{limit}
 	</select>
 
 	<insert id="addArticle1" parameterType="BoardModel">
