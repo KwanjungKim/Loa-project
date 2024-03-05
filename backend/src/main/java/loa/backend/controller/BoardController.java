@@ -20,7 +20,13 @@ public class BoardController {
 	
 	@RequestMapping("/board/getAllArticle")
 	public ResponseModel getAllarticle(@RequestBody BoardModel model) {
-		ResponseModel res = sv.getAllArticle();
+		ResponseModel res = sv.getAllArticle(model);
+		return res;
+	}
+	
+	@RequestMapping("/board/getArticle")
+	public ResponseModel getArticle(@RequestBody BoardModel model) {
+		ResponseModel res = sv.getArticle(model);
 		return res;
 	}
 	

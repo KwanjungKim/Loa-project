@@ -4,7 +4,7 @@
 
 <mapper namespace="loa.backend.mapper.BoardMapper">
 
-	<select id="getAllArticle" resultType="BoardModel">
+	<select id="getAllArticle" parameterType="BoardModel" resultType="BoardModel">
 		select *
 		from (
 			select board_number,COUNT(*)OVER(PARTITION BY bpi.board_number) as member_count
@@ -12,8 +12,42 @@
 		join board_info bi on t1.board_number = bi.board_number
 		join board_raid_info bri on t1.board_number = bri.board_number 
 		join board_party_filter bpf on t1.board_number = bpf.board_number
+		where 1 = 1
+		<if test = 'raid_leader != null  and raid_leader !=""'>
+			and bi.raid_leader = #{raid_leader}
+		</if>
+		<if test = 'proficiency != null  and proficiency !=""'>
+			and bpf.proficiency = #{proficiency}
+		</if>
+		<if test = 'raid_type != null  and raid_type !=""'>
+			and bri.raid_type = #{raid_type}
+		</if>
+		<if test = 'raid_difficulty != null  and raid_difficulty !=""'>
+			and bri.raid_difficulty = #{raid_difficulty}
+		</if>
+		<if test = 'minGate != null  and minGate !=""'>
+			and bri.minGate = #{minGate}
+		</if>
+		<if test = 'startDate != null  and startDate !=""'>
+			and bri.startDate<![CDATA[ >= ]]>#{startDate}
+		</if>
 		group by t1.board_number
 		order by t1.board_number desc
+		limit #{offset},#{limit}
+	</select>
+
+	<select id="getArticle" parameterType="BoardModel" resultType="BoardModel">
+		select *
+		from board_info bi 
+		join board_raid_info bri on bi.board_number = bri.board_number 
+		join board_party_filter bpf on bi.board_number = bpf.board_number 
+		where bi.board_number = #{board_number}
+	</select>
+	
+	<select id="getPartyMember" parameterType="BoardModel" resultType="String">
+		select party_member
+		from board_party_info bpi
+		where bpi.board_number = #{board_number}
 	</select>
 
 	<insert id="addArticle1" parameterType="BoardModel">

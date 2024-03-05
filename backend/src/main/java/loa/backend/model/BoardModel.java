@@ -24,6 +24,8 @@ public class BoardModel {
 	private String party_member;
 	private List<BoardModel> board_list;
 	private int member_count;
+	private int limit;
+	private int offset;
 	
 	public int getBoard_number() {
 		return board_number;
@@ -126,6 +128,18 @@ public class BoardModel {
 	}
 	public void setMember_count(int member_count) {
 		this.member_count = member_count;
+	}
+	public int getLimit() {
+		return limit;
+	}
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+	public int getOffset() {
+		return offset;
+	}
+	public void setOffset(int offset) {
+		this.offset = offset;
 	}
 	
 }

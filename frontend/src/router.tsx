@@ -5,7 +5,7 @@ import RootLayout from "./components/layouts/RootLayout";
 
 // routes
 import HomeRoute from "./routes/HomeRoute";
-import RaidRoute from "./routes/RaidRoute";
+import RaidRoute from "./routes/raid/RaidRoute";
 import TestRoute from "./routes/Test";
 import ButtonsRoute from "./routes/Test/ButtonsRoute";
 import ModalsRoute from "./routes/Test/ModalsRoute";
@@ -16,6 +16,7 @@ import CalendarRoute from "./routes/Test/CalendarRoute";
 import MyCalendarRoute from "./routes/MyCalendarRoute";
 import MyPage from "./components/MyPage";
 import PingPongRoute from "./routes/Test/PingPongRoute";
+import RaidArticleRoute from "./routes/raid/RaidArticleRoute";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,17 @@ const router = createBrowserRouter([
       },
       {
         path: "raid",
-        element: <RaidRoute />,
+        // element: <RaidRoute />,
+        children: [
+          {
+            path: "",
+            element: <RaidRoute />,
+          },
+          {
+            path: ":id",
+            element: <RaidArticleRoute />,
+          },
+        ],
       },
       {
         path: "/test",

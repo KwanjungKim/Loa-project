@@ -1,6 +1,7 @@
 package loa.backend.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,15 +22,28 @@ public class BoardService {
 		this.mapper = mapper;
 	}
 	
-	public ResponseModel getAllArticle() {
+	public ResponseModel getAllArticle(BoardModel model) {
 		ResponseModel res = new ResponseModel();
 		ResultModel result = new ResultModel();
-		BoardModel bModel = new BoardModel();
 		
-		List<BoardModel> boardList = mapper.getAllArticle();
-		bModel.setBoard_list(boardList);
+		List<BoardModel> boardList = mapper.getAllArticle(model);
 		
 		result.setMessage("게시글 목록을 가져왔습니다.");
+		result.setStatus("success");
+		res.setBoardModelList(boardList);
+		res.setResultModel(result);
+		return res;
+	}
+	
+	public ResponseModel getArticle(BoardModel model) {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		
+		BoardModel bModel = mapper.getArticle(model);
+		String[] partyMember = mapper.getPartyMember(model);
+		bModel.setMember(partyMember);
+		
+		result.setMessage("게시글을 가져왔습니다.");
 		result.setStatus("success");
 		res.setBoardModel(bModel);
 		res.setResultModel(result);
