@@ -17,16 +17,16 @@
 			and bi.raid_leader = #{raid_leader}
 		</if>
 		<if test = 'proficiency != null  and proficiency !=""'>
-			and bi.proficiency = #{proficiency}
+			and bpf.proficiency = #{proficiency}
 		</if>
 		<if test = 'raid_type != null  and raid_type !=""'>
-			and bi.raid_type = #{raid_type}
+			and bri.raid_type = #{raid_type}
 		</if>
 		<if test = 'raid_difficulty != null  and raid_difficulty !=""'>
-			and bi.raid_difficulty = #{raid_difficulty}
+			and bri.raid_difficulty = #{raid_difficulty}
 		</if>
 		<if test = 'minGate != null  and minGate !=""'>
-			and bi.minGate = #{minGate}
+			and bri.minGate = #{minGate}
 		</if>
 		<if test = 'startDate != null  and startDate !=""'>
 			and bri.startDate<![CDATA[ >= ]]>#{startDate}
