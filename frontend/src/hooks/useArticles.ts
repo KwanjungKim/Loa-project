@@ -41,6 +41,8 @@ interface Params {
   proficiency?: IProficiency;
   raid_difficulty?: IRaidDifficulty;
   raid_leader?: string;
+  startDate?: string;
+  minGate?: string;
 }
 
 const limit = 10;
@@ -53,6 +55,9 @@ const useArticles = () => {
     "",
   );
   const [raidLeader, setRaidLeader] = useState<string | "">("");
+  const [startDate, setStartDate] = useState("");
+  const [minGate, setMinGate] = useState("");
+
   const [list, setList] = useState<IBoard[]>([]);
 
   function nextPage() {
@@ -64,17 +69,24 @@ const useArticles = () => {
   }
 
   function handleParams({
-    prof,
-    diff,
-    leader,
+    prof = "",
+    diff = "",
+    leader = "",
+    start = "",
+    min = "",
   }: {
     prof?: IProficiency | "";
     diff?: IRaidDifficulty | "";
     leader?: string | "";
+    start?: string;
+    min?: string;
   }) {
     setProficiency(prof || "");
     setRaidDifficulty(diff || "");
     setRaidLeader(leader || "");
+    setStartDate(start || "");
+    setMinGate(min || "");
+    setList([]);
     setPageNo(0);
   }
 
@@ -100,16 +112,28 @@ const useArticles = () => {
       params["raid_leader"] = raidLeader;
     }
 
+    if (startDate) {
+      params["startDate"] = startDate;
+    }
+
+    if (minGate) {
+      params["minGate"] = minGate;
+    }
+
     const { data, success } = await fetchUtils.post(
       "/board/getAllArticle",
       params,
     );
     if (success) {
-      setList(data.boardModelList);
+      if (data.boardModelList.length === 0) {
+        setPageNo(-1);
+      } else {
+        setList(data.boardModelList);
+      }
     } else {
       setList([]);
     }
-  }, [pageNo, proficiency, raidDifficulty, raidLeader]);
+  }, [pageNo, proficiency, raidDifficulty, raidLeader, startDate, minGate]);
 
   useEffect(() => {
     getAricles();
