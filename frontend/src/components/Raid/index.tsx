@@ -1,12 +1,16 @@
-import useMockArticles from "./_hooks/useMockArticles";
+import useArticles from "../../hooks/useArticles";
 
 const Raid = () => {
-  const { articles, status } = useMockArticles();
-  console.log("articles", articles);
-  console.log("status", status);
+  const { articles } = useArticles();
+
   return (
     <div>
-      <p>{status}</p>
+      {articles.map((article) => (
+        <div key={article.board_number}>
+          <p>{article.title}</p>
+          <p>{article.content}</p>
+        </div>
+      ))}
       <button>add</button>
     </div>
   );
