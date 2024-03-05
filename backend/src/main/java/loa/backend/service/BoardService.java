@@ -1,6 +1,7 @@
 package loa.backend.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,8 @@ public class BoardService {
 		ResultModel result = new ResultModel();
 		
 		BoardModel bModel = mapper.getArticle(model);
+		String[] partyMember = mapper.getPartyMember(model);
+		bModel.setMember(partyMember);
 		
 		result.setMessage("게시글을 가져왔습니다.");
 		result.setStatus("success");
