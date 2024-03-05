@@ -39,10 +39,15 @@
 	<select id="getArticle" parameterType="BoardModel" resultType="BoardModel">
 		select *
 		from board_info bi 
-		join board_party_info bpi on bi.board_number = bpi.board_number 
 		join board_raid_info bri on bi.board_number = bri.board_number 
 		join board_party_filter bpf on bi.board_number = bpf.board_number 
 		where bi.board_number = #{board_number}
+	</select>
+	
+	<select id="getPartyMember" parameterType="BoardModel" resultType="String">
+		select party_member
+		from board_party_info bpi
+		where bpi.board_number = #{board_number}
 	</select>
 
 	<insert id="addArticle1" parameterType="BoardModel">
