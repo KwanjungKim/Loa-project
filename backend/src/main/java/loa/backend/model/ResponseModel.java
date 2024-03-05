@@ -12,6 +12,7 @@ public class ResponseModel {
 	private ResultModel resultModel;
 	private CharacterModel characterModel;
 	private List<CharacterModel> characterModelList;
+	private List<BoardModel> boardModelList;
 	
 	public UserModel getUserModel() {
 		return userModel;
@@ -42,5 +43,11 @@ public class ResponseModel {
 	}
 	public void setCharacterModelList(List<CharacterModel> characterModel) {
 		this.characterModelList = characterModel;
+	}
+	public List<BoardModel> getBoardModelList() {
+		return boardModelList;
+	}
+	public void setBoardModelList(List<BoardModel> boardModelList) {
+		this.boardModelList = boardModelList;
 	}
 }

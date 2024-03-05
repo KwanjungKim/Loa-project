@@ -24,14 +24,12 @@ public class BoardService {
 	public ResponseModel getAllArticle() {
 		ResponseModel res = new ResponseModel();
 		ResultModel result = new ResultModel();
-		BoardModel bModel = new BoardModel();
 		
 		List<BoardModel> boardList = mapper.getAllArticle();
-		bModel.setBoard_list(boardList);
 		
 		result.setMessage("게시글 목록을 가져왔습니다.");
 		result.setStatus("success");
-		res.setBoardModel(bModel);
+		res.setBoardModelList(boardList);
 		res.setResultModel(result);
 		return res;
 	}
