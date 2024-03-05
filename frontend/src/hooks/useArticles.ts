@@ -46,7 +46,7 @@ interface Params {
   minGate?: string;
 }
 
-const limit = 5;
+const limit = 10;
 
 const useArticles = () => {
   const loadingRef = useRef<boolean>(false);
@@ -84,12 +84,13 @@ const useArticles = () => {
     start?: string;
     min?: string;
   }) {
+    console.log(prof, diff, leader, start, min);
+    console.log("heyey");
     setProficiency(prof || "");
     setRaidDifficulty(diff || "");
     setRaidLeader(leader || "");
     setStartDate(start || "");
     setMinGate(min || "");
-    setList([]);
     setPageNo(0);
   }
 
@@ -133,11 +134,25 @@ const useArticles = () => {
       params,
     );
     if (success) {
-      if (data.boardModelList.length === 0) {
-        setPageNo(-1);
+      if (pageNo === 0) {
+        setList(data.boardModelList);
       } else {
-        setList((prev) => [...prev, ...data.boardModelList]);
+        if (data.boardModelList.length === 0) {
+          setPageNo(-1);
+        } else {
+          setList((prev) => [...prev, ...data.boardModelList]);
+        }
       }
+
+      // if (data.boardModelList.length === 0) {
+      //   setPageNo(-1);
+      // } else {
+      //   if (pageNo === 0) {
+      //     setList(data.boardModelList);
+      //   } else {
+      //     setList((prev) => [...prev, ...data.boardModelList]);
+      //   }
+      // }
     } else {
       setList([]);
     }
