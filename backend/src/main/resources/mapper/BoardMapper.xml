@@ -36,6 +36,15 @@
 		limit #{offset},#{limit}
 	</select>
 
+	<select id="getArticle" parameterType="BoardModel" resultType="BoardModel">
+		select *
+		from board_info bi 
+		join board_party_info bpi on bi.board_number = bpi.board_number 
+		join board_raid_info bri on bi.board_number = bri.board_number 
+		join board_party_filter bpf on bi.board_number = bpf.board_number 
+		where bi.board_number = #{board_number}
+	</select>
+
 	<insert id="addArticle1" parameterType="BoardModel">
     	insert into loain.board_info (title, content, user_number, view_cnt, raid_leader, status) value (#{title},#{content},#{user_number},"0",#{raid_leader},"모집중");
     </insert>

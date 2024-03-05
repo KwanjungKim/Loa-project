@@ -34,6 +34,19 @@ public class BoardService {
 		return res;
 	}
 	
+	public ResponseModel getArticle(BoardModel model) {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		
+		BoardModel bModel = mapper.getArticle(model);
+		
+		result.setMessage("게시글을 가져왔습니다.");
+		result.setStatus("success");
+		res.setBoardModel(bModel);
+		res.setResultModel(result);
+		return res;
+	}
+	
 	public ResponseModel addArticle(BoardModel model) {
 		ResponseModel res = new ResponseModel();
 		ResultModel result = new ResultModel();
