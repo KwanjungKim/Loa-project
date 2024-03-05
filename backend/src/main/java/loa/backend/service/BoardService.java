@@ -21,11 +21,11 @@ public class BoardService {
 		this.mapper = mapper;
 	}
 	
-	public ResponseModel getAllArticle() {
+	public ResponseModel getAllArticle(BoardModel model) {
 		ResponseModel res = new ResponseModel();
 		ResultModel result = new ResultModel();
 		
-		List<BoardModel> boardList = mapper.getAllArticle();
+		List<BoardModel> boardList = mapper.getAllArticle(model);
 		
 		result.setMessage("게시글 목록을 가져왔습니다.");
 		result.setStatus("success");
