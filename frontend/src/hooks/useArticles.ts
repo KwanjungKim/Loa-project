@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import fetchUtils from "../utils/fetchUtils";
 import useInfinteScroll from "./useInfiniteScroll";
+import { useSearchParams } from "react-router-dom";
 
 /*
 filters
@@ -49,17 +50,26 @@ interface Params {
 const limit = 10;
 
 const useArticles = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
   const loadingRef = useRef<boolean>(false);
 
   // const [limit, setLimit] = useState(10);
   const [pageNo, setPageNo] = useState(0);
-  const [proficiency, setProficiency] = useState<IProficiency | "">("");
-  const [raidDifficulty, setRaidDifficulty] = useState<IRaidDifficulty | "">(
-    "",
+
+  const [proficiency, setProficiency] = useState<IProficiency | "">(
+    searchParams.get("proficiency") as IProficiency | "",
   );
-  const [raidLeader, setRaidLeader] = useState<string | "">("");
-  const [startDate, setStartDate] = useState("");
-  const [minGate, setMinGate] = useState("");
+  const [raidDifficulty, setRaidDifficulty] = useState<IRaidDifficulty | "">(
+    searchParams.get("raid_difficulty") as IRaidDifficulty | "",
+  );
+  const [raidLeader, setRaidLeader] = useState<string | "">(
+    searchParams.get("raid_leader") || "",
+  );
+  const [startDate, setStartDate] = useState(
+    searchParams.get("startDate") || "",
+  );
+  const [minGate, setMinGate] = useState(searchParams.get("minGate") || "");
 
   const [list, setList] = useState<IBoard[]>([]);
 
@@ -86,6 +96,13 @@ const useArticles = () => {
   }) {
     console.log(prof, diff, leader, start, min);
     console.log("heyey");
+    setSearchParams({
+      proficiency: prof || "",
+      raid_difficulty: diff || "",
+      raid_leader: leader || "",
+      startDate: start || "",
+      minGate: min || "",
+    });
     setProficiency(prof || "");
     setRaidDifficulty(diff || "");
     setRaidLeader(leader || "");
@@ -103,6 +120,7 @@ const useArticles = () => {
     }
 
     loadingRef.current = true;
+    setIsLoading(true);
 
     const params: Params = {
       limit,
@@ -158,6 +176,7 @@ const useArticles = () => {
     }
 
     loadingRef.current = false;
+    setIsLoading(false);
   }, [pageNo, proficiency, raidDifficulty, raidLeader, startDate, minGate]);
 
   useEffect(() => {
@@ -170,6 +189,8 @@ const useArticles = () => {
 
   return {
     articles: list,
+    isLoading,
+    pageNo,
     nextPage,
     handleParams,
   };
