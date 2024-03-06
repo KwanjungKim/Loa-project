@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import fetchUtils from "../utils/fetchUtils";
 import useInfinteScroll from "./useInfiniteScroll";
 import { useSearchParams } from "react-router-dom";
+import dayjs from "dayjs";
 
 /*
 filters
@@ -54,7 +55,6 @@ const useArticles = () => {
   const [isLoading, setIsLoading] = useState(false);
   const loadingRef = useRef<boolean>(false);
 
-  // const [limit, setLimit] = useState(10);
   const [pageNo, setPageNo] = useState(0);
 
   const [proficiency, setProficiency] = useState<IProficiency | "">(
@@ -67,7 +67,7 @@ const useArticles = () => {
     searchParams.get("raid_leader") || "",
   );
   const [startDate, setStartDate] = useState(
-    searchParams.get("startDate") || "",
+    searchParams.get("startDate") || dayjs().format("YYYY-MM-DD"),
   );
   const [minGate, setMinGate] = useState(searchParams.get("minGate") || "");
 
