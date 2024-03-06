@@ -20,12 +20,16 @@ const RaidDate = ({ setParamMap }: IDateTimePicker) => {
       };
     });
   };
+  const today = dayjs();
+  const maxDay = dayjs().add(30, "day");
   return (
     <>
       <LocalizationProvider adapterLocale="ko" dateAdapter={AdapterDayjs}>
         <DateTimePicker
           format="YYYY년 MM월 DD일 A HH시 mm분"
           defaultValue={null}
+          minDate={today}
+          maxDate={maxDay}
           slotProps={{
             textField: {
               size: "small",
@@ -37,8 +41,8 @@ const RaidDate = ({ setParamMap }: IDateTimePicker) => {
             handleDateChange("startDate", newValue);
           }}
           sx={{
-            width: "355px",
-            margin: "10px",
+            width: "300px",
+            margin: "5px",
           }}
         />
       </LocalizationProvider>

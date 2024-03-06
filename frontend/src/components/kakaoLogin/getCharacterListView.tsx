@@ -24,6 +24,7 @@ const GetCharacterListView = ({
         value={isMainChar.character_name}
         style={{
           display: isCharacterState && isLoginState ? "block" : "none",
+          width: "45%",
           height: "35px",
           borderRadius: "5px",
           border: "3px solid #fbc02d",

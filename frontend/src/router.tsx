@@ -17,6 +17,7 @@ import MyCalendarRoute from "./routes/MyCalendarRoute";
 import MyPage from "./components/MyPage";
 import PingPongRoute from "./routes/Test/PingPongRoute";
 import RaidArticleRoute from "./routes/raid/RaidArticleRoute";
+import RaidPostingRoute from "./routes/RaidPost";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,17 @@ const router = createBrowserRouter([
       },
       {
         path: "my-page",
-        element: <MyPage />,
+        // element: <MyPage />,
+        children: [
+          {
+            path: "",
+            element: <MyPage />,
+          },
+          {
+            path: "posting",
+            element: <RaidPostingRoute />,
+          },
+        ],
       },
       {
         path: "raid",

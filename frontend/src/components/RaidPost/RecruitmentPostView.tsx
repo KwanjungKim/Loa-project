@@ -21,6 +21,7 @@ export interface IRecruitmentPostViewProps
   gateFilter: () => number[];
   setParamMap: React.Dispatch<React.SetStateAction<IparamMap>>;
   setGate: React.Dispatch<React.SetStateAction<number>>;
+  characterName: string;
   setCharacterName: React.Dispatch<React.SetStateAction<string>>;
   selectRaidType: IPropsSelectList;
 }
@@ -36,20 +37,23 @@ const RecruitmentPostView = ({
   gateFilter,
   setParamMap,
   setGate,
+  characterName,
   setCharacterName,
   selectRaidType,
 }: IRecruitmentPostViewProps) => {
   return (
     <>
-      <button onClick={() => console.log(paramMap)}>123</button>
       <form onSubmit={handleSubmit(onSubmitHandler)}>
         <input
           placeholder="제목을 입력해주세요."
           type="text"
           maxLength={50}
           style={{
+            width: "280px",
             borderRadius: "5px",
             border: "3px solid #fbc02d",
+            margin: "5px",
+            marginBottom: "10px",
           }}
           {...register("title")}
           onChange={(e) => handleData("title", e.target.value)}
@@ -62,6 +66,9 @@ const RecruitmentPostView = ({
         <input
           type="radio"
           value="normal"
+          style={{
+            margin: "10px",
+          }}
           {...register("raid_difficulty")}
           onChange={(e) => handleData("raid_difficulty", e.target.value)}
         />{" "}
@@ -69,6 +76,9 @@ const RecruitmentPostView = ({
         <input
           type="radio"
           value="hard"
+          style={{
+            margin: "10px",
+          }}
           {...register("raid_difficulty")}
           onChange={(e) => handleData("raid_difficulty", e.target.value)}
         />{" "}
@@ -76,6 +86,9 @@ const RecruitmentPostView = ({
         <input
           type="radio"
           value="extream"
+          style={{
+            margin: "10px",
+          }}
           {...register("raid_difficulty")}
           onChange={(e) => {
             handleData("raid_difficulty", e.target.value);
@@ -90,6 +103,7 @@ const RecruitmentPostView = ({
           style={{
             borderRadius: "5px",
             border: "3px solid #fbc02d",
+            margin: "5px",
           }}
           onChange={(e) => {
             handleData("raid_type", e.target.value);
@@ -118,6 +132,7 @@ const RecruitmentPostView = ({
           style={{
             borderRadius: "5px",
             border: "3px solid #fbc02d",
+            margin: "5px",
           }}
           {...register("gate")}
           onChange={(e) => handleData("maxGate", e.target.value)}
@@ -139,7 +154,7 @@ const RecruitmentPostView = ({
         <textarea
           placeholder="세부사항을 적어주세요."
           style={{
-            width: "400px",
+            width: "90%",
             height: "300px",
             resize: "none",
             borderRadius: "5px",
@@ -157,7 +172,10 @@ const RecruitmentPostView = ({
         {paramMap.member[5]} {"  "}
         {paramMap.member[6]} {"  "}
         {paramMap.member[7]} {"  "} <br />
-        <input onChange={(e) => setCharacterName(e.target.value)} />
+        <input
+          value={characterName}
+          onChange={(e) => setCharacterName(e.target.value)}
+        />
         <button type="button" onClick={() => getCharacter()}>
           getCharacter
         </button>

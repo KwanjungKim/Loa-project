@@ -4,18 +4,21 @@ import { mainCharState } from "../../atoms/mainCharacter";
 import characterUtils from "../../utils/characterUtils";
 import CharacterDetailData from "../kakaoLogin/CharacterDetailData";
 import { characterState } from "../../atoms/login";
-import TestSaramIn from "../RaidPost/RecruitmentPost";
-import GetRaid from "../getRaid/getRaid";
+
+import { useNavigate } from "react-router-dom";
 // import TestAtomData from "../kakaoLogin/characterDataInAtom";
 
 const MyInfo = () => {
   const mainCharacterName = useRecoilValue(mainCharState);
   const setIsCharAuth = useSetRecoilState(characterState);
+  const navigate = useNavigate();
 
   return (
     <>
-      <GetRaid />
-      <TestSaramIn />
+      {/* <GetRaid /> */}
+      <MediumButton variant="contained" onClick={() => navigate("posting")}>
+        글 작성{" "}
+      </MediumButton>
       <MediumButton
         variant="contained"
         onClick={() => {
