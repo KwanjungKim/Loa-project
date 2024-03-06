@@ -32,7 +32,11 @@
 			and bri.startDate<![CDATA[ >= ]]>#{startDate}
 		</if>
 		group by t1.board_number
-		order by t1.board_number desc
+		order by 
+		<if test = 'startDate != null  and startDate !=""'>
+			bri.startDate<![CDATA[ >= ]]>#{startDate}
+		</if>
+		t1.board_number
 		limit #{offset},#{limit}
 	</select>
 
