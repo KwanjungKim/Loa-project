@@ -48,4 +48,10 @@ public class BoardController {
 		ResponseModel res = sv.deleteArticle(model);
 		return res;
 	}
+	
+	@RequestMapping("/board/apply")
+	public ResponseModel apply(@RequestBody BoardModel model) {
+		ResponseModel res = sv.apply(model);
+		return res;
+	}
 }

@@ -77,6 +77,5 @@ public class CharacterModel {
 	public void setArmoryEngraving(JSONObject armoryEngraving) {
 		ArmoryEngraving = armoryEngraving;
 	}
-	
-	
+
 }

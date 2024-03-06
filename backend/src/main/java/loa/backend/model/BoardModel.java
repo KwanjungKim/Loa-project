@@ -26,6 +26,7 @@ public class BoardModel {
 	private int member_count;
 	private int limit;
 	private int offset;
+	private String mention;
 	
 	public int getBoard_number() {
 		return board_number;
@@ -140,6 +141,12 @@ public class BoardModel {
 	}
 	public void setOffset(int offset) {
 		this.offset = offset;
+	}
+	public String getMention() {
+		return mention;
+	}
+	public void setMention(String mention) {
+		this.mention = mention;
 	}
 	
 }
