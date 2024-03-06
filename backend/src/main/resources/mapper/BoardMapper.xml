@@ -94,4 +94,8 @@
 		left join board_raid_info on board_info.board_number = board_raid_info.board_number
 		where board_info.board_number = #{board_number}
 	</delete>
+	
+	<insert id="apply" parameterType="BoardModel">
+    	insert into loain.board_applicant (character_name, board_number, mention) value (#{character_name},#{board_number},#{mention});
+    </insert>
 </mapper>

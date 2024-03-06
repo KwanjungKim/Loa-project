@@ -95,4 +95,16 @@ public class BoardService {
 		res.setResultModel(result);
 		return res;
 	}
+	
+	public ResponseModel apply(BoardModel model) {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		
+		mapper.apply(model);
+		
+		result.setMessage("파티 신청에 성공했습니다.");
+		result.setStatus("success");
+		res.setResultModel(result);
+		return res;
+	}
 }
