@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import fetchUtils from "../utils/fetchUtils";
 import useInfinteScroll from "./useInfiniteScroll";
+import { useSearchParams } from "react-router-dom";
+import dayjs from "dayjs";
 
 /*
 filters
@@ -46,20 +48,28 @@ interface Params {
   minGate?: string;
 }
 
-const limit = 5;
+const limit = 10;
 
 const useArticles = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
   const loadingRef = useRef<boolean>(false);
 
-  // const [limit, setLimit] = useState(10);
   const [pageNo, setPageNo] = useState(0);
-  const [proficiency, setProficiency] = useState<IProficiency | "">("");
-  const [raidDifficulty, setRaidDifficulty] = useState<IRaidDifficulty | "">(
-    "",
+
+  const [proficiency, setProficiency] = useState<IProficiency | "">(
+    searchParams.get("proficiency") as IProficiency | "",
   );
-  const [raidLeader, setRaidLeader] = useState<string | "">("");
-  const [startDate, setStartDate] = useState("");
-  const [minGate, setMinGate] = useState("");
+  const [raidDifficulty, setRaidDifficulty] = useState<IRaidDifficulty | "">(
+    searchParams.get("raid_difficulty") as IRaidDifficulty | "",
+  );
+  const [raidLeader, setRaidLeader] = useState<string | "">(
+    searchParams.get("raid_leader") || "",
+  );
+  const [startDate, setStartDate] = useState(
+    searchParams.get("startDate") || dayjs().format("YYYY-MM-DD"),
+  );
+  const [minGate, setMinGate] = useState(searchParams.get("minGate") || "");
 
   const [list, setList] = useState<IBoard[]>([]);
 
@@ -84,12 +94,20 @@ const useArticles = () => {
     start?: string;
     min?: string;
   }) {
+    console.log(prof, diff, leader, start, min);
+    console.log("heyey");
+    setSearchParams({
+      proficiency: prof || "",
+      raid_difficulty: diff || "",
+      raid_leader: leader || "",
+      startDate: start || "",
+      minGate: min || "",
+    });
     setProficiency(prof || "");
     setRaidDifficulty(diff || "");
     setRaidLeader(leader || "");
     setStartDate(start || "");
     setMinGate(min || "");
-    setList([]);
     setPageNo(0);
   }
 
@@ -102,6 +120,7 @@ const useArticles = () => {
     }
 
     loadingRef.current = true;
+    setIsLoading(true);
 
     const params: Params = {
       limit,
@@ -133,16 +152,31 @@ const useArticles = () => {
       params,
     );
     if (success) {
-      if (data.boardModelList.length === 0) {
-        setPageNo(-1);
+      if (pageNo === 0) {
+        setList(data.boardModelList);
       } else {
-        setList((prev) => [...prev, ...data.boardModelList]);
+        if (data.boardModelList.length === 0) {
+          setPageNo(-1);
+        } else {
+          setList((prev) => [...prev, ...data.boardModelList]);
+        }
       }
+
+      // if (data.boardModelList.length === 0) {
+      //   setPageNo(-1);
+      // } else {
+      //   if (pageNo === 0) {
+      //     setList(data.boardModelList);
+      //   } else {
+      //     setList((prev) => [...prev, ...data.boardModelList]);
+      //   }
+      // }
     } else {
       setList([]);
     }
 
     loadingRef.current = false;
+    setIsLoading(false);
   }, [pageNo, proficiency, raidDifficulty, raidLeader, startDate, minGate]);
 
   useEffect(() => {
@@ -155,6 +189,8 @@ const useArticles = () => {
 
   return {
     articles: list,
+    isLoading,
+    pageNo,
     nextPage,
     handleParams,
   };
