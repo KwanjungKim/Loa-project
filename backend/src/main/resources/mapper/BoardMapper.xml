@@ -34,7 +34,7 @@
 		group by t1.board_number
 		order by 
 		<if test = 'startDate != null  and startDate !=""'>
-			bri.startDate<![CDATA[ >= ]]>#{startDate}
+			bri.startDate,
 		</if>
 		t1.board_number
 		limit #{offset},#{limit}
