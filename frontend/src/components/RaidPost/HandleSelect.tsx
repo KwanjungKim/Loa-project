@@ -17,6 +17,7 @@ const HandleSelect = ({ str, setParamMap }: ISelectProps) => {
         style={{
           borderRadius: "5px",
           border: "3px solid #fbc02d",
+          margin: "5px",
         }}
         onChange={(e) => handleData(str, e.target.value)}
       >

@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
 
 export type ICharProps = {
   user_number: string | undefined;
@@ -15,6 +16,11 @@ export type ICharProps = {
   ArmoryGems: object;
   ArmoryEngraving: object;
 };
+
+const { persistAtom } = recoilPersist({
+  key: "sessionStorage",
+  storage: sessionStorage,
+});
 
 export const mainCharState = atom<ICharProps>({
   key: "MainCharacterState",
@@ -35,4 +41,5 @@ export const mainCharState = atom<ICharProps>({
     ArmoryGems: {},
     ArmoryEngraving: {},
   },
+  effects_UNSTABLE: [persistAtom],
 });

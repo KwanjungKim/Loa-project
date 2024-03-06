@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useRecoilValue } from "recoil";
 import { mainCharState } from "../../atoms/mainCharacter";
@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import RecruitmentPostView, {
   IRecruitmentPostViewProps,
 } from "./RecruitmentPostView";
+import { useNavigate } from "react-router-dom";
 
 export interface FormValue {
   title: string;
@@ -40,6 +41,7 @@ export interface ISelectProps {
 
 const RecruitmentPost = () => {
   const mainCharacter = useRecoilValue(mainCharState);
+  const navigate = useNavigate();
   const [characterName, setCharacterName] = useState<string>("");
   const [Gate, setGate] = useState<number>(0);
 
@@ -59,6 +61,15 @@ const RecruitmentPost = () => {
     member: [mainCharacter.character_name],
   };
   const [paramMap, setParamMap] = useState<IparamMap>(defaultParamMap);
+
+  useEffect(() => {
+    setParamMap((prev) => {
+      return {
+        ...prev,
+        member: [mainCharacter.character_name],
+      };
+    });
+  }, [mainCharacter.character_name]);
 
   // title, diff, raid type, gate, content
   // input data => paramMap
@@ -112,6 +123,7 @@ const RecruitmentPost = () => {
                 ],
               };
             });
+            setCharacterName("");
             alert("등록 되었습니다.");
           }
         });
@@ -130,6 +142,7 @@ const RecruitmentPost = () => {
         alert(res.message);
       } else {
         alert(res.message);
+        navigate(-1);
       }
     });
   };
@@ -168,6 +181,7 @@ const RecruitmentPost = () => {
     // handleDateChange,
     setParamMap,
     setGate,
+    characterName,
     setCharacterName,
     selectRaidType,
   };

@@ -4,7 +4,7 @@ import { MemoryRouter as Router } from "react-router-dom";
 // route
 import MyPageRoute from "./MyPage";
 
-describe("Raid Guide Route", () => {
+describe("MyPage Route", () => {
   beforeEach(() => {
     render(
       <Router>
@@ -13,7 +13,7 @@ describe("Raid Guide Route", () => {
     );
   });
 
-  it("should render calendar route", () => {
+  it("should render MyPage route", () => {
     const text = screen.getByText(/MyPageRoute/i);
     expect(text).toBeInTheDocument();
   });
