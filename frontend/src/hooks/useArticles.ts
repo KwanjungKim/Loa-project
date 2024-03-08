@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import fetchUtils from "../utils/fetchUtils";
 import useInfinteScroll from "./useInfiniteScroll";
 import { useSearchParams } from "react-router-dom";
@@ -15,8 +15,31 @@ startDate
 minGate
 */
 
+/*
+raid_type
+발탄
+비아키스
+쿠크세이튼
+아브렐슈드
+일리아칸
+카멘
+에키드나
++ 상아탑
+카양겔
+*/
+
 type IProficiency = "트라이" | "클경" | "반숙" | "숙련";
 type IRaidDifficulty = "normal" | "hard" | "extreme";
+type IRaidType =
+  | "발탄"
+  | "비아키스"
+  | "쿠크세이튼"
+  | "아브렐슈드"
+  | "일리아칸"
+  | "카멘"
+  | "에키드나"
+  | "상아탑"
+  | "카양겔";
 
 export interface IBoard {
   board_list: IBoard[] | null;
@@ -46,11 +69,12 @@ interface Params {
   raid_leader?: string;
   startDate?: string;
   minGate?: string;
+  raid_type?: IRaidType;
 }
 
 const limit = 10;
 
-const useArticles = () => {
+const useArticles = (raidType?: IRaidType) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const loadingRef = useRef<boolean>(false);
@@ -72,6 +96,57 @@ const useArticles = () => {
   const [minGate, setMinGate] = useState(searchParams.get("minGate") || "");
 
   const [list, setList] = useState<IBoard[]>([]);
+
+  const paramsMessage = useMemo(() => {
+    if (
+      !proficiency &&
+      !raidDifficulty &&
+      !raidLeader &&
+      !startDate &&
+      !minGate
+    ) {
+      return "전체";
+    }
+    let message = "";
+    if (proficiency) {
+      message += `${proficiency}`;
+    }
+    if (raidDifficulty) {
+      if (message.length > 0) {
+        message += " | ";
+      }
+      message += `${
+        raidDifficulty === "normal"
+          ? "노말"
+          : raidDifficulty === "hard"
+          ? "하드"
+          : "익스트림"
+      }`;
+    }
+
+    if (raidLeader) {
+      if (message.length > 0) {
+        message += " | ";
+      }
+      message += `${raidLeader}`;
+    }
+
+    if (startDate) {
+      if (message.length > 0) {
+        message += " | ";
+      }
+      message += `${dayjs(startDate).format("YYYY.MM.DD")} 이후`;
+    }
+
+    if (minGate) {
+      if (message.length > 0) {
+        message += " | ";
+      }
+      message += `${minGate}관문 이상`;
+    }
+
+    return message;
+  }, [proficiency, raidDifficulty, raidLeader, startDate, minGate]);
 
   function nextPage() {
     setPageNo((prev) => {
@@ -147,6 +222,10 @@ const useArticles = () => {
       params["minGate"] = minGate;
     }
 
+    if (raidType) {
+      params["raid_type"] = raidType;
+    }
+
     const { data, success } = await fetchUtils.post(
       "/board/getAllArticle",
       params,
@@ -161,23 +240,21 @@ const useArticles = () => {
           setList((prev) => [...prev, ...data.boardModelList]);
         }
       }
-
-      // if (data.boardModelList.length === 0) {
-      //   setPageNo(-1);
-      // } else {
-      //   if (pageNo === 0) {
-      //     setList(data.boardModelList);
-      //   } else {
-      //     setList((prev) => [...prev, ...data.boardModelList]);
-      //   }
-      // }
     } else {
       setList([]);
     }
 
     loadingRef.current = false;
     setIsLoading(false);
-  }, [pageNo, proficiency, raidDifficulty, raidLeader, startDate, minGate]);
+  }, [
+    pageNo,
+    proficiency,
+    raidDifficulty,
+    raidLeader,
+    startDate,
+    minGate,
+    raidType,
+  ]);
 
   useEffect(() => {
     getAricles();
@@ -191,6 +268,7 @@ const useArticles = () => {
     articles: list,
     isLoading,
     pageNo,
+    paramsMessage,
     nextPage,
     handleParams,
   };
