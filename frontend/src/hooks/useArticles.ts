@@ -102,15 +102,18 @@ const useArticles = (raidType?: IRaidType) => {
       !proficiency &&
       !raidDifficulty &&
       !raidLeader &&
-      !startDate &&
+      (!startDate || startDate === dayjs().format("YYYY-MM-DD")) &&
       !minGate
     ) {
       return "전체";
     }
+
     let message = "";
+
     if (proficiency) {
       message += `${proficiency}`;
     }
+
     if (raidDifficulty) {
       if (message.length > 0) {
         message += " | ";
