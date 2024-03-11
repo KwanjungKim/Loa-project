@@ -16,6 +16,9 @@
 		<if test = 'raid_leader != null  and raid_leader !=""'>
 			and bi.raid_leader = #{raid_leader}
 		</if>
+		<if test = 'title != null  and title !=""'>
+			and bi.title like CONCAT('%',#{title},'%')
+		</if>
 		<if test = 'proficiency != null  and proficiency !=""'>
 			and bpf.proficiency = #{proficiency}
 		</if>
@@ -27,6 +30,9 @@
 		</if>
 		<if test = 'minGate != null  and minGate !=""'>
 			and bri.minGate = #{minGate}
+		</if>
+		<if test = 'maxGate != null  and maxGate !=""'>
+			and bri.maxGate = #{maxGate}
 		</if>
 		<if test = 'startDate != null  and startDate !=""'>
 			and bri.startDate<![CDATA[ >= ]]>#{startDate}
@@ -82,7 +88,10 @@
 		join board_party_filter bpf on bi.board_number = bpf.board_number 
 		join character_info ci on ci.character_name = bpi.party_member
 		where ci.user_number  = #{user_number}
-		order by bi.board_number 
+		<if test = 'startDate != null  and startDate !=""'>
+			and bri.startDate<![CDATA[ >= ]]>#{startDate}
+		</if>
+		order by bri.startDate 
 	</select>
 	
 	<delete id="deleteArticle">
@@ -96,6 +105,12 @@
 	</delete>
 	
 	<insert id="apply" parameterType="BoardModel">
-    	insert into loain.board_applicant (character_name, board_number, mention) value (#{character_name},#{board_number},#{mention});
+    	insert into loain.board_applicant (character_name, board_number, mention, status) value (#{character_name},#{board_number},#{mention},"수락대기중");
     </insert>
+    
+    <select id="getAllApplicants" parameterType="BoardModel" resultType="BoardModel">
+		select * from board_applicant ba 
+		where ba.board_number  = #{board_number} 
+		and ba.application_status = '수락대기중'
+	</select>
 </mapper>

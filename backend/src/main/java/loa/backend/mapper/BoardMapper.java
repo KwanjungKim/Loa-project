@@ -25,4 +25,6 @@ public interface BoardMapper {
 	void deleteArticle(BoardModel model);
 	
 	void apply(BoardModel model);
+	
+	List<BoardModel> getAllApplicants(BoardModel model);
 }

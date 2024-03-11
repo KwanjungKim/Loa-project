@@ -54,4 +54,10 @@ public class BoardController {
 		ResponseModel res = sv.apply(model);
 		return res;
 	}
+	
+	@RequestMapping("/board/getAllApplicants")
+	public ResponseModel getAllApplicants(@RequestBody BoardModel model) {
+		ResponseModel res = sv.getAllApplicants(model);
+		return res;
+	}
 }
