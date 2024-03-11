@@ -27,6 +27,7 @@ public class BoardModel {
 	private int limit;
 	private int offset;
 	private String mention;
+	private String application_status;
 	
 	public int getBoard_number() {
 		return board_number;
@@ -147,6 +148,12 @@ public class BoardModel {
 	}
 	public void setMention(String mention) {
 		this.mention = mention;
+	}
+	public String getApplication_status() {
+		return application_status;
+	}
+	public void setApplication_status(String application_status) {
+		this.application_status = application_status;
 	}
 	
 }

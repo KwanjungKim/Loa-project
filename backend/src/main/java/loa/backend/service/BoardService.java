@@ -107,4 +107,17 @@ public class BoardService {
 		res.setResultModel(result);
 		return res;
 	}
+	
+	public ResponseModel getAllApplicants(BoardModel model) {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		
+		List<BoardModel> boardList = mapper.getAllApplicants(model);
+		
+		res.setBoardModelList(boardList);
+		result.setMessage("신청자 목록을 가져왔습니다.");
+		result.setStatus("success");
+		res.setResultModel(result);
+		return res;
+	}
 }
