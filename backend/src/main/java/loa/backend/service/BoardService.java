@@ -125,7 +125,10 @@ public class BoardService {
 		ResponseModel res = new ResponseModel();
 		ResultModel result = new ResultModel();
 		
+		model.setParty_member(model.getCharacter_name());
+		
 		mapper.acceptApplication(model);
+		mapper.addArticle3(model);
 		
 		result.setMessage("신청자를 수락했습니다.");
 		result.setStatus("success");
