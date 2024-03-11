@@ -1,6 +1,8 @@
 import { AllHTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
 import useAllArticles from "../../hooks/useAllArticles";
+import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 
 interface IFormValues {
   proficiency: "트라이" | "클경" | "반숙" | "숙련" | "";
@@ -9,6 +11,7 @@ interface IFormValues {
   startDate: string;
   minGate: "1" | "2" | "3" | "4" | "";
   maxGate: "1" | "2" | "3" | "4" | "";
+  title: string;
 }
 
 const defaultFormValues: IFormValues = {
@@ -18,10 +21,11 @@ const defaultFormValues: IFormValues = {
   startDate: "",
   minGate: "",
   maxGate: "",
+  title: "",
 };
 
 const proficiencyOptions = [
-  { value: "", label: "숙련도" },
+  { value: "", label: "전체" },
   { value: "트라이", label: "트라이" },
   { value: "클경", label: "클경" },
   { value: "반숙", label: "반숙" },
@@ -29,17 +33,18 @@ const proficiencyOptions = [
 ];
 
 const raidDifficultyOptions = [
-  { value: "", label: "난이도" },
+  { value: "", label: "전체" },
   { value: "normal", label: "노말" },
   { value: "hard", label: "하드" },
   { value: "extreme", label: "익스트림" },
 ];
 
-const minGateOptions = [
-  { value: "", label: "최소 관문" },
+const gateOptions = [
+  { value: "", label: "전체" },
   { value: "1", label: "1" },
   { value: "2", label: "2" },
   { value: "3", label: "3" },
+  { value: "4", label: "4" },
 ];
 
 type IRaidType =
@@ -59,10 +64,14 @@ interface Props extends AllHTMLAttributes<HTMLDivElement> {
 }
 
 export default function Raids({ type, resetType, ...props }: Props) {
-  const { register, watch, reset, handleSubmit } = useForm({
+  const navigate = useNavigate();
+  function handleViewDetail(boardNumber: number) {
+    navigate(`/raid/${boardNumber}`);
+  }
+  const { register, watch, handleSubmit } = useForm({
     defaultValues: defaultFormValues,
   });
-  const { articles, handleSearchParams } = useAllArticles(type);
+  const { status, articles, handleSearchParams } = useAllArticles(type);
 
   const {
     startDate,
@@ -87,6 +96,35 @@ export default function Raids({ type, resetType, ...props }: Props) {
     maxGate,
   );
 
+  function onSubmit(formData: IFormValues) {
+    if (
+      formData.minGate !== "" &&
+      formData.maxGate !== "" &&
+      Number(formData.minGate) > Number(formData.maxGate)
+    ) {
+      alert("최소 관문은 최대 관문보다 클 수 없습니다.");
+      return;
+    }
+
+    if (formData.startDate === "") {
+      formData.startDate = dayjs().format("YYYY-MM-DD");
+    }
+
+    const isBeforeToday = dayjs(formData.startDate).isBefore(
+      dayjs().format("YYYY-MM-DD"),
+    );
+    const isAfterThirtyDays = dayjs(formData.startDate).isAfter(
+      dayjs().add(29, "day").format("YYYY-MM-DD"),
+    );
+
+    if (isBeforeToday || isAfterThirtyDays) {
+      alert("시작일은 오늘부터 30일 이내여야 합니다.");
+      return;
+    }
+
+    handleSearchParams({ ...formData, type });
+  }
+
   return (
     <div {...props}>
       <div>
@@ -94,13 +132,108 @@ export default function Raids({ type, resetType, ...props }: Props) {
       </div>
       <div>
         <h3>{type}</h3>
-        <button
-          onClick={handleSubmit((data) => {
-            console.log(data);
-          })}
+        <div>
+          <input
+            type="text"
+            placeholder="레이드 리더"
+            {...register("raid_leader")}
+          />
+        </div>
+        <div>
+          <input type="text" placeholder="제목" {...register("title")} />
+        </div>
+        <div>
+          <input
+            type="date"
+            placeholder="시작일"
+            {...register("startDate", {
+              setValueAs: (value) => {
+                return dayjs(value).format("YYYY-MM-DD");
+              },
+            })}
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
         >
-          search
-        </button>
+          <div>숙련도</div>
+          {proficiencyOptions.map((option) => (
+            <div key={`proficiency_${option.value}`}>
+              <input
+                type="radio"
+                id={`proficiency_${option.value}`}
+                value={option.value}
+                {...register("proficiency")}
+              />
+              <label htmlFor={`proficiency_${option.value}`}>
+                {option.label}
+              </label>
+            </div>
+          ))}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div>난이도</div>
+          {raidDifficultyOptions.map((option) => (
+            <div key={`raid_difficulty_${option.value}`}>
+              <input
+                type="radio"
+                id={`raid_difficulty_${option.value}`}
+                value={option.value}
+                {...register("raid_difficulty")}
+              />
+              <label htmlFor={`raid_difficulty_${option.value}`}>
+                {option.label}
+              </label>
+            </div>
+          ))}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div>최소 관문</div>
+          {gateOptions.map((option) => (
+            <div key={`minGate_${option.value}`}>
+              <input
+                type="radio"
+                id={`minGate_${option.value}`}
+                value={option.value}
+                {...register("minGate")}
+              />
+              <label htmlFor={`minGate_${option.value}`}>{option.label}</label>
+            </div>
+          ))}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div>최대 관문</div>
+          {gateOptions.map((option) => (
+            <div key={`maxGate_${option.value}`}>
+              <input
+                type="radio"
+                id={`maxGate_${option.value}`}
+                value={option.value}
+                {...register("maxGate")}
+              />
+              <label htmlFor={`maxGate_${option.value}`}>{option.label}</label>
+            </div>
+          ))}
+        </div>
+        <button onClick={handleSubmit(onSubmit)}>search</button>
       </div>
       <div>
         {articles.map((article) => (
@@ -110,10 +243,22 @@ export default function Raids({ type, resetType, ...props }: Props) {
               height: "560px",
             }}
           >
-            <h4>{article.title}</h4>
-            <div>#{article.member_count}</div>
+            <div>
+              <h4>
+                {article.title} ({article.startDate})
+              </h4>
+              <div>#{article.member_count}</div>
+            </div>
+            <div
+              onClick={() => {
+                handleViewDetail(article.board_number);
+              }}
+            >
+              상세 보기
+            </div>
           </div>
         ))}
+        {status === "loading" && <div>loading...</div>}
       </div>
     </div>
   );
