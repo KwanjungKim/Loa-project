@@ -1,6 +1,7 @@
 import React, { AllHTMLAttributes } from "react";
-import { IBoard, IDate } from "../../hooks/useMyArticles";
+import { IDate } from "../../hooks/useMyArticles";
 import dayjs from "dayjs";
+import { IBoard } from "../../libs/types";
 
 export interface MyCalendarViewProps extends AllHTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;

@@ -9,39 +9,8 @@ import { mainCharState } from "../atoms/mainCharacter";
 // utils
 import fetchUtils from "../utils/fetchUtils";
 
-type IRaidType =
-  | "발탄"
-  | "비아키스"
-  | "쿠크세이튼"
-  | "아브렐슈드"
-  | "일리아칸"
-  | "카멘"
-  | "에키드나"
-  | "상아탑"
-  | "카양겔";
-
-export interface IBoard {
-  board_list: IBoard[] | null;
-  board_number: number;
-  card_level: string;
-  character_name: string | null;
-  content: string;
-  limit: number;
-  maxGate: "1" | "2" | "3" | "4" | "";
-  member: string[] | null;
-  member_count: number;
-  mention: string | null;
-  minGate: "1" | "2" | "3" | "4" | "";
-  offset: number;
-  party_member: string | null;
-  proficiency: "트라이" | "클경" | "반숙" | "숙련";
-  raid_difficulty: "normal" | "hard" | "extreme";
-  raid_leader: string;
-  raid_type: IRaidType;
-  startDate: string;
-  title: string;
-  user_number: string;
-}
+// types
+import { IBoard } from "../libs/types";
 
 export interface IDate {
   date: string;
