@@ -113,4 +113,25 @@
 		where ba.board_number  = #{board_number} 
 		and ba.application_status = '수락대기중'
 	</select>
+	
+	<update id="acceptApplication">
+		update loain.board_applicant SET 
+		application_status = '수락'
+		where board_number = #{board_number}
+		and character_name = #{character_name}
+	</update>
+	
+	<update id="rejectApplication">
+		update loain.board_applicant SET 
+		application_status = '거절'
+		where board_number = #{board_number}
+		and character_name = #{character_name}
+	</update>
+	
+	<update id="cancelApplication">
+		update loain.board_applicant SET 
+		application_status = '취소'
+		where board_number = #{board_number}
+		and character_name = #{character_name}
+	</update>
 </mapper>

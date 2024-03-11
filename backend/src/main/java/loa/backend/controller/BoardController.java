@@ -60,4 +60,22 @@ public class BoardController {
 		ResponseModel res = sv.getAllApplicants(model);
 		return res;
 	}
+	
+	@RequestMapping("/board/acceptApplication")
+	public ResponseModel acceptApplication(@RequestBody BoardModel model) {
+		ResponseModel res = sv.acceptApplication(model);
+		return res;
+	}
+	
+	@RequestMapping("/board/rejectApplication")
+	public ResponseModel rejectApplication(@RequestBody BoardModel model) {
+		ResponseModel res = sv.rejectApplication(model);
+		return res;
+	}
+	
+	@RequestMapping("/board/cancelApplication")
+	public ResponseModel cancelApplication(@RequestBody BoardModel model) {
+		ResponseModel res = sv.cancelApplication(model);
+		return res;
+	}
 }
