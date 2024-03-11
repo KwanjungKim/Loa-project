@@ -120,4 +120,40 @@ public class BoardService {
 		res.setResultModel(result);
 		return res;
 	}
+	
+	public ResponseModel acceptApplication(BoardModel model) {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		
+		mapper.acceptApplication(model);
+		
+		result.setMessage("신청자를 수락했습니다.");
+		result.setStatus("success");
+		res.setResultModel(result);
+		return res;
+	}
+	
+	public ResponseModel rejectApplication(BoardModel model) {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		
+		mapper.rejectApplication(model);
+		
+		result.setMessage("신청자를 거절했습니다.");
+		result.setStatus("success");
+		res.setResultModel(result);
+		return res;
+	}
+	
+	public ResponseModel cancelApplication(BoardModel model) {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		
+		mapper.cancelApplication(model);
+		
+		result.setMessage("신청을 취소했습니다.");
+		result.setStatus("success");
+		res.setResultModel(result);
+		return res;
+	}
 }

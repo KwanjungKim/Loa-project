@@ -27,4 +27,10 @@ public interface BoardMapper {
 	void apply(BoardModel model);
 	
 	List<BoardModel> getAllApplicants(BoardModel model);
+	
+	void acceptApplication(BoardModel model);
+	
+	void rejectApplication(BoardModel model);
+	
+	void cancelApplication(BoardModel model);
 }
