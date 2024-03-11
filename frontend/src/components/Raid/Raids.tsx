@@ -1,4 +1,9 @@
-import { AllHTMLAttributes } from "react";
+import React, {
+  AllHTMLAttributes,
+  FormHTMLAttributes,
+  ForwardedRef,
+  InputHTMLAttributes,
+} from "react";
 import { useForm } from "react-hook-form";
 import useAllArticles from "../../hooks/useAllArticles";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +23,7 @@ const defaultFormValues: IFormValues = {
   proficiency: "",
   raid_difficulty: "",
   raid_leader: "",
-  startDate: "",
+  startDate: dayjs().format("YYYY-MM-DD"),
   minGate: "",
   maxGate: "",
   title: "",
@@ -71,6 +76,7 @@ export default function Raids({ type, resetType, ...props }: Props) {
   const { register, watch, handleSubmit } = useForm({
     defaultValues: defaultFormValues,
   });
+  console.log(watch());
   const { status, articles, handleSearchParams } = useAllArticles(type);
 
   const {
@@ -106,10 +112,6 @@ export default function Raids({ type, resetType, ...props }: Props) {
       return;
     }
 
-    if (formData.startDate === "") {
-      formData.startDate = dayjs().format("YYYY-MM-DD");
-    }
-
     const isBeforeToday = dayjs(formData.startDate).isBefore(
       dayjs().format("YYYY-MM-DD"),
     );
@@ -130,8 +132,13 @@ export default function Raids({ type, resetType, ...props }: Props) {
       <div>
         <button onClick={resetType}>돌아가기</button>
       </div>
-      <div>
-        <h3>{type}</h3>
+
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(onSubmit)();
+        }}
+      >
         <div>
           <input
             type="text"
@@ -153,88 +160,52 @@ export default function Raids({ type, resetType, ...props }: Props) {
             })}
           />
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <div>숙련도</div>
+        <Form.RadiosWrapper title="숙련도">
           {proficiencyOptions.map((option) => (
-            <div key={`proficiency_${option.value}`}>
-              <input
-                type="radio"
-                id={`proficiency_${option.value}`}
-                value={option.value}
-                {...register("proficiency")}
-              />
-              <label htmlFor={`proficiency_${option.value}`}>
-                {option.label}
-              </label>
-            </div>
+            <Form.Radio
+              key={`proficiency_${option.value}`}
+              label={option.label}
+              id={`proficiency_${option.value}`}
+              value={option.value}
+              {...register("proficiency")}
+            />
           ))}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <div>난이도</div>
+        </Form.RadiosWrapper>
+        <Form.RadiosWrapper title="난이도">
           {raidDifficultyOptions.map((option) => (
-            <div key={`raid_difficulty_${option.value}`}>
-              <input
-                type="radio"
-                id={`raid_difficulty_${option.value}`}
-                value={option.value}
-                {...register("raid_difficulty")}
-              />
-              <label htmlFor={`raid_difficulty_${option.value}`}>
-                {option.label}
-              </label>
-            </div>
+            <Form.Radio
+              key={`raid_difficulty_${option.value}`}
+              label={option.label}
+              id={`raid_difficulty_${option.value}`}
+              value={option.value}
+              {...register("raid_difficulty")}
+            />
           ))}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <div>최소 관문</div>
+        </Form.RadiosWrapper>
+        <Form.RadiosWrapper title="최소 관문">
           {gateOptions.map((option) => (
-            <div key={`minGate_${option.value}`}>
-              <input
-                type="radio"
-                id={`minGate_${option.value}`}
-                value={option.value}
-                {...register("minGate")}
-              />
-              <label htmlFor={`minGate_${option.value}`}>{option.label}</label>
-            </div>
+            <Form.Radio
+              key={`minGate_${option.value}`}
+              label={option.label}
+              id={`minGate_${option.value}`}
+              value={option.value}
+              {...register("minGate")}
+            />
           ))}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <div>최대 관문</div>
+        </Form.RadiosWrapper>
+        <Form.RadiosWrapper title="최대 관문">
           {gateOptions.map((option) => (
-            <div key={`maxGate_${option.value}`}>
-              <input
-                type="radio"
-                id={`maxGate_${option.value}`}
-                value={option.value}
-                {...register("maxGate")}
-              />
-              <label htmlFor={`maxGate_${option.value}`}>{option.label}</label>
-            </div>
+            <Form.Radio
+              key={`maxGate_${option.value}`}
+              label={option.label}
+              id={`maxGate_${option.value}`}
+              value={option.value}
+              {...register("maxGate")}
+            />
           ))}
-        </div>
-        <button onClick={handleSubmit(onSubmit)}>search</button>
-      </div>
+        </Form.RadiosWrapper>
+        <button type="submit">search</button>
+      </Form>
       <div>
         {articles.map((article) => (
           <div
@@ -245,9 +216,10 @@ export default function Raids({ type, resetType, ...props }: Props) {
           >
             <div>
               <h4>
-                {article.title} ({article.startDate})
+                {article.title} ({article.raid_leader})
               </h4>
-              <div>#{article.member_count}</div>
+              <div>#{dayjs(article.startDate).format("M월D일 hh:mm")}</div>
+              <div>{article.member_count}명 참여 중</div>
             </div>
             <div
               onClick={() => {
@@ -263,3 +235,51 @@ export default function Raids({ type, resetType, ...props }: Props) {
     </div>
   );
 }
+
+interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
+  children: React.ReactNode;
+}
+
+function Form({ children, ...props }: FormProps) {
+  return <form {...props}>{children}</form>;
+}
+
+interface RadiosWrapperProps extends AllHTMLAttributes<HTMLDivElement> {
+  title: string;
+  children: React.ReactNode;
+}
+
+Form.RadiosWrapper = function RadiosWrapper({
+  title,
+  children,
+  ...props
+}: RadiosWrapperProps) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+      }}
+      {...props}
+    >
+      <div>{title}</div>
+      {children}
+    </div>
+  );
+};
+
+interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
+  label: string;
+}
+
+Form.Radio = React.forwardRef(function Radio(
+  { label, ...props }: RadioProps,
+  ref: ForwardedRef<HTMLInputElement>,
+) {
+  return (
+    <div>
+      <input type="radio" {...props} ref={ref} />
+      <label htmlFor={props.id}>{label}</label>
+    </div>
+  );
+});
