@@ -81,7 +81,7 @@ public class BoardService {
 		return res;
 	}
 	
-	public ResponseModel getRaid(CharacterModel model) {
+	public ResponseModel getRaid(BoardModel model) {
 		ResponseModel res = new ResponseModel();
 		ResultModel result = new ResultModel();
 		BoardModel bModel = new BoardModel();
