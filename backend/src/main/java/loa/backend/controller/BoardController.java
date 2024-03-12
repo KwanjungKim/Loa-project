@@ -38,7 +38,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/getRaid")
-	public ResponseModel getRaid(@RequestBody CharacterModel model) {
+	public ResponseModel getRaid(@RequestBody BoardModel model) {
 		ResponseModel res = sv.getRaid(model);
 		return res;
 	}

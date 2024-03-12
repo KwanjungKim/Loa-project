@@ -20,7 +20,7 @@ public interface BoardMapper {
 	
 	BoardModel checkBoardNum();
 	
-	List<BoardModel> getRaid(CharacterModel model);
+	List<BoardModel> getRaid(BoardModel model);
 	
 	void deleteArticle(BoardModel model);
 	
