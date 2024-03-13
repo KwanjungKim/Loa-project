@@ -11,6 +11,12 @@
   --hovered-bg: rgba(0, 0, 0, 0.1);
   --focused-bg: rgba(0, 0, 0, 0.2);
 
+  --background: 12, 20, 22;
+  --background-box: 4, 9, 10;
+  --background-modal: 15, 26, 28;
+
+  --font: 255, 255, 255;
+
   // screen sizes
   --xs: 0;
   --sm: 320px;
@@ -31,12 +37,3 @@ body[data-theme="dark"] {
   --hovered-bg: rgba(255, 255, 255, 0.1);
   --focused-bg: rgba(255, 255, 255, 0.2);
 }
-
-/*
-media queries
-  xs: 0,
-  sm: 320,
-  md: 480,
-  lg: 768,
-  xl: 1024,
-*/

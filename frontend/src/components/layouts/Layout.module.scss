@@ -1,0 +1,17 @@
+.section {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.navWrapper {
+  display: none;
+}
+
+@media screen and (min-width: 1200px) {
+  .section {
+    grid-template-columns: 1fr 4fr;
+  }
+  .navWrapper {
+    display: block;
+  }
+}

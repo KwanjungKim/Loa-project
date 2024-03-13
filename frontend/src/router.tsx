@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 
 // layouts
-import RootLayout from "./components/layouts/RootLayout";
+// import RootLayout from "./components/layouts/RootLayout";
+import Layout from "./components/layouts/Layout";
 
 // routes
 import HomeRoute from "./routes/HomeRoute";
@@ -22,7 +23,8 @@ import RaidPostingRoute from "./routes/RaidPost";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    // element: <RootLayout />,
+    element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {

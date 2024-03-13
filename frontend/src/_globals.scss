@@ -5,6 +5,13 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: rgba(var(--background), 1);
+  color: rgba(var(--font), 1);
+  line-height: 1.5;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
 a {
   text-decoration: none;
   color: inherit;

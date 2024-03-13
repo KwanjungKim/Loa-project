@@ -1,16 +1,18 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
-import useTheme from "./hooks/useTheme";
 import router from "./router";
+// import { CssBaseline, ThemeProvider } from "@mui/material";
+// import useTheme from "./hooks/useTheme";
 
 const App = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <>
+      {/* <ThemeProvider theme={theme}> */}
+      {/* <CssBaseline /> */}
       <RouterProvider router={router} />
-    </ThemeProvider>
+      {/* </ThemeProvider> */}
+    </>
   );
 };
 
