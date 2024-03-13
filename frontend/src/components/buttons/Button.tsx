@@ -5,31 +5,41 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-const Button = function Button({ children, className, ...props }: ButtonProps) {
+export default function Button({ children, className, ...props }: ButtonProps) {
   const _className = className
     ? `${styles.button} ${className}`
     : styles.button;
+  const _children = children?.toString() || "";
   return (
-    <button className={_className} {...props}>
+    <button
+      className={_className}
+      title={_children}
+      aria-label={_children}
+      {...props}
+    >
       <span>{children}</span>
     </button>
   );
-};
+}
 
-export default Button;
-
-Button.Default = function DefaultButton({ children, ...props }: ButtonProps) {
+Button.Default = React.memo(function DefaultButton({
+  children,
+  ...props
+}: ButtonProps) {
   return (
     <Button className={styles.default} {...props}>
       {children}
     </Button>
   );
-};
+});
 
-Button.Brand = function BrandButton({ children, ...props }: ButtonProps) {
+Button.Brand = React.memo(function BrandButton({
+  children,
+  ...props
+}: ButtonProps) {
   return (
     <Button className={styles.brand} {...props}>
       {children}
     </Button>
   );
-};
+});

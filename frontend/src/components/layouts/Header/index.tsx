@@ -1,39 +1,50 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 
 // recoil
-import { useRecoilValue } from "recoil";
-import { loginState } from "../../../atoms/login";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { loginState } from "@atoms/login";
+import { screenModeActions, screenModeState } from "@/atoms/screenModeState";
+
+// utils
+import cookies from "@/utils/cookies";
 
 // components
-import IconButton from "../buttons/IconButton";
-import BurgerSvg from "../../svgs/BurgerSvg";
-import GetCharacterList from "../../kakaoLogin/getCharacterList";
-import Button from "../buttons/Button";
+import loginUtils from "@utils/loginUtils";
+import HeaderView, { HeaderViewProps } from "./HeaderView";
 
 interface Props extends React.AllHTMLAttributes<HTMLDivElement> {}
 
 export default function Header({ ...props }: Props) {
   const isLoggedin = useRecoilValue(loginState);
-  return (
-    <header style={{ height: "57px" }} {...props}>
-      <div>
-        <div>
-          <IconButton>
-            <BurgerSvg />
-          </IconButton>
-        </div>
-        <h1>logo</h1>
-      </div>
-      <div>
-        <GetCharacterList />
-      </div>
-      <div>
-        {isLoggedin ? (
-          <Button.Brand>로그아웃</Button.Brand>
-        ) : (
-          <Button.Brand>로그인</Button.Brand>
-        )}
-      </div>
-    </header>
+
+  const [screenMode, setScreenMode] = useRecoilState(screenModeState);
+  const handleToggleScreenMode = useCallback(
+    function handleToggleScreenMode(currentMode: "light" | "dark") {
+      const next = screenModeActions.toggle(currentMode);
+      setScreenMode(next);
+      cookies.set("screenMode", next, 30);
+    },
+    [setScreenMode],
   );
+
+  function login() {
+    loginUtils.loginKakao();
+  }
+
+  function logout() {
+    loginUtils.logoutKakao();
+  }
+
+  const headerViewProps: HeaderViewProps = useMemo(
+    () => ({
+      isLoggedin,
+      login,
+      logout,
+      screenMode,
+      handleToggleScreenMode,
+    }),
+    [isLoggedin, screenMode, handleToggleScreenMode],
+  );
+
+  return <HeaderView {...headerViewProps} {...props} />;
 }

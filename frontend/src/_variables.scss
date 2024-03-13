@@ -11,21 +11,6 @@
   --hovered-bg: rgba(0, 0, 0, 0.1);
   --focused-bg: rgba(0, 0, 0, 0.2);
 
-  --background: 12, 20, 22;
-  --background-box: 4, 9, 10;
-  --background-modal: 15, 26, 28;
-  --background-hover: 34, 50, 55;
-  --background-active: 51, 70, 76;
-
-  --brand: 217, 58, 0;
-  --brand-hover: 150, 41, 0;
-
-  --default-button-background: 26, 40, 45;
-  --default-button-background-hover: 34, 50, 55;
-  --default-button-background-active: 51, 70, 76;
-
-  --font: 241, 244, 245;
-
   // screen sizes
   --xs: 0;
   --sm: 320px;
@@ -35,6 +20,52 @@
 
   // cals
   --bottom-nav-height: 64px;
+}
+
+body {
+  --background: 255, 255, 255;
+  --background-box: 249, 250, 250;
+  --background-modal: 255, 255, 255;
+  --background-hover: 226, 231, 233;
+  --background-active: 210, 218, 221;
+
+  --brand: 217, 58, 0;
+  --brand-hover: 150, 41, 0;
+
+  --blue: 0, 69, 172;
+  --blue-hover: 24, 112, 244;
+  --blue-active: 98, 159, 255;
+
+  --default-button-background: 234, 237, 239;
+  --default-button-background-hover: 226, 231, 233;
+  --default-button-background-active: 210, 218, 221;
+
+  --font: 15, 26, 28;
+  --default-button-font: 15, 26, 28;
+  --brand-button-font: 252, 232, 227;
+
+  --divider: 229, 229, 229;
+}
+
+body.dark {
+  --background: 12, 20, 22;
+  --background-box: 4, 9, 10;
+  --background-modal: 15, 26, 28;
+  --background-hover: 34, 50, 55;
+  --background-active: 51, 70, 76;
+
+  // --brand: 217, 58, 0;
+  // --brand-hover: 150, 41, 0;
+
+  --default-button-background: 26, 40, 45;
+  --default-button-background-hover: 34, 50, 55;
+  --default-button-background-active: 51, 70, 76;
+
+  --font: 241, 244, 245;
+  --default-button-font: 241, 244, 245;
+  --brand-button-font: 12, 20, 22;
+
+  --divider: 36, 44, 46;
 }
 
 // dark mode
