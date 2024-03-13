@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 
 // recoil
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -10,22 +10,30 @@ import cookies from "@/utils/cookies";
 
 // components
 import loginUtils from "@utils/loginUtils";
-import HeaderView, { HeaderViewProps } from "./HeaderView";
+import HeaderView, { HeaderViewButtonsProps } from "./HeaderView";
+import useClickOutside from "@/hooks/useClickOutside";
 
-interface Props extends React.AllHTMLAttributes<HTMLDivElement> {}
+interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function Header({ ...props }: Props) {
   const isLoggedin = useRecoilValue(loginState);
-
+  const [showSetting, setShowSetting] = useState(false);
   const [screenMode, setScreenMode] = useRecoilState(screenModeState);
-  const handleToggleScreenMode = useCallback(
-    function handleToggleScreenMode(currentMode: "light" | "dark") {
-      const next = screenModeActions.toggle(currentMode);
-      setScreenMode(next);
-      cookies.set("screenMode", next, 30);
-    },
-    [setScreenMode],
-  );
+  const settingRef = useRef<HTMLDivElement>(null);
+  const toggleSetting = () => {
+    setShowSetting((prev) => !prev);
+  };
+
+  const handleClickOutsideSetting = useCallback(() => {
+    if (!showSetting) return;
+    setShowSetting(false);
+  }, [showSetting]);
+
+  const toggleScreenMode = useCallback(() => {
+    const next = screenModeActions.toggle(screenMode);
+    setScreenMode(next);
+    cookies.set("screenMode", next, 30);
+  }, [setScreenMode, screenMode]);
 
   function login() {
     loginUtils.loginKakao();
@@ -35,16 +43,29 @@ export default function Header({ ...props }: Props) {
     loginUtils.logoutKakao();
   }
 
-  const headerViewProps: HeaderViewProps = useMemo(
+  useClickOutside(settingRef, handleClickOutsideSetting);
+
+  const headerViewButtonsProps: HeaderViewButtonsProps = useMemo(
     () => ({
       isLoggedin,
       login,
       logout,
-      screenMode,
-      handleToggleScreenMode,
+      toggleSetting,
     }),
-    [isLoggedin, screenMode, handleToggleScreenMode],
+    [isLoggedin],
   );
 
-  return <HeaderView {...headerViewProps} {...props} />;
+  return (
+    <HeaderView {...props}>
+      <HeaderView.Logos />
+      <HeaderView.CharacterList />
+      <HeaderView.Buttons {...headerViewButtonsProps} />
+      {showSetting && (
+        <HeaderView.Setting
+          toggleScreenMode={toggleScreenMode}
+          ref={settingRef}
+        />
+      )}
+    </HeaderView>
+  );
 }

@@ -16,9 +16,11 @@ export default function Layout() {
         <Header />
         <section className={styles.section}>
           <div className={styles.navWrapper}>
-            <Nav />
+            <div>
+              <Nav />
+            </div>
           </div>
-          <div>
+          <div className={styles.outletWrapper}>
             <Outlet />
           </div>
         </section>

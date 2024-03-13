@@ -8,39 +8,21 @@ import IconButton from "@components/buttons/IconButton";
 import BurgerSvg from "@components/svgs/BurgerSvg";
 import GetCharacterList from "@components/kakaoLogin/getCharacterList";
 import Button from "@components/buttons/Button";
-import SettingSvg from "@/components/svgs/SettingSvg";
+import SettingSvg from "@components/svgs/SettingSvg";
 
-export interface HeaderViewProps
-  extends React.AllHTMLAttributes<HTMLDivElement> {
-  isLoggedin: boolean;
-  screenMode: "light" | "dark";
-  login: () => void;
-  logout: () => void;
-  handleToggleScreenMode: (currentMode: "light" | "dark") => void;
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
 }
 
-const HeaderView = React.memo(function HeaderView({
-  isLoggedin,
-  screenMode,
-  login,
-  logout,
-  handleToggleScreenMode,
-  ...props
-}: HeaderViewProps) {
+export default function HeaderView({ children, ...props }: Props) {
   return (
     <header className={styles.header} {...props}>
-      <div className={styles.headerGrid}>
-        <Logos />
-        <CharacterList />
-        <Buttons isLoggedin={isLoggedin} login={login} logout={logout} />
-      </div>
+      <div className={styles.headerGrid}>{children}</div>
     </header>
   );
-});
+}
 
-export default HeaderView;
-
-const Logos = React.memo(function Logos() {
+HeaderView.Logos = React.memo(function Logos() {
   return (
     <div className={styles.logos}>
       <div>
@@ -53,7 +35,7 @@ const Logos = React.memo(function Logos() {
   );
 });
 
-const CharacterList = React.memo(function CharacterList() {
+HeaderView.CharacterList = React.memo(function CharacterList() {
   return (
     <div className={styles.characterList}>
       <GetCharacterList />
@@ -61,17 +43,20 @@ const CharacterList = React.memo(function CharacterList() {
   );
 });
 
-type ButtonsProps = {
+export interface HeaderViewButtonsProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   isLoggedin: boolean;
   login: () => void;
   logout: () => void;
-};
+  toggleSetting: () => void;
+}
 
-const Buttons = React.memo(function Buttons({
+HeaderView.Buttons = React.memo(function Buttons({
   isLoggedin,
   login,
   logout,
-}: ButtonsProps) {
+  toggleSetting,
+}: HeaderViewButtonsProps) {
   return (
     <div className={styles.buttons}>
       {isLoggedin ? (
@@ -79,9 +64,38 @@ const Buttons = React.memo(function Buttons({
       ) : (
         <Button.Brand onClick={login}>로그인</Button.Brand>
       )}
-      <IconButton title="open setting modal">
+      <IconButton
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleSetting();
+        }}
+        title="open setting modal"
+      >
         <SettingSvg aria-hidden />
       </IconButton>
     </div>
   );
 });
+
+interface HeaderViewSettingProps extends React.HTMLAttributes<HTMLDivElement> {
+  toggleScreenMode: () => void;
+}
+
+HeaderView.Setting = React.forwardRef<HTMLDivElement, HeaderViewSettingProps>(
+  function Setting({ toggleScreenMode, ...props }, ref) {
+    return (
+      <div
+        style={{
+          position: "absolute",
+          top: "100%",
+          right: "0",
+        }}
+        {...props}
+        ref={ref}
+      >
+        <button onClick={toggleScreenMode}>light/dark</button>
+      </div>
+    );
+  },
+);
