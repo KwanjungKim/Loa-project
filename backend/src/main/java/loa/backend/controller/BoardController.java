@@ -43,6 +43,12 @@ public class BoardController {
 		return res;
 	}
 	
+	@RequestMapping("/board/getPartyMember")
+	public ResponseModel getPartyMember(@RequestBody BoardModel model) {
+		ResponseModel res = sv.getPartyMember(model);
+		return res;
+	}
+	
 	@RequestMapping("/board/deleteArticle")
 	public ResponseModel deleteArticle(@RequestBody BoardModel model) {
 		ResponseModel res = sv.deleteArticle(model);
