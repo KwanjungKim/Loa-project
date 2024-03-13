@@ -12,9 +12,17 @@ body {
   font-family: "Noto Sans KR", sans-serif;
 }
 
+button {
+  color: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 a {
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 
 body::-webkit-scrollbar {

@@ -2,7 +2,10 @@ import { DefaultSvgProps } from ".";
 
 interface Props extends DefaultSvgProps {}
 
-export default function BurgerSvg({ color, ...props }: Props) {
+export default function BurgerSvg({
+  color = "rgba(var(--font), 1)",
+  ...props
+}: Props) {
   return (
     <svg
       fill={color}
