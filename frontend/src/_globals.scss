@@ -5,9 +5,26 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: rgba(var(--background), 1);
+  color: rgba(var(--font), 1);
+  line-height: 1.5;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+button {
+  color: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 a {
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 
 body::-webkit-scrollbar {
