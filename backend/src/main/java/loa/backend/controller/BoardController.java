@@ -43,6 +43,12 @@ public class BoardController {
 		return res;
 	}
 	
+	@RequestMapping("/board/getRaidOnQue")
+	public ResponseModel getRaidOnQue(@RequestBody BoardModel model) {
+		ResponseModel res = sv.getRaidOnQue(model);
+		return res;
+	}
+	
 	@RequestMapping("/board/getPartyMember")
 	public ResponseModel getPartyMember(@RequestBody BoardModel model) {
 		ResponseModel res = sv.getPartyMember(model);

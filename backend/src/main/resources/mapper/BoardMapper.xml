@@ -87,10 +87,26 @@
 		join board_party_info bpi on bi.board_number = bpi.board_number
 		join board_party_filter bpf on bi.board_number = bpf.board_number 
 		join character_info ci on ci.character_name = bpi.party_member
+		join board_applicant ba on bi.board_number = ba.board_number
 		where ci.user_number  = #{user_number}
 		<if test = 'startDate != null  and startDate !=""'>
 			and bri.startDate<![CDATA[ >= ]]>#{startDate}
 		</if>
+		order by bri.startDate 
+	</select>
+	
+	<select id="getRaidOnQue" resultType="BoardModel">
+		select *
+		FROM board_info bi 
+		join board_raid_info bri on bi.board_number = bri.board_number
+		join board_party_filter bpf on bi.board_number = bpf.board_number
+		join board_applicant ba on bi.board_number = ba.board_number 
+		join character_info ci on ci.character_name = ba.character_name 
+		where ci.user_number  = #{user_number}
+		<if test = 'startDate != null  and startDate !=""'>
+			and bri.startDate<![CDATA[ >= ]]>#{startDate}
+		</if>
+		and ba.application_status = '수락대기중'
 		order by bri.startDate 
 	</select>
 	

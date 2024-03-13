@@ -96,6 +96,21 @@ public class BoardService {
 		return res;
 	}
 	
+	public ResponseModel getRaidOnQue(BoardModel model) {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		BoardModel bModel = new BoardModel();
+		
+		List<BoardModel> boardList = mapper.getRaidOnQue(model);
+		bModel.setBoard_list(boardList);
+		
+		result.setMessage("수락 대기중인 레이드 일정을 가져왔습니다.");
+		result.setStatus("success");
+		res.setBoardModel(bModel);
+		res.setResultModel(result);
+		return res;
+	}
+	
 	public ResponseModel getPartyMember(BoardModel model) {
 		ResponseModel res = new ResponseModel();
 		ResultModel result = new ResultModel();
