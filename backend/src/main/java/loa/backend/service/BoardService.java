@@ -96,6 +96,21 @@ public class BoardService {
 		return res;
 	}
 	
+	public ResponseModel getPartyMember(BoardModel model) {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		BoardModel bModel = new BoardModel();
+		
+		String[] memberList = mapper.getPartyMember(model);
+		bModel.setMember(memberList);
+		
+		result.setMessage("피티원을 가져왔습니다.");
+		result.setStatus("success");
+		res.setBoardModel(bModel);
+		res.setResultModel(result);
+		return res;
+	}
+	
 	public ResponseModel apply(BoardModel model) {
 		ResponseModel res = new ResponseModel();
 		ResultModel result = new ResultModel();
