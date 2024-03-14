@@ -26,8 +26,11 @@ body {
   --background: 255, 255, 255;
   --background-box: 249, 250, 250;
   --background-modal: 255, 255, 255;
+  --background-modal-hover: 242, 244, 245;
+  --background-modal-active: 234, 237, 239;
   --background-hover: 226, 231, 233;
   --background-active: 210, 218, 221;
+  --box-shadow-modal: 0px 2px 15px rgba(26, 26, 27, 0.3);
 
   --brand: 217, 58, 0;
   --brand-hover: 150, 41, 0;
@@ -35,6 +38,10 @@ body {
   --blue: 0, 69, 172;
   --blue-hover: 24, 112, 244;
   --blue-active: 98, 159, 255;
+
+  --disabled-switch: 234, 237, 239;
+  --disabled-switch-hover: 226, 231, 233;
+  --disabled-switch-active: 210, 218, 221;
 
   --default-button-background: 234, 237, 239;
   --default-button-background-hover: 226, 231, 233;
@@ -52,6 +59,8 @@ body.dark {
   --background: 12, 20, 22;
   --background-box: 4, 9, 10;
   --background-modal: 15, 26, 28;
+  --background-modal-hover: 19, 31, 35;
+  --background-modal-active: 26, 40, 45;
   --background-hover: 34, 50, 55;
   --background-active: 51, 70, 76;
 

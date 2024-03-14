@@ -9,6 +9,9 @@ import BurgerSvg from "@components/svgs/BurgerSvg";
 import GetCharacterList from "@components/kakaoLogin/getCharacterList";
 import Button from "@components/buttons/Button";
 import SettingSvg from "@components/svgs/SettingSvg";
+import ModalBox from "@components/boxes/ModalBox";
+import NightSvg from "@components/svgs/NightSvg";
+import Switch from "@components/switches/Switch";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -22,15 +25,24 @@ export default function HeaderView({ children, ...props }: Props) {
   );
 }
 
-HeaderView.Logos = React.memo(function Logos() {
+interface HeaderViewLogosProps extends React.AllHTMLAttributes<HTMLDivElement> {
+  handleClickLogo: () => void;
+}
+
+HeaderView.Logos = React.memo(function Logos({
+  handleClickLogo,
+  ...props
+}: HeaderViewLogosProps) {
   return (
-    <div className={styles.logos}>
-      <div>
+    <div className={styles.logos} {...props}>
+      <div className={styles.headerNavIcon}>
         <IconButton title="open navigation">
           <BurgerSvg aria-hidden />
         </IconButton>
       </div>
-      <h1>logo</h1>
+      <div className={styles.logoWrapper} onClick={handleClickLogo}>
+        <h1>logo</h1>
+      </div>
     </div>
   );
 });
@@ -70,7 +82,7 @@ HeaderView.Buttons = React.memo(function Buttons({
           e.stopPropagation();
           toggleSetting();
         }}
-        title="open setting modal"
+        title="설정 모달창 열기"
       >
         <SettingSvg aria-hidden />
       </IconButton>
@@ -80,21 +92,30 @@ HeaderView.Buttons = React.memo(function Buttons({
 
 interface HeaderViewSettingProps extends React.HTMLAttributes<HTMLDivElement> {
   toggleScreenMode: () => void;
+  isDark: boolean;
 }
 
 HeaderView.Setting = React.forwardRef<HTMLDivElement, HeaderViewSettingProps>(
-  function Setting({ toggleScreenMode, ...props }, ref) {
+  function Setting({ isDark, toggleScreenMode, ...props }, ref) {
     return (
-      <div
-        style={{
-          position: "absolute",
-          top: "100%",
-          right: "0",
-        }}
-        {...props}
-        ref={ref}
-      >
-        <button onClick={toggleScreenMode}>light/dark</button>
+      <div className={styles.settingWrapper} {...props} ref={ref}>
+        <ModalBox>
+          <ModalBox.Button
+            title={isDark ? "밝게" : "어둡게"}
+            aria-label={isDark ? "밝게" : "어둡게"}
+            onClick={toggleScreenMode}
+          >
+            <div className={styles.setting}>
+              <div>
+                <NightSvg />
+                <span>어둡게</span>
+              </div>
+              <div>
+                <Switch isActivated={isDark} />
+              </div>
+            </div>
+          </ModalBox.Button>
+        </ModalBox>
       </div>
     );
   },

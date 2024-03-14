@@ -25,14 +25,18 @@
   justify-content: flex-start;
   grid-column: 1 / 4;
 
-  > div {
+  .headerNavIcon {
     display: flex;
+  }
+
+  .logoWrapper {
+    cursor: pointer;
   }
 }
 
 @media screen and (min-width: 1200px) {
   .logos {
-    > div {
+    .headerNavIcon {
       display: none;
     }
   }
@@ -50,4 +54,24 @@
   align-items: center;
   justify-content: flex-end;
   grid-column: 12 / 17;
+  column-gap: 8px;
+}
+
+.settingWrapper {
+  width: 256px;
+  position: absolute;
+  top: 100%;
+  right: 0;
+}
+
+.setting {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  > div:first-child {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+  }
 }

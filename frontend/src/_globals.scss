@@ -5,6 +5,11 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-font-smoothing: antialiased;
+  touch-action: manipulation;
+}
+
 body {
   background-color: rgba(var(--background), 1);
   color: rgba(var(--font), 1);
@@ -12,6 +17,11 @@ body {
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 500;
   font-size: 15px;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 button {
