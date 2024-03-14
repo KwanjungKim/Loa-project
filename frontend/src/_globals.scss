@@ -17,6 +17,7 @@ body {
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 500;
   font-size: 15px;
+  overflow-x: hidden;
 }
 
 button,
@@ -26,9 +27,16 @@ a {
 
 button {
   color: inherit;
-  font-size: 14px;
+  font-size: 10px;
   font-weight: 600;
   cursor: pointer;
+  word-break: keep-all;
+}
+
+@media screen and (min-width: 480px) {
+  button {
+    font-size: 14px;
+  }
 }
 
 a {
