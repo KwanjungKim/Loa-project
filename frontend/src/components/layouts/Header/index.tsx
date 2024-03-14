@@ -12,10 +12,16 @@ import cookies from "@/utils/cookies";
 import loginUtils from "@utils/loginUtils";
 import HeaderView, { HeaderViewButtonsProps } from "./HeaderView";
 import useClickOutside from "@/hooks/useClickOutside";
+import { useNavigate } from "react-router-dom";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function Header({ ...props }: Props) {
+  const navigate = useNavigate();
+
+  function handleClickLogo() {
+    navigate("/");
+  }
   const isLoggedin = useRecoilValue(loginState);
   const [showSetting, setShowSetting] = useState(false);
   const [screenMode, setScreenMode] = useRecoilState(screenModeState);
@@ -57,11 +63,12 @@ export default function Header({ ...props }: Props) {
 
   return (
     <HeaderView {...props}>
-      <HeaderView.Logos />
+      <HeaderView.Logos handleClickLogo={handleClickLogo} />
       <HeaderView.CharacterList />
       <HeaderView.Buttons {...headerViewButtonsProps} />
       {showSetting && (
         <HeaderView.Setting
+          isDark={screenMode === "dark"}
           toggleScreenMode={toggleScreenMode}
           ref={settingRef}
         />
