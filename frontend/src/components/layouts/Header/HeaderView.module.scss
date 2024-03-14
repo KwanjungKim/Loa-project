@@ -50,6 +50,7 @@
 }
 
 .buttons {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -74,4 +75,20 @@
     align-items: center;
     column-gap: 8px;
   }
+}
+
+.navModal {
+  position: fixed;
+  top: 57px;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.navContent {
+  width: 280px;
+  height: 100%;
+  background-color: rgba(var(--background), 1);
 }
