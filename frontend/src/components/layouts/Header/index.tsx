@@ -8,15 +8,14 @@ import React, {
 import { useLocation, useNavigate } from "react-router-dom";
 
 // recoil
-import { useRecoilState, useRecoilValue } from "recoil";
-import { loginState } from "@atoms/login";
-import { screenModeActions, screenModeState } from "@atoms/screenModeState";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { characterState, loginState } from "@atoms/login";
 
 // hooks
 import useClickOutside from "@hooks/useClickOutside";
+import useScreenMode from "@hooks/useScreenMode";
 
 // utils
-import cookies from "@utils/cookies";
 import loginUtils from "@utils/loginUtils";
 
 // components
@@ -36,11 +35,17 @@ export default function Header({ ...props }: Props) {
   }, [navigate]);
 
   const isLoggedin = useRecoilValue(loginState);
+  const setIsLoggedin = useSetRecoilState(loginState);
+  const setCharacterState = useSetRecoilState(characterState);
+
+  // screen mode
+  const { screenMode, toggleScreenMode } = useScreenMode();
+
   const [showNavModal, setShowNavModal] = useState(false);
   const [showSetting, setShowSetting] = useState(false);
-  const [screenMode, setScreenMode] = useRecoilState(screenModeState);
   const navModalRef = useRef<HTMLDivElement>(null);
   const settingRef = useRef<HTMLDivElement>(null);
+
   const toggleNavModal = () => {
     setShowNavModal((prev) => !prev);
   };
@@ -56,19 +61,18 @@ export default function Header({ ...props }: Props) {
     setShowSetting(false);
   }, [showSetting]);
 
-  const toggleScreenMode = useCallback(() => {
-    const next = screenModeActions.toggle(screenMode);
-    setScreenMode(next);
-    cookies.set("screenMode", next, 30);
-  }, [setScreenMode, screenMode]);
+  useClickOutside(settingRef, handleClickOutsideSetting);
 
   function login() {
     loginUtils.loginKakao();
   }
 
-  function logout() {
+  const logout = useCallback(() => {
     loginUtils.logoutKakao();
-  }
+    setIsLoggedin(false);
+    setCharacterState(false);
+    navigate("/");
+  }, [setIsLoggedin, setCharacterState, navigate]);
 
   const headerViewButtonsProps: HeaderViewButtonsProps = useMemo(
     () => ({
@@ -80,7 +84,7 @@ export default function Header({ ...props }: Props) {
       logout,
       toggleSetting,
     }),
-    [isLoggedin, showSetting, toggleScreenMode, screenMode],
+    [isLoggedin, showSetting, toggleScreenMode, screenMode, logout],
   );
 
   const headerViewLogosProps: HeaderViewLogosProps = useMemo(
@@ -92,8 +96,6 @@ export default function Header({ ...props }: Props) {
     }),
     [showNavModal, handleClickLogo],
   );
-
-  useClickOutside(settingRef, handleClickOutsideSetting);
 
   useEffect(() => {
     setShowNavModal(false);

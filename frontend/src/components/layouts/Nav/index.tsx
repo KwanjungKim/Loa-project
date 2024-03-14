@@ -1,6 +1,10 @@
 import React, { useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+// recoil
+import { useRecoilValue } from "recoil";
+import { loginState } from "@/atoms/login";
+
 // components
 import LinkedBox from "@components/boxes/LinkedBox";
 
@@ -9,13 +13,12 @@ import HomeSvg from "@components/svgs/HomeSvg";
 import AdvertiseSvg from "@/components/svgs/AdvertiseSvg";
 import ReadingSvg from "@/components/svgs/ReadingSvg";
 import AvatarSvg from "@/components/svgs/AvatarSvg";
-import loginUtils from "@/utils/loginUtils";
 
 interface Props extends React.AllHTMLAttributes<HTMLDivElement> {}
 
 export default function Nav({ ...props }: Props) {
   const location = useLocation();
-  const isLoggedin = loginUtils.isLoggedin();
+  const isLoggedin = useRecoilValue(loginState);
 
   const isActivated = useCallback(
     function isActivated(path: string) {
