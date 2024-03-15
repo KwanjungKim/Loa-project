@@ -23,6 +23,7 @@ import HeaderView, {
   HeaderViewButtonsProps,
   HeaderViewLogosProps,
 } from "./HeaderView";
+import { mainCharState, mainCharacterActions } from "@/atoms/mainCharacter";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -37,6 +38,7 @@ export default function Header({ ...props }: Props) {
   const isLoggedin = useRecoilValue(loginState);
   const setIsLoggedin = useSetRecoilState(loginState);
   const setCharacterState = useSetRecoilState(characterState);
+  const setMainCharacterState = useSetRecoilState(mainCharState);
 
   // screen mode
   const { screenMode, toggleScreenMode } = useScreenMode();
@@ -68,11 +70,14 @@ export default function Header({ ...props }: Props) {
   }
 
   const logout = useCallback(() => {
+    const ok = confirm("로그아웃 하시겠습니까?");
+    if (!ok) return;
     loginUtils.logoutKakao();
     setIsLoggedin(false);
     setCharacterState(false);
+    setMainCharacterState(mainCharacterActions.reset);
     navigate("/");
-  }, [setIsLoggedin, setCharacterState, navigate]);
+  }, [setIsLoggedin, setCharacterState, navigate, setMainCharacterState]);
 
   const headerViewButtonsProps: HeaderViewButtonsProps = useMemo(
     () => ({

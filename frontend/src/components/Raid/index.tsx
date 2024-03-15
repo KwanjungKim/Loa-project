@@ -1,5 +1,3 @@
-// import { useState } from "react";
-// import RaidList from "./RaidList";
 import { useSearchParams } from "react-router-dom";
 import Raids from "./Raids";
 
@@ -27,10 +25,6 @@ const raidTypeOptions: { value: IRaidType | ""; id: number }[] = [
 ];
 
 const Raid = () => {
-  // const [selectedRaid, setSelectedRaid] = useState<IRaidType | "">("");
-  // function resetRaid() {
-  //   setSelectedRaid("");
-  // }
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedRaid = searchParams.get("type") as IRaidType | "";
 
@@ -57,23 +51,6 @@ const Raid = () => {
           })}
         </div>
       )}
-      {/* {selectedRaid === "" ? (
-        <div>
-          {raidTypeOptions.map((type) => {
-            return (
-              <button key={type.id} onClick={() => setSelectedRaid(type.value)}>
-                {type.value}
-              </button>
-            );
-          })}
-        </div>
-      ) : (
-        <RaidList
-          key={selectedRaid}
-          raidType={selectedRaid}
-          resetRaid={resetRaid}
-        />
-      )} */}
     </>
   );
 };

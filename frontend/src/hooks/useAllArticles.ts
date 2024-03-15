@@ -1,8 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { IBoard } from "../libs/types";
-import fetchUtils from "../utils/fetchUtils";
-import useInfinteScroll from "./useInfiniteScroll";
+
+// libs
+import { IBoard } from "@libs/types";
+
+// utils
+import fetchUtils from "@utils/fetchUtils";
+
+// hooks
+import useInfinteScroll from "@hooks/useInfiniteScroll";
 
 type IProficiency = "트라이" | "클경" | "반숙" | "숙련";
 type IRaidDifficulty = "normal" | "hard" | "extreme";
