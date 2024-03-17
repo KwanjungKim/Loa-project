@@ -12,7 +12,7 @@ const GetPostingRaid = () => {
   const [raidData, setRaidData] = useState({});
 
   function handleViewDetail(value: any) {
-    navigate(`/my-page/${value.board_number}`);
+    navigate(`/my-page/post/${value.board_number}`);
   }
 
   const getRaidData = useCallback(() => {
