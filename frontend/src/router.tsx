@@ -21,6 +21,8 @@ import RaidArticleRoute from "./routes/raid/RaidArticleRoute";
 import RaidPostingRoute from "./routes/RaidPost";
 import ApplyDetailRoute from "./routes/raid/ApplyDetail";
 
+import PostingDetailRoute from "./routes/raid/PostingDetail";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -55,6 +57,10 @@ const router = createBrowserRouter([
           {
             path: ":id",
             element: <ApplyDetailRoute />,
+          },
+          {
+            path: "post/:id",
+            element: <PostingDetailRoute />,
           },
         ],
       },
