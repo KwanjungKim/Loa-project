@@ -22,6 +22,63 @@
   --bottom-nav-height: 64px;
 }
 
+body {
+  --background: 255, 255, 255;
+  --background-box: 249, 250, 250;
+  --background-modal: 255, 255, 255;
+  --background-modal-hover: 242, 244, 245;
+  --background-modal-active: 234, 237, 239;
+  --background-hover: 226, 231, 233;
+  --background-active: 210, 218, 221;
+  --box-shadow-modal: 0px 2px 15px rgba(26, 26, 27, 0.3);
+
+  --brand: 217, 58, 0;
+  --brand-hover: 150, 41, 0;
+
+  --blue: 0, 69, 172;
+  --blue-hover: 24, 112, 244;
+  --blue-active: 98, 159, 255;
+
+  --disabled-switch: 234, 237, 239;
+  --disabled-switch-hover: 226, 231, 233;
+  --disabled-switch-active: 210, 218, 221;
+
+  --default-button-background: 234, 237, 239;
+  --default-button-background-hover: 226, 231, 233;
+  --default-button-background-active: 210, 218, 221;
+
+  --font: 15, 26, 28;
+  --font-faded: 94, 116, 124;
+  --default-button-font: 15, 26, 28;
+  --brand-button-font: 252, 232, 227;
+
+  --divider: 229, 229, 229;
+}
+
+body.dark {
+  --background: 12, 20, 22;
+  --background-box: 4, 9, 10;
+  --background-modal: 15, 26, 28;
+  --background-modal-hover: 19, 31, 35;
+  --background-modal-active: 26, 40, 45;
+  --background-hover: 34, 50, 55;
+  --background-active: 51, 70, 76;
+
+  // --brand: 217, 58, 0;
+  // --brand-hover: 150, 41, 0;
+
+  --default-button-background: 26, 40, 45;
+  --default-button-background-hover: 34, 50, 55;
+  --default-button-background-active: 51, 70, 76;
+
+  --font: 241, 244, 245;
+  --font-faded: 125, 142, 149;
+  --default-button-font: 241, 244, 245;
+  --brand-button-font: 12, 20, 22;
+
+  --divider: 36, 44, 46;
+}
+
 // dark mode
 body[data-theme="dark"] {
   --bg: #161b27;
@@ -31,12 +88,3 @@ body[data-theme="dark"] {
   --hovered-bg: rgba(255, 255, 255, 0.1);
   --focused-bg: rgba(255, 255, 255, 0.2);
 }
-
-/*
-media queries
-  xs: 0,
-  sm: 320,
-  md: 480,
-  lg: 768,
-  xl: 1024,
-*/

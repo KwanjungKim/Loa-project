@@ -16,63 +16,6 @@ const Home = () => {
         aslighalsigh
         <br />
         aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
       </div>
     </div>
   );

@@ -21,7 +21,19 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@routes/*": ["src/routes/*"],
+      "@libs/*": ["src/libs/*"],
+      "@atoms/*": ["src/atoms/*"],
+      "@utils/*": ["src/utils/*"],
+      "@assets/*": ["public/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "build"],

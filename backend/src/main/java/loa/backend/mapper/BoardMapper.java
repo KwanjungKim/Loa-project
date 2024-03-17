@@ -22,6 +22,8 @@ public interface BoardMapper {
 	
 	List<BoardModel> getRaid(BoardModel model);
 	
+	List<BoardModel> getRaidOnQue(BoardModel model);
+	
 	void deleteArticle(BoardModel model);
 	
 	void apply(BoardModel model);

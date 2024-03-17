@@ -5,9 +5,44 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-font-smoothing: antialiased;
+  touch-action: manipulation;
+}
+
+body {
+  background-color: rgba(var(--background), 1);
+  color: rgba(var(--font), 1);
+  line-height: 1.5;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  overflow-x: hidden;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  color: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  word-break: keep-all;
+}
+
+@media screen and (min-width: 480px) {
+  button {
+    font-size: 14px;
+  }
+}
+
 a {
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 
 body::-webkit-scrollbar {
