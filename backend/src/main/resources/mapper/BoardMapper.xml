@@ -37,6 +37,9 @@
 		<if test = 'startDate != null  and startDate !=""'>
 			and bri.startDate<![CDATA[ >= ]]>#{startDate}
 		</if>
+		<if test = 'user_number != null  and user_number !=""'>
+			and bi.user_number = #{user_number}
+		</if>
 		group by t1.board_number
 		order by 
 		<if test = 'startDate != null  and startDate !=""'>
