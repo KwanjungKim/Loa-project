@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import loa.backend.model.BoardModel;
-import loa.backend.model.CharacterModel;
 
 @Mapper
 public interface BoardMapper {
