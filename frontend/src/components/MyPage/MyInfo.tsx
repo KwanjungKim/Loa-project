@@ -6,7 +6,8 @@ import CharacterDetailData from "../kakaoLogin/CharacterDetailData";
 import { characterState } from "../../atoms/login";
 
 import { useNavigate } from "react-router-dom";
-import GetRaid from "./getRaid";
+import GetRaid from "./GetRaid";
+import GetPostingRaid from "./GetPostRaid";
 // import TestAtomData from "../kakaoLogin/characterDataInAtom";
 
 const MyInfo = () => {
@@ -16,6 +17,7 @@ const MyInfo = () => {
 
   return (
     <>
+      <GetPostingRaid />
       <GetRaid />
       <br />
       <br />

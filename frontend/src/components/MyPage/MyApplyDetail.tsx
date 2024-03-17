@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useDetail, { IProps } from "../../hooks/useDetail";
 import { useRecoilValue } from "recoil";
 import { mainCharState } from "../../atoms/mainCharacter";
 import fetchUtils from "../../utils/fetchUtils";
 import { SmallButton } from "../common/Button";
+import UserDetail from "./userDetail";
 
 const MyApplyDetail = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const userCharacterName = useRecoilValue(mainCharState);
   const [partyMember, setPartyMember] = useState([]);
   const [userName, setUserName] = useState<IProps>({
@@ -33,13 +35,16 @@ const MyApplyDetail = () => {
       board_number: state.board_number,
       character_name: state.character_name,
     };
-    fetchUtils.post("/board/cancelApplication", param).then((res) => {
-      if (!res.message) {
-        alert(res.message);
-      } else {
-        alert(res.message);
-      }
-    });
+    if (confirm(`${state.character_name}` + "의 신청을 취소 하시겠습니까?")) {
+      fetchUtils.post("/board/cancelApplication", param).then((res) => {
+        if (!res.message) {
+          alert(res.message);
+        } else {
+          alert(res.message);
+          navigate(-1);
+        }
+      });
+    }
   };
   useEffect(() => {
     getPartyMember();
@@ -93,8 +98,9 @@ const MyApplyDetail = () => {
       >
         신청 취소
       </SmallButton>
-      <div>
-        {userData.CharacterName} Lv.{userData.ItemMaxLevel}
+      {/* <div>
+        {userData.CharacterName}@{userData.ServerName} Lv.
+        {userData.ItemMaxLevel}
       </div>
       <div>
         {Object.values(userData.CardEffects).map((value, i) => (
@@ -116,7 +122,9 @@ const MyApplyDetail = () => {
             <p dangerouslySetInnerHTML={{ __html: value.Name }} />
           </div>
         ))}
-      </div>
+      </div> */}
+
+      <UserDetail userData={userData} />
     </>
   );
 };

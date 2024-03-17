@@ -17,13 +17,16 @@ const ApplyRaid = ({ articleId }: Props) => {
     mention: mention,
   };
   const applyRaid = () => {
-    fetchUtils.post("/board/apply", param).then((res) => {
-      if (!res.success) {
-        alert(res.message);
-      } else {
-        alert(res.message);
-      }
-    });
+    if (confirm(`${characterName.character_name}` + "으로 신청하시겠습니까?"))
+      fetchUtils.post("/board/apply", param).then((res) => {
+        if (!res.success) {
+          alert(res.message);
+        } else {
+          alert(
+            res.message + "\n 신청 현황은 마이페이지에서 확인 할 수 있습니다.",
+          );
+        }
+      });
   };
   return (
     <>

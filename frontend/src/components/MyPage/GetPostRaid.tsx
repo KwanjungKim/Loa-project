@@ -1,39 +1,46 @@
-import { useRecoilValue } from "recoil";
-import fetchUtils from "../../utils/fetchUtils";
-import { mainCharState } from "../../atoms/mainCharacter";
+import { mainCharState } from "@/atoms/mainCharacter";
+import fetchUtils from "@/utils/fetchUtils";
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import { useRecoilValue } from "recoil";
 import Button from "../buttons/Button";
+import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 
-const GetRaid = () => {
+const GetPostingRaid = () => {
   const navigate = useNavigate();
   const userNumber = useRecoilValue(mainCharState);
   const [raidData, setRaidData] = useState({});
 
   function handleViewDetail(value: any) {
-    navigate(`/my-page/${value.board_number}`, { state: value });
+    navigate(`/my-page/${value.board_number}`);
   }
+
   const getRaidData = useCallback(() => {
     const param = {
       user_number: userNumber.user_number,
-      application_status: "수락 대기 중",
+      limit: "10",
+      offset: "0",
+      startDate: dayjs(),
     };
 
-    fetchUtils.post("/board/getRaidOnQue", param).then((res) => {
+    fetchUtils.post("/board/getAllArticle", param).then((res) => {
       if (!res.success) {
         alert(res.message);
       } else {
-        setRaidData(res.data.boardModel.board_list);
+        console.log("123", res);
+        setRaidData(res.data.boardModelList);
       }
     });
   }, [userNumber.user_number]);
+
   useEffect(() => {
     getRaidData();
   }, [getRaidData]);
+
   return (
     <>
-      <h2>내가 신청 중인 레이드</h2>
+      <h2>내가 작성한 레이드</h2>
+
       {Object.values(raidData).map((value: any, i: number) => (
         <div
           key={i}
@@ -45,7 +52,10 @@ const GetRaid = () => {
           }}
         >
           <div style={{ margin: "5px" }}>
-            <p>{value.title} </p>
+            <p>
+              {value.title}
+              {"         "} 작성자 {value.raid_leader}{" "}
+            </p>
             <p style={{ color: "grey", fontSize: "12px" }}>
               {value.raid_type} | {value.raid_difficulty} | {value.proficiency}{" "}
               | {value.minGate}-{value.maxGate}관문 | {value.startDate}
@@ -69,4 +79,4 @@ const GetRaid = () => {
   );
 };
 
-export default GetRaid;
+export default GetPostingRaid;
