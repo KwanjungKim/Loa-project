@@ -19,6 +19,7 @@ import MyPage from "./components/MyPage";
 import PingPongRoute from "./routes/Test/PingPongRoute";
 import RaidArticleRoute from "./routes/raid/RaidArticleRoute";
 import RaidPostingRoute from "./routes/RaidPost";
+import ApplyDetailRoute from "./routes/raid/ApplyDetail";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
           {
             path: "posting",
             element: <RaidPostingRoute />,
+          },
+          {
+            path: ":id",
+            element: <ApplyDetailRoute />,
           },
         ],
       },

@@ -23,12 +23,12 @@ export type IparamMap = {
   content: string; // 글 내용
   user_number: string | undefined; // 유저넘버
   character_name: string | undefined; // 글쓴이
-  raid_leader: string | undefined; // 레이드 공대장
+  raid_leader: string; // 레이드 공대장
   raid_difficulty: string; // 레이드 난이도
   raid_type: string; // 레이드 타입
   proficiency: string; // 숙련도
-  minGate: number; // 최소 관문
-  maxGate: number; // 최대 관문
+  minGate: string; // 최소 관문
+  maxGate: string; // 최대 관문
   card_level: string; // 카드 레벨
   startDate: string; // 출발 시간
   member: string[];
@@ -54,8 +54,8 @@ const RecruitmentPost = () => {
     raid_difficulty: "normal",
     raid_type: "발탄",
     proficiency: "트라이",
-    minGate: 1,
-    maxGate: 1,
+    minGate: "1",
+    maxGate: "1",
     card_level: "조건 없음",
     startDate: "",
     member: [mainCharacter.character_name],
@@ -152,7 +152,7 @@ const RecruitmentPost = () => {
     raid_difficulty: yup.string().required("레이드 난이도를 선택해주세요."),
     gate: yup
       .number()
-      .min(paramMap.minGate, "최대관문이 최소관문보다 낮습니다."),
+      .min(Number(paramMap.minGate), "최대관문이 최소관문보다 낮습니다."),
   });
 
   const {

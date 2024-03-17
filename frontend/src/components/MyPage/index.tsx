@@ -11,14 +11,19 @@ const MyPage = () => {
 
   return (
     <>
-      {isLoaded && isCharacterState ? (
-        <>
-          <MyInfo />
-        </>
-      ) : isCharacterState ? (
-        <div>
-          <CharacterAuth profileData={profileData} setIsLoaded={setIsLoaded} />
-        </div>
+      {isLoaded ? (
+        isCharacterState ? (
+          <>
+            <MyInfo />
+          </>
+        ) : (
+          <div>
+            <CharacterAuth
+              profileData={profileData}
+              setIsLoaded={setIsLoaded}
+            />
+          </div>
+        )
       ) : (
         <CircularProgress
           color="secondary"
