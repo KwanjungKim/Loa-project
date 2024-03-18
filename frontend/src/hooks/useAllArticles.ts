@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import dayjs from "dayjs";
 
 // libs
 import { IBoard } from "@libs/types";
@@ -46,7 +47,7 @@ const useAllArticles = (type: IRaidType | "") => {
       proficiency: searchParams.get("proficiency") || "",
       raid_difficulty: searchParams.get("raid_difficulty") || "",
       raid_leader: searchParams.get("raid_leader") || "",
-      startDate: searchParams.get("startDate") || "",
+      startDate: searchParams.get("startDate") || dayjs().format("YYYY-MM-DD"),
       minGate: searchParams.get("minGate") || "",
       maxGate: searchParams.get("maxGate") || "",
       title: searchParams.get("title") || "",

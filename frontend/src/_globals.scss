@@ -20,6 +20,11 @@ body {
   overflow-x: hidden;
 }
 
+h5 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;
@@ -31,6 +36,10 @@ button {
   font-weight: 600;
   cursor: pointer;
   word-break: keep-all;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 @media screen and (min-width: 480px) {

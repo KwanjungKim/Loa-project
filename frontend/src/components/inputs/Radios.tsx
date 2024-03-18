@@ -1,5 +1,8 @@
 import React from "react";
 
+// styles
+import styles from "./Radios.module.scss";
+
 interface Props extends React.AllHTMLAttributes<HTMLDivElement> {
   title: string;
   children: React.ReactNode;
@@ -7,15 +10,9 @@ interface Props extends React.AllHTMLAttributes<HTMLDivElement> {
 
 export default function Radios({ title, children, ...props }: Props) {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-      }}
-      {...props}
-    >
-      <div>{title}</div>
-      {children}
+    <div className={styles.radiosWrapper} {...props}>
+      <h5>{title}</h5>
+      <div className={styles.radios}>{children}</div>
     </div>
   );
 }
@@ -29,7 +26,7 @@ Radios.Radio = React.forwardRef<HTMLInputElement, RadioProps>(function Radio(
   ref,
 ) {
   return (
-    <div>
+    <div className={styles.radio}>
       <input type="radio" {...props} ref={ref} />
       <label htmlFor={props.id}>{label}</label>
     </div>

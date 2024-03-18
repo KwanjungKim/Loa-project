@@ -1,0 +1,23 @@
+.radiosWrapper {
+  display: flex;
+  align-items: center;
+
+  h5 {
+    width: 72px;
+  }
+}
+
+.radios {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.radio {
+  > input {
+    display: none;
+    &:checked + label {
+      background-color: orange;
+    }
+  }
+}

@@ -52,7 +52,7 @@ const RaidsView = React.memo(function RaidsView({
               <DirectionDownSvg type="left" aria-hidden />
             </IconButton>
             <Button.Default onClick={toggleShowDetail}>
-              상세 검색 {showDetail ? "닫기" : "열기"}
+              {showDetail ? "상세 검색 닫기" : "상세 검색 열기"}
             </Button.Default>
           </div>
           {showDetail && (
@@ -93,8 +93,8 @@ const RaidsView = React.memo(function RaidsView({
                     <Radios.Radio
                       key={`proficiency_${option.value}`}
                       label={option.label}
-                      id={`proficiency_${option.value}`}
                       value={option.value}
+                      id={`proficiency_${option.value}`}
                       {...register("proficiency")}
                     />
                   ))}
@@ -104,8 +104,8 @@ const RaidsView = React.memo(function RaidsView({
                     <Radios.Radio
                       key={`raid_difficulty_${option.value}`}
                       label={option.label}
-                      id={`raid_difficulty_${option.value}`}
                       value={option.value}
+                      id={`raid_difficulty_${option.value}`}
                       {...register("raid_difficulty")}
                     />
                   ))}
@@ -115,8 +115,8 @@ const RaidsView = React.memo(function RaidsView({
                     <Radios.Radio
                       key={`minGate_${option.value}`}
                       label={option.label}
-                      id={`minGate_${option.value}`}
                       value={option.value}
+                      id={`minGate_${option.value}`}
                       {...register("minGate")}
                     />
                   ))}
@@ -126,36 +126,46 @@ const RaidsView = React.memo(function RaidsView({
                     <Radios.Radio
                       key={`maxGate_${option.value}`}
                       label={option.label}
-                      id={`maxGate_${option.value}`}
                       value={option.value}
+                      id={`maxGate_${option.value}`}
                       {...register("maxGate")}
                     />
                   ))}
                 </Radios>
-                <button type="submit">search</button>
+                <Button.Brand
+                  isSmall
+                  type="submit"
+                  disabled={status === "loading"}
+                >
+                  검색
+                </Button.Brand>
               </form>
             </div>
           )}
         </div>
         <div>
-          {articles.map((article) => (
-            <div key={article.board_number}>
-              <div>
-                <h4>
-                  {article.title} ({article.raid_leader})
-                </h4>
-                <div>#{dayjs(article.startDate).format("M월D일 hh:mm")}</div>
-                <div>{article.member_count}명 참여 중</div>
+          {articles.length > 0 ? (
+            articles.map((article) => (
+              <div key={article.board_number}>
+                <div>
+                  <h4>
+                    {article.title} ({article.raid_leader})
+                  </h4>
+                  <div>#{dayjs(article.startDate).format("M월D일 hh:mm")}</div>
+                  <div>{article.member_count}명 참여 중</div>
+                </div>
+                <div
+                  onClick={() => {
+                    handleViewDetail(article.board_number);
+                  }}
+                >
+                  상세 보기
+                </div>
               </div>
-              <div
-                onClick={() => {
-                  handleViewDetail(article.board_number);
-                }}
-              >
-                상세 보기
-              </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div>검색 결과가 없습니다.</div>
+          )}
           {status === "loading" && <div>loading...</div>}
         </div>
       </div>

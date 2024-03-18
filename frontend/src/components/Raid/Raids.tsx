@@ -63,6 +63,7 @@ export default function Raids({ type, resetType, ...props }: Props) {
 
   const handleSubmitData = useCallback(
     (formData: IFormValues) => {
+      console.log(formData);
       if (
         formData.minGate !== "" &&
         formData.maxGate !== "" &&
