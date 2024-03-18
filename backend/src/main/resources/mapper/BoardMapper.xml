@@ -153,4 +153,14 @@
 		where board_number = #{board_number}
 		and character_name = #{character_name}
 	</update>
+	
+	<select id="timeCheck" parameterType="BoardModel" resultType="BoardModel">
+		SELECT bri.startDate
+		FROM character_info ci 
+		join board_party_info bpi on bpi.party_member = ci.character_name 
+		join board_raid_info bri on bri.board_number = bpi.board_number 
+		where ci.user_number = #{user_number}
+		and bri.startDate<![CDATA[ >= ]]>#{startDate}
+		order by bri.startDate 
+	</select>
 </mapper>

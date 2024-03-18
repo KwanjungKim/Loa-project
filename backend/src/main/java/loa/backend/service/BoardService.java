@@ -1,14 +1,13 @@
 package loa.backend.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import loa.backend.mapper.BoardMapper;
 import loa.backend.model.BoardModel;
-import loa.backend.model.CharacterModel;
 import loa.backend.model.ResponseModel;
 import loa.backend.model.ResultModel;
 
@@ -130,11 +129,22 @@ public class BoardService {
 		ResponseModel res = new ResponseModel();
 		ResultModel result = new ResultModel();
 		
-		mapper.apply(model);
+		List<BoardModel> bModel = mapper.timeCheck(model);
+		List<String> timeList = new ArrayList<String>();
 		
-		result.setMessage("파티 신청에 성공했습니다.");
-		result.setStatus("success");
-		res.setResultModel(result);
+		for(BoardModel data: bModel) {
+			timeList.add(data.getStartDate());
+		}
+		
+		if(timeList.contains(model.getStartDate())) {
+			result.setMessage("동일 시간대 일정이 존재합니다.");
+			result.setStatus("fail");
+		} else {
+			mapper.apply(model);
+			result.setMessage("파티 신청에 성공했습니다.");
+			result.setStatus("success");
+			res.setResultModel(result);
+		}
 		return res;
 	}
 	
