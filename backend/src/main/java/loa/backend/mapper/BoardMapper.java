@@ -36,4 +36,8 @@ public interface BoardMapper {
 	void cancelApplication(BoardModel model);
 	
 	List<BoardModel> timeCheck(BoardModel model);
+	
+	void kickPartyMember(BoardModel model);
+	
+	void kickApplication(BoardModel model);
 }

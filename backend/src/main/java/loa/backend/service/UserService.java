@@ -268,16 +268,30 @@ public class UserService {
 		result.setStatus("fail");
 		result.setMessage("일치하는 캐릭터가 없습니다.");
 		
-		String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwODk0MDEifQ.JqWNtjriyi1wXQrT32-byWWLg_-11Ou3kilsa4b4zwBjY6QkBxIdpTK_SQgJyN77OxqHJpJR0r1SeUc3Evj675X8I5ub5qYooOJe8SNw1xxp9BKYDi6lQ-gPz1ofK3POA0PfFkn08_263PoVNcu5NTnTq7v9EQa5n0HXonuxdGhJi_qmAM90QkcrdcR5_OLgqpaXdpC3AK7TqyrQHGVKkA46LGojM7ANjDa2aJtTw6a5bN3YKBnjtXFw8ewDWyXBaYu4uyhCsseeMxatA4J2y_82MDEy-9bDRtW0c9gTCAblfSnYxHlo6xu8OfvBGtHov_JO3C3CISF-D6A6BbfpWw";
+		String token1 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwODk0MDEifQ.JqWNtjriyi1wXQrT32-byWWLg_-11Ou3kilsa4b4zwBjY6QkBxIdpTK_SQgJyN77OxqHJpJR0r1SeUc3Evj675X8I5ub5qYooOJe8SNw1xxp9BKYDi6lQ-gPz1ofK3POA0PfFkn08_263PoVNcu5NTnTq7v9EQa5n0HXonuxdGhJi_qmAM90QkcrdcR5_OLgqpaXdpC3AK7TqyrQHGVKkA46LGojM7ANjDa2aJtTw6a5bN3YKBnjtXFw8ewDWyXBaYu4uyhCsseeMxatA4J2y_82MDEy-9bDRtW0c9gTCAblfSnYxHlo6xu8OfvBGtHov_JO3C3CISF-D6A6BbfpWw";
+		String token2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAyNzU0MDAifQ.Pj-kyf0dqI4B5gZo0PsvrZuRIjfSbKNPPPBE1xxk8SRK81qlnHykuFbt_m1bfWWNVQbjaKcAi8YwVRtGD4o1wJ5avlgv6sGEuY-eP9cey_NgIBcl-WyhQqJEtQatY4eGIb0gOfOkU07BEAWAzNCXVFX1ieGQs29mtTDPDVKL_OmmMaGl0KmMgNgQV_DRdQy456RXrXt6wcjiH9kXJLS6XQ0H_6n9JjFPwTmWyEyymlmQj9F4nJ73Ih8nmdFUO-d3qtdxAGJCos3mVJi30_mVSjbRl2sU4g7R8mQp765tbF_Vk2nTd4JS_aUwSsPRlVf2AwQme6XiAjum1XRshdhxXQ";
+		String[] token = {token1,token2};
 		String user = URLEncoder.encode(model.getCharacter_name(), "UTF-8");
 		URL url = new URL("https://developer-lostark.game.onstove.com/armories/characters/"+user);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestProperty("Authorization","Bearer " + token);
-	    conn.setRequestProperty("Content-Type","application/json");
-	    conn.setRequestMethod("GET");
-	    
-	    Map<String, List<String>> map = conn.getHeaderFields();
-	    System.out.println("Limit remain : "+map.get("x-ratelimit-remaining").get(0));
+		HttpURLConnection conn = null;
+		
+		for(int i = 0; i<2; i++) {
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestProperty("Authorization","Bearer " + token[i]);
+		    conn.setRequestProperty("Content-Type","application/json");
+		    conn.setRequestMethod("GET");
+		    Map<String, List<String>> map = conn.getHeaderFields();
+		    if(conn.getResponseCode() == 200 ) {
+		    	System.out.println("Limit remain : "+map.get("x-ratelimit-remaining").get(0));
+		    	break;
+		    }
+		    
+		    if (i == 1) {
+		    	System.out.println("두번째 토큰 사용중");
+		    	break;
+		    }
+		    conn.disconnect();
+		}
 
 	    try (BufferedReader bf = new BufferedReader(new InputStreamReader(conn.getInputStream())))
         {
