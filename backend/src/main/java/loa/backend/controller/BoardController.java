@@ -90,4 +90,10 @@ public class BoardController {
 		ResponseModel res = sv.cancelApplication(model);
 		return res;
 	}
+	
+	@RequestMapping("/board/kickPartyMember")
+	public ResponseModel kickPartyMember(@RequestBody BoardModel model) {
+		ResponseModel res = sv.kickPartyMember(model);
+		return res;
+	}
 }
