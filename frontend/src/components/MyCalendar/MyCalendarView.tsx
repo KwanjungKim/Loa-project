@@ -1,9 +1,22 @@
-import React, { AllHTMLAttributes } from "react";
-import { IDate } from "../../hooks/useMyArticles";
+import React from "react";
 import dayjs from "dayjs";
-import { IBoard } from "../../libs/types";
 
-export interface MyCalendarViewProps extends AllHTMLAttributes<HTMLDivElement> {
+// styles
+import styles from "./MyCalendarView.module.scss";
+
+// hooks
+import { IDate } from "@hooks/useMyArticles";
+
+// libs
+import { IBoard } from "@libs/types";
+
+// components
+import RaidList from "@components/Raid/RaidList";
+import IconButton from "../buttons/IconButton";
+import DirectionDownSvg from "../svgs/DirectionDownSvg";
+
+export interface MyCalendarViewProps
+  extends React.AllHTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
@@ -11,13 +24,17 @@ const MyCalendarView = function MyCalendarView({
   children,
   ...props
 }: MyCalendarViewProps) {
-  return <div {...props}>{children}</div>;
+  return (
+    <div className={styles.wrapper} {...props}>
+      {children}
+    </div>
+  );
 };
 
 export default MyCalendarView;
 
 export interface MyCalendarViewDatesProps
-  extends AllHTMLAttributes<HTMLDivElement> {
+  extends React.AllHTMLAttributes<HTMLDivElement> {
   selectedDates: IDate[];
   handlePrevTurn: () => void;
   handleNextTurn: () => void;
@@ -32,44 +49,25 @@ MyCalendarView.Dates = React.memo(function Dates({
   ...props
 }: MyCalendarViewDatesProps) {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-      }}
-      {...props}
-    >
-      <button onClick={handlePrevTurn}>prev</button>
-      {selectedDates.map((d) => (
-        <div
-          key={d.date}
-          onClick={() => {
-            handleSelectDate(d.date);
-          }}
-          style={{
-            cursor: "pointer",
-          }}
-        >
-          <div>
-            {dayjs(d.date).date()}일
-            {d.start ? ` (${dayjs(d.date).month()}월)` : ""}
-          </div>
-          {d.data.length > 0 && (
-            <div>
-              {d.data.map((item) => (
-                <div key={item.board_number}>{item.raid_type}</div>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
-      <button onClick={handleNextTurn}>next</button>
+    <div className={styles.datesWrapper} {...props}>
+      {/* <button onClick={handlePrevTurn}>prev</button> */}
+      <IconButton onClick={handlePrevTurn}>
+        <DirectionDownSvg type="left" />
+      </IconButton>
+      <div className={styles.dates}>
+        {selectedDates.map((d) => (
+          <Date key={d.date} handleSelectDate={handleSelectDate} date={d} />
+        ))}
+      </div>
+      <IconButton onClick={handleNextTurn}>
+        <DirectionDownSvg type="right" />
+      </IconButton>
     </div>
   );
 });
 
 export interface MyCalendarViewListProps
-  extends AllHTMLAttributes<HTMLDivElement> {
+  extends React.AllHTMLAttributes<HTMLDivElement> {
   listBySelectedDate: IBoard[];
   handleClickTitle: (id: number) => void;
 }
@@ -81,20 +79,43 @@ MyCalendarView.List = React.memo(function List({
 }: MyCalendarViewListProps) {
   return (
     <div {...props}>
-      {listBySelectedDate.length > 0 ? (
-        listBySelectedDate.map((item) => (
-          <div
-            key={`${item.board_number}_${item.startDate}`}
-            onClick={() => {
-              handleClickTitle(item.board_number);
-            }}
-          >
-            {item.title}
+      <RaidList
+        articles={listBySelectedDate}
+        handleViewDetail={handleClickTitle}
+      />
+    </div>
+  );
+});
+
+interface DateProps extends React.AllHTMLAttributes<HTMLDivElement> {
+  handleSelectDate: (date: string) => void;
+  date: IDate;
+}
+
+const Date = React.memo(function Date({
+  handleSelectDate,
+  date,
+  ...props
+}: DateProps) {
+  return (
+    <div {...props}>
+      <div
+        onClick={() => {
+          handleSelectDate(date.date);
+        }}
+      >
+        <div>
+          {dayjs(date.date).date()}일
+          {date.start ? ` (${dayjs(date.date).month()}월)` : ""}
+        </div>
+        {date.data.length > 0 && (
+          <div>
+            {date.data.map((item) => (
+              <div key={item.board_number}>{item.raid_type}</div>
+            ))}
           </div>
-        ))
-      ) : (
-        <div>no data</div>
-      )}
+        )}
+      </div>
     </div>
   );
 });

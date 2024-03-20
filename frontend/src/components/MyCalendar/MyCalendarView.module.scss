@@ -1,0 +1,20 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.datesWrapper {
+  margin: 0 auto;
+  // max-width: 780px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 40px 1fr 40px;
+  column-gap: 16px;
+}
+
+.dates {
+  display: flex;
+  align-items: center;
+}

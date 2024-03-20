@@ -11,15 +11,16 @@ import {
   proficiencyOptions,
   raidDifficultyOptions,
 } from "@libs/formOptions";
+import { IBoard } from "@/libs/types";
 
 // components
 import { IFormValues } from "./Raids";
+import RaidList from "./RaidList";
 import PostBox from "@components/boxes/PostBox";
-import { IBoard } from "@/libs/types";
-import IconButton from "../buttons/IconButton";
-import DirectionDownSvg from "../svgs/DirectionDownSvg";
-import Button from "../buttons/Button";
-import Radios from "../inputs/Radios";
+import IconButton from "@components/buttons/IconButton";
+import DirectionDownSvg from "@components/svgs/DirectionDownSvg";
+import Button from "@components/buttons/Button";
+import Radios from "@components/inputs/Radios";
 
 export interface RaidsViewProps
   extends React.AllHTMLAttributes<HTMLDivElement> {
@@ -143,29 +144,8 @@ const RaidsView = React.memo(function RaidsView({
             </div>
           )}
         </div>
-        <div>
-          {articles.length > 0 ? (
-            articles.map((article) => (
-              <div key={article.board_number}>
-                <div>
-                  <h4>
-                    {article.title} ({article.raid_leader})
-                  </h4>
-                  <div>#{dayjs(article.startDate).format("M월D일 hh:mm")}</div>
-                  <div>{article.member_count}명 참여 중</div>
-                </div>
-                <div
-                  onClick={() => {
-                    handleViewDetail(article.board_number);
-                  }}
-                >
-                  상세 보기
-                </div>
-              </div>
-            ))
-          ) : (
-            <div>검색 결과가 없습니다.</div>
-          )}
+        <div className={styles.bottomWrapper}>
+          <RaidList articles={articles} handleViewDetail={handleViewDetail} />
           {status === "loading" && <div>loading...</div>}
         </div>
       </div>
