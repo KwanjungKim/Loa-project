@@ -1,8 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { IBoard } from "../libs/types";
-import fetchUtils from "../utils/fetchUtils";
-import useInfinteScroll from "./useInfiniteScroll";
+import dayjs from "dayjs";
+
+// libs
+import { IBoard } from "@libs/types";
+
+// utils
+import fetchUtils from "@utils/fetchUtils";
+
+// hooks
+import useInfinteScroll from "@hooks/useInfiniteScroll";
 
 type IProficiency = "트라이" | "클경" | "반숙" | "숙련";
 type IRaidDifficulty = "normal" | "hard" | "extreme";
@@ -40,7 +47,7 @@ const useAllArticles = (type: IRaidType | "") => {
       proficiency: searchParams.get("proficiency") || "",
       raid_difficulty: searchParams.get("raid_difficulty") || "",
       raid_leader: searchParams.get("raid_leader") || "",
-      startDate: searchParams.get("startDate") || "",
+      startDate: searchParams.get("startDate") || dayjs().format("YYYY-MM-DD"),
       minGate: searchParams.get("minGate") || "",
       maxGate: searchParams.get("maxGate") || "",
       title: searchParams.get("title") || "",

@@ -3,12 +3,19 @@ import styles from "./Button.module.scss";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
+  isSmall?: boolean;
 }
 
-export default function Button({ children, className, ...props }: ButtonProps) {
-  const _className = className
-    ? `${styles.button} ${className}`
-    : styles.button;
+export default function Button({
+  children,
+  className,
+  isSmall = false,
+  ...props
+}: ButtonProps) {
+  let _className = className ? `${styles.button} ${className}` : styles.button;
+  if (isSmall) {
+    _className += ` ${styles.small}`;
+  }
   const _children = children?.toString() || "";
   return (
     <button

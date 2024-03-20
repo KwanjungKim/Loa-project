@@ -1,4 +1,4 @@
-import Raid from "../../components/Raid";
+import Raid from "@components/Raid";
 
 const RaidRoute = () => {
   return <Raid />;
