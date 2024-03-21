@@ -1,0 +1,32 @@
+.wrapper {
+  width: 80%;
+  display: grid;
+}
+
+.title_wrapper {
+  display: grid;
+  border-bottom: solid 1px grey;
+  grid-template-columns: 80px 600px 200px;
+}
+
+.board_number {
+  margin-left: 5px;
+  border-right: solid 1px grey;
+}
+
+.title {
+  margin: 0px 5px 0px 5px;
+  border-right: solid 1px grey;
+}
+
+.writer {
+  margin-right: 5px;
+}
+
+.content_wrapper {
+  display: grid;
+  margin: 10px;
+  grid-template-columns: 410px 410px;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+}

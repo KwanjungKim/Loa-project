@@ -160,9 +160,12 @@ const RecruitmentPostView = ({
             borderRadius: "5px",
             border: "3px solid #fbc02d",
           }}
+          {...register("content")}
           onChange={(e) => handleData("content", e.target.value)}
         />
-        <br />
+        <p style={{ color: "red", fontSize: "12px" }}>
+          {errors.content?.message}{" "}
+        </p>
         {paramMap.member[0]} {"  "}
         {paramMap.member[1]} {"  "}
         {paramMap.member[2]} {"  "}
@@ -179,6 +182,7 @@ const RecruitmentPostView = ({
         <button type="button" onClick={() => getCharacter()}>
           getCharacter
         </button>
+        <button onClick={() => console.log(paramMap)}>123</button>
         <br />
         <div>
           <input type="submit" value={"글작성"} />

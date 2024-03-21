@@ -2,9 +2,10 @@ import { mainCharState } from "@/atoms/mainCharacter";
 import fetchUtils from "@/utils/fetchUtils";
 import { useCallback, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import Button from "../buttons/Button";
+import Button from "../../../buttons/Button";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
+import styled from "styled-components";
 
 const GetPostingRaid = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const GetPostingRaid = () => {
   const [raidData, setRaidData] = useState({});
 
   function handleViewDetail(value: any) {
-    navigate(`/my-page/post/${value.board_number}`);
+    navigate(`/my-page/post/${value.board_number}`, { state: value });
   }
 
   const getRaidData = useCallback(() => {
@@ -39,18 +40,10 @@ const GetPostingRaid = () => {
 
   return (
     <>
-      <h2>내가 작성한 레이드</h2>
+      <p style={{ fontSize: "25px" }}>내가 작성한 레이드</p>
 
       {Object.values(raidData).map((value: any, i: number) => (
-        <div
-          key={i}
-          style={{
-            border: "solid 2px grey",
-            borderRadius: "10px",
-            display: "flex",
-            marginBottom: "5px",
-          }}
-        >
+        <ArticleDiv key={i}>
           <div style={{ margin: "5px" }}>
             <p>
               {value.title}
@@ -64,7 +57,7 @@ const GetPostingRaid = () => {
           <Button
             style={{
               justifyContent: "space-between",
-              width: "90px",
+              width: "100px",
               margin: "8px",
             }}
             onClick={() => {
@@ -73,10 +66,21 @@ const GetPostingRaid = () => {
           >
             상세보기
           </Button>
-        </div>
+        </ArticleDiv>
       ))}
     </>
   );
 };
 
 export default GetPostingRaid;
+
+const ArticleDiv = styled.div`
+  width: 450px;
+  border: solid 2px grey;
+  border-radius: 10px;
+  display: flex;
+  margin-bottom: 5px;
+  &:hover {
+    border: solid 2px red;
+  }
+`;

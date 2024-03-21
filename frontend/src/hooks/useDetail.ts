@@ -12,8 +12,7 @@ export interface ISetProps {
     Description: string;
     Name: string;
   }[];
-  ArmoryGemEffects: object;
-  ArmoryGems: object;
+  ArmoryGems: any;
   ArmoryEngraving: object;
 }
 export interface IProps {
@@ -27,7 +26,6 @@ const useDetail = (userName: IProps) => {
     CharacterClassName: "",
     ItemMaxLevel: "",
     CardEffects: [],
-    ArmoryGemEffects: [],
     ArmoryGems: [],
     ArmoryEngraving: [],
   };
@@ -36,10 +34,12 @@ const useDetail = (userName: IProps) => {
   const characterSpec = useCallback(() => {
     if (userName.character_name != characterData.CharacterName) {
       fetchUtils.post("/user/getCharacter", userName).then((res) => {
+        console.log(res.data.characterModel);
         if (!res.success) {
           alert(`${res.message}`); // 오류가 발생했습니다 메시지 출력
         } else {
           // 카드 효과
+          console.log(res.data);
           const cardMap = () => {
             const CardEffect: any[] = [];
             let i, j: number;
@@ -60,30 +60,51 @@ const useDetail = (userName: IProps) => {
             }
             return CardEffect;
           };
-          // 보석 효과
-          const gemEffectMap = () => {
-            const GemEffect: any[] = [];
+          // 보석 리스트
+          // const gemsMap = () => {
+          //   const Gem: any[] = [];
+          //   let i: number;
+
+          //   for (
+          //     i = 0;
+          //     i < res.data.characterModel.armoryGem?.Effects.length;
+          //     i++
+          //   ) {
+          //     Gem.push({
+          //       Effect: res.data.characterModel.armoryGem.Effects[i],
+          //       Gem: res.data.characterModel.armoryGem.Gems[i],
+          //     });
+          //   }
+          //   return Gem;
+          // };
+
+          // 보석 리스트
+          const gemsMap = () => {
+            const Gem: any[] = [];
+
+            const GemEffect: any = [];
+            const GemGem: any = [];
+            let Gem2: any[] = [];
+
             let i: number;
+
             for (
               i = 0;
               i < res.data.characterModel.armoryGem?.Effects.length;
               i++
             ) {
-              GemEffect.push(res.data.characterModel.armoryGem?.Effects[i]);
+              GemEffect.push(res.data.characterModel.armoryGem.Effects[i]);
+              GemGem.push(res.data.characterModel.armoryGem.Gems[i]);
+              Gem2 = GemEffect.sort((a: any, b: any) => a.GemSlot - b.GemSlot);
             }
-            return GemEffect;
-          };
-          // 보석 리스트
-          const gemsMap = () => {
-            const Gem: any[] = [];
-            let i: number;
             for (
               i = 0;
-              i < res.data.characterModel.armoryGem?.Gems.length;
+              i < res.data.characterModel.armoryGem?.Effects.length;
               i++
             ) {
-              Gem.push(res.data.characterModel.armoryGem?.Gems[i]);
+              Gem.push({ Effect: Gem2[i], Gem: GemGem[i] });
             }
+
             return Gem;
           };
           // 각인 효과
@@ -107,7 +128,6 @@ const useDetail = (userName: IProps) => {
             CharacterClassName: res.data.characterModel.characterClassName,
             ItemMaxLevel: res.data.characterModel.itemMaxLevel,
             CardEffects: cardMap(),
-            ArmoryGemEffects: gemEffectMap(),
             ArmoryGems: gemsMap(),
             ArmoryEngraving: engravingMap(),
           });

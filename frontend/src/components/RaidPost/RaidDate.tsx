@@ -41,6 +41,9 @@ const RaidDate = ({ setParamMap }: IDateTimePicker) => {
             handleDateChange("startDate", newValue);
           }}
           sx={{
+            backgroundColor: "white",
+            borderRadius: "5px",
+            border: "solid 3px #fbc02d", // 시계 테두리 색
             width: "300px",
             margin: "5px",
           }}
