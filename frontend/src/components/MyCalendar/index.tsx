@@ -15,6 +15,7 @@ const MyCalendar = () => {
     selectedDates,
     listBySelectedDate,
     handleSelectDate,
+    selectedDate,
   } = useMyArticles();
 
   const handleClickTitle = useCallback(
@@ -26,12 +27,19 @@ const MyCalendar = () => {
 
   const myCalendarViewDatesProps: MyCalendarViewDatesProps = useMemo(
     () => ({
+      selectedDate,
       selectedDates,
       handlePrevTurn,
       handleNextTurn,
       handleSelectDate,
     }),
-    [selectedDates, handlePrevTurn, handleNextTurn, handleSelectDate],
+    [
+      selectedDate,
+      selectedDates,
+      handlePrevTurn,
+      handleNextTurn,
+      handleSelectDate,
+    ],
   );
 
   const myCalendarViewListProps: MyCalendarViewListProps = useMemo(

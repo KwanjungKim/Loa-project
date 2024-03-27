@@ -1,4 +1,4 @@
-import React from "react";
+import { AllHTMLAttributes, ReactNode, memo } from "react";
 import dayjs from "dayjs";
 
 // styles
@@ -12,12 +12,12 @@ import { IBoard } from "@libs/types";
 
 // components
 import RaidList from "@components/Raid/RaidList";
-import IconButton from "../buttons/IconButton";
-import DirectionDownSvg from "../svgs/DirectionDownSvg";
+import IconButton from "@components/buttons/IconButton";
+import DirectionDownSvg from "@components/svgs/DirectionDownSvg";
+import CardButton from "@components/buttons/CardButton";
 
-export interface MyCalendarViewProps
-  extends React.AllHTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
+export interface MyCalendarViewProps extends AllHTMLAttributes<HTMLDivElement> {
+  children: ReactNode;
 }
 
 const MyCalendarView = function MyCalendarView({
@@ -34,15 +34,17 @@ const MyCalendarView = function MyCalendarView({
 export default MyCalendarView;
 
 export interface MyCalendarViewDatesProps
-  extends React.AllHTMLAttributes<HTMLDivElement> {
+  extends AllHTMLAttributes<HTMLDivElement> {
+  selectedDate: string;
   selectedDates: IDate[];
   handlePrevTurn: () => void;
   handleNextTurn: () => void;
   handleSelectDate: (date: string) => void;
 }
 
-MyCalendarView.Dates = React.memo(function Dates({
+MyCalendarView.Dates = memo(function Dates({
   selectedDates,
+  selectedDate,
   handlePrevTurn,
   handleNextTurn,
   handleSelectDate,
@@ -56,7 +58,12 @@ MyCalendarView.Dates = React.memo(function Dates({
       </IconButton>
       <div className={styles.dates}>
         {selectedDates.map((d) => (
-          <Date key={d.date} handleSelectDate={handleSelectDate} date={d} />
+          <Date
+            selectedDate={selectedDate}
+            key={d.date}
+            handleSelectDate={handleSelectDate}
+            date={d}
+          />
         ))}
       </div>
       <IconButton onClick={handleNextTurn}>
@@ -67,12 +74,12 @@ MyCalendarView.Dates = React.memo(function Dates({
 });
 
 export interface MyCalendarViewListProps
-  extends React.AllHTMLAttributes<HTMLDivElement> {
+  extends AllHTMLAttributes<HTMLDivElement> {
   listBySelectedDate: IBoard[];
   handleClickTitle: (id: number) => void;
 }
 
-MyCalendarView.List = React.memo(function List({
+MyCalendarView.List = memo(function List({
   listBySelectedDate,
   handleClickTitle,
   ...props
@@ -87,35 +94,60 @@ MyCalendarView.List = React.memo(function List({
   );
 });
 
-interface DateProps extends React.AllHTMLAttributes<HTMLDivElement> {
+interface DateProps extends AllHTMLAttributes<HTMLDivElement> {
   handleSelectDate: (date: string) => void;
   date: IDate;
+  selectedDate: string;
 }
 
-const Date = React.memo(function Date({
+const Date = function Date({
+  selectedDate,
   handleSelectDate,
   date,
   ...props
 }: DateProps) {
+  // console.log(selectedDate, date.date);
   return (
-    <div {...props}>
-      <div
+    <div {...props} className={styles.dateWrapper}>
+      <CardButton
+        isSelected={selectedDate === date.date}
+        // className={styles.date}
         onClick={() => {
           handleSelectDate(date.date);
         }}
       >
-        <div>
-          {dayjs(date.date).date()}일
-          {date.start ? ` (${dayjs(date.date).month()}월)` : ""}
+        <div className={styles.date}>
+          {date.start && (
+            <p className={styles.month}>{dayjs(date.date).month() + 1}월</p>
+          )}
+          <p>{dayjs(date.date).date()}일</p>
+          {date.data.length > 0 && (
+            <div className={styles.appointedRaids}>
+              {date.data.slice(0, 3).map((item) => (
+                <span key={item.board_number}>{item.raid_type}</span>
+              ))}
+            </div>
+          )}
         </div>
-        {date.data.length > 0 && (
-          <div>
-            {date.data.map((item) => (
-              <div key={item.board_number}>{item.raid_type}</div>
-            ))}
-          </div>
-        )}
-      </div>
+      </CardButton>
     </div>
   );
-});
+};
+
+// function DateButton({
+//   children,
+//   isSelected,
+//   ...props
+// }: {
+//   children: ReactNode;
+//   isSelected: boolean;
+// } & ButtonHTMLAttributes<HTMLButtonElement>) {
+//   return (
+//     <button
+//       {...props}
+//       className={`${styles.dateButton} ${isSelected ? styles.selected : ""}`}
+//     >
+//       {children}
+//     </button>
+//   );
+// }

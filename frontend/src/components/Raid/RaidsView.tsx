@@ -112,6 +112,8 @@ const SearchForm = function SearchForm() {
         type="date"
         placeholder="시작일"
         label="시작일"
+        min={dayjs().format("YYYY-MM-DD")}
+        max={dayjs().add(30, "days").format("YYYY-MM-DD")}
         {...register("startDate", {
           setValueAs: (value) => {
             return dayjs(value).format("YYYY-MM-DD");
