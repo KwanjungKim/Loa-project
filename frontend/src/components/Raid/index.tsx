@@ -1,5 +1,8 @@
 import { useSearchParams } from "react-router-dom";
+
+// components
 import Raids from "./Raids";
+import Button from "@components/buttons/Button";
 
 type IRaidType =
   | "발탄"
@@ -39,14 +42,14 @@ const Raid = () => {
         <div>
           {raidTypeOptions.map((type) => {
             return (
-              <button
+              <Button.Default
                 key={type.id}
                 onClick={() => {
                   setSearchParams({ type: type.value });
                 }}
               >
                 {type.value}
-              </button>
+              </Button.Default>
             );
           })}
         </div>

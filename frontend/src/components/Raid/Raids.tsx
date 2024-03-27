@@ -86,6 +86,7 @@ export default function Raids({ type, resetType, ...props }: Props) {
       }
 
       handleSearchParams({ ...formData, type });
+      setShowDetail(false);
     },
     [type, handleSearchParams],
   );

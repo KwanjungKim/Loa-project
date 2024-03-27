@@ -1,0 +1,46 @@
+.wrapper {
+  > span {
+    font-size: 10px;
+  }
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  height: 32px;
+  border: none;
+  border-radius: 999px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  background-color: rgba(var(--default-button-background), 1);
+  color: var(--font);
+
+  &:hover {
+    background-color: rgba(var(--default-button-background-hover), 1);
+  }
+
+  &:active {
+    background-color: rgba(var(--default-button-background-active), 1);
+  }
+
+  &::placeholder {
+    color: rgba(var(--font-faded));
+  }
+}
+
+.input[type="date"]::-webkit-calendar-picker-indicator {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}

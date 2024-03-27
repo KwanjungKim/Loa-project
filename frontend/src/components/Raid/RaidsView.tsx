@@ -1,4 +1,4 @@
-import React from "react";
+import { AllHTMLAttributes } from "react";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 
@@ -11,7 +11,7 @@ import {
   proficiencyOptions,
   raidDifficultyOptions,
 } from "@libs/formOptions";
-import { IBoard } from "@/libs/types";
+import { IBoard } from "@libs/types";
 
 // components
 import { IFormValues } from "./Raids";
@@ -20,10 +20,10 @@ import PostBox from "@components/boxes/PostBox";
 import IconButton from "@components/buttons/IconButton";
 import DirectionDownSvg from "@components/svgs/DirectionDownSvg";
 import Button from "@components/buttons/Button";
-import Radios from "@components/inputs/Radios";
+import Input from "@components/inputs/Input";
+import RadioInputWrapper from "@components/inputs/RadioInput";
 
-export interface RaidsViewProps
-  extends React.AllHTMLAttributes<HTMLDivElement> {
+export interface RaidsViewProps extends AllHTMLAttributes<HTMLDivElement> {
   articles: IBoard[];
   status: "idle" | "loading" | "error";
   showDetail: boolean;
@@ -33,7 +33,7 @@ export interface RaidsViewProps
   toggleShowDetail: () => void;
 }
 
-const RaidsView = React.memo(function RaidsView({
+const RaidsView = function RaidsView({
   articles,
   status,
   showDetail,
@@ -43,7 +43,7 @@ const RaidsView = React.memo(function RaidsView({
   handleViewDetail,
   ...props
 }: RaidsViewProps) {
-  const { register, handleSubmit } = useFormContext<IFormValues>();
+  const { handleSubmit } = useFormContext<IFormValues>();
   return (
     <div className={styles.wrapper} {...props}>
       <div>
@@ -52,7 +52,7 @@ const RaidsView = React.memo(function RaidsView({
             <IconButton onClick={resetType} title="레이드 다시 선택하기">
               <DirectionDownSvg type="left" aria-hidden />
             </IconButton>
-            <Button.Default onClick={toggleShowDetail}>
+            <Button.Default isSmall onClick={toggleShowDetail}>
               {showDetail ? "상세 검색 닫기" : "상세 검색 열기"}
             </Button.Default>
           </div>
@@ -64,75 +64,7 @@ const RaidsView = React.memo(function RaidsView({
                   handleSubmit(handleSubmitData)();
                 }}
               >
-                <div>
-                  <input
-                    type="text"
-                    placeholder="레이드 리더"
-                    {...register("raid_leader")}
-                  />
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="제목"
-                    {...register("title")}
-                  />
-                </div>
-                <div>
-                  <input
-                    type="date"
-                    placeholder="시작일"
-                    {...register("startDate", {
-                      setValueAs: (value) => {
-                        return dayjs(value).format("YYYY-MM-DD");
-                      },
-                    })}
-                  />
-                </div>
-                <Radios title="숙련도">
-                  {proficiencyOptions.map((option) => (
-                    <Radios.Radio
-                      key={`proficiency_${option.value}`}
-                      label={option.label}
-                      value={option.value}
-                      id={`proficiency_${option.value}`}
-                      {...register("proficiency")}
-                    />
-                  ))}
-                </Radios>
-                <Radios title="난이도">
-                  {raidDifficultyOptions.map((option) => (
-                    <Radios.Radio
-                      key={`raid_difficulty_${option.value}`}
-                      label={option.label}
-                      value={option.value}
-                      id={`raid_difficulty_${option.value}`}
-                      {...register("raid_difficulty")}
-                    />
-                  ))}
-                </Radios>
-                <Radios title="최소 관문">
-                  {gateOptions.map((option) => (
-                    <Radios.Radio
-                      key={`minGate_${option.value}`}
-                      label={option.label}
-                      value={option.value}
-                      id={`minGate_${option.value}`}
-                      {...register("minGate")}
-                    />
-                  ))}
-                </Radios>
-                <Radios title="최대 관문">
-                  {gateOptions.map((option) => (
-                    <Radios.Radio
-                      key={`maxGate_${option.value}`}
-                      label={option.label}
-                      value={option.value}
-                      id={`maxGate_${option.value}`}
-                      {...register("maxGate")}
-                    />
-                  ))}
-                </Radios>
+                <SearchForm />
                 <Button.Brand
                   isSmall
                   type="submit"
@@ -154,6 +86,97 @@ const RaidsView = React.memo(function RaidsView({
       </div>
     </div>
   );
-});
+};
 
 export default RaidsView;
+
+const SearchForm = function SearchForm() {
+  const { register, watch } = useFormContext<IFormValues>();
+  const { minGate, maxGate, raid_difficulty, proficiency } = watch();
+  return (
+    <div className={styles.searchForm}>
+      <Input
+        type="text"
+        placeholder="레이드 리더"
+        maxLength={20}
+        label="레이드 리더"
+        {...register("raid_leader")}
+      />
+      <Input
+        type="text"
+        placeholder="제목"
+        label="제목"
+        {...register("title")}
+      />
+      <Input
+        type="date"
+        placeholder="시작일"
+        label="시작일"
+        min={dayjs().format("YYYY-MM-DD")}
+        max={dayjs().add(30, "days").format("YYYY-MM-DD")}
+        {...register("startDate", {
+          setValueAs: (value) => {
+            return dayjs(value).format("YYYY-MM-DD");
+          },
+        })}
+      />
+      <RadioInputWrapper label="숙련도" title="숙련도">
+        {proficiencyOptions.map((option) => {
+          return (
+            <RadioInputWrapper.RadioInput
+              key={`proficiency_${option.value}`}
+              isChecked={proficiency === option.value}
+              label={option.label}
+              value={option.value}
+              id={`proficiency_${option.value}`}
+              {...register("proficiency")}
+            />
+          );
+        })}
+      </RadioInputWrapper>
+      <RadioInputWrapper label="난이도" title="난이도">
+        {raidDifficultyOptions.map((option) => {
+          return (
+            <RadioInputWrapper.RadioInput
+              key={`raid_difficulty_${option.value}`}
+              isChecked={raid_difficulty === option.value}
+              label={option.label}
+              value={option.value}
+              id={`raid_difficulty_${option.value}`}
+              {...register("raid_difficulty")}
+            />
+          );
+        })}
+      </RadioInputWrapper>
+
+      <RadioInputWrapper label="최소 관문" title="최소 관문">
+        {gateOptions.map((option) => {
+          return (
+            <RadioInputWrapper.RadioInput
+              key={`minGate_${option.value}`}
+              isChecked={minGate === option.value}
+              label={option.label}
+              value={option.value}
+              id={`minGate_${option.value}`}
+              {...register("minGate")}
+            />
+          );
+        })}
+      </RadioInputWrapper>
+      <RadioInputWrapper label="최대 관문" title="최대 관문">
+        {gateOptions.map((option) => {
+          return (
+            <RadioInputWrapper.RadioInput
+              key={`maxGate_${option.value}`}
+              isChecked={maxGate === option.value}
+              label={option.label}
+              value={option.value}
+              id={`maxGate_${option.value}`}
+              {...register("maxGate")}
+            />
+          );
+        })}
+      </RadioInputWrapper>
+    </div>
+  );
+};

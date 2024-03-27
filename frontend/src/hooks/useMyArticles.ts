@@ -140,6 +140,7 @@ const useMyArticles = () => {
     handleNextTurn,
     handlePrevTurn,
     selectedDates,
+    selectedDate,
     setSelectedDate,
     listBySelectedDate,
     handleSelectDate,
