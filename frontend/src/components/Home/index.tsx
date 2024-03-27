@@ -1,22 +1,10 @@
-import { useNavigate } from "react-router-dom";
-import { SmallButton } from "../common/Button";
+import Spinner from "@components/common/Spinner";
 
 const Home = () => {
-  const navigate = useNavigate();
   return (
     <div>
       <h2>home</h2>
-      <SmallButton variant="outlined" onClick={() => navigate("/test")}>
-        테스트
-      </SmallButton>
-
-      <div>
-        aslighalsigh
-        <br />
-        aslighalsigh
-        <br />
-        aslighalsigh
-      </div>
+      <Spinner />
     </div>
   );
 };

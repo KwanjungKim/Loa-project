@@ -11,7 +11,7 @@ type IRaidType =
   | "아브렐슈드"
   | "일리아칸"
   | "카멘"
-  | "에키드나"
+  | "에퀴드나"
   | "상아탑"
   | "카양겔";
 
@@ -22,7 +22,7 @@ const raidTypeOptions: { value: IRaidType | ""; id: number }[] = [
   { value: "아브렐슈드", id: 4 },
   { value: "일리아칸", id: 5 },
   { value: "카멘", id: 6 },
-  { value: "에키드나", id: 7 },
+  { value: "에퀴드나", id: 7 },
   { value: "상아탑", id: 8 },
   { value: "카양겔", id: 9 },
 ];
