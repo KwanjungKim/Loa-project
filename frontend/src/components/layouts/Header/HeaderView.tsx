@@ -6,13 +6,14 @@ import styles from "./HeaderView.module.scss";
 // components
 import IconButton from "@components/buttons/IconButton";
 import BurgerSvg from "@components/svgs/BurgerSvg";
-import GetCharacterList from "@components/kakaoLogin/getCharacterList";
+// import GetCharacterList from "@components/kakaoLogin/getCharacterList";
 import Button from "@components/buttons/Button";
 import SettingSvg from "@components/svgs/SettingSvg";
 import ModalBox from "@components/boxes/ModalBox";
 import NightSvg from "@components/svgs/NightSvg";
 import Switch from "@components/switches/Switch";
 import Nav from "../Nav";
+import MainCharacterSelector from "./MainCharacterSelector";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -55,8 +56,12 @@ HeaderView.Logos = React.forwardRef(function Logos({
           <BurgerSvg aria-hidden />
         </IconButton>
       </div>
-      <div className={styles.logoWrapper} onClick={handleClickLogo}>
-        <h1>logo</h1>
+      <div
+        title="로아인 홈"
+        className={styles.logoWrapper}
+        onClick={handleClickLogo}
+      >
+        <h1>LOA IN</h1>
       </div>
       {showNavModal && <NavModal onClick={handleCloseNavModal} />}
     </div>
@@ -66,7 +71,8 @@ HeaderView.Logos = React.forwardRef(function Logos({
 HeaderView.CharacterList = React.memo(function CharacterList() {
   return (
     <div className={styles.characterList}>
-      <GetCharacterList />
+      {/* <GetCharacterList /> */}
+      <MainCharacterSelector />
     </div>
   );
 });

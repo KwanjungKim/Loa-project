@@ -120,7 +120,7 @@ const Date = function Date({
           {date.start && (
             <p className={styles.month}>{dayjs(date.date).month() + 1}월</p>
           )}
-          <p>{dayjs(date.date).date()}일</p>
+          <p className={styles.day}>{dayjs(date.date).date()}</p>
           {date.data.length > 0 && (
             <div className={styles.appointedRaids}>
               {date.data.slice(0, 3).map((item) => (
@@ -128,26 +128,9 @@ const Date = function Date({
               ))}
             </div>
           )}
+          {date.data.length > 0 && <div className={styles.appointedRaidsDot} />}
         </div>
       </CardButton>
     </div>
   );
 };
-
-// function DateButton({
-//   children,
-//   isSelected,
-//   ...props
-// }: {
-//   children: ReactNode;
-//   isSelected: boolean;
-// } & ButtonHTMLAttributes<HTMLButtonElement>) {
-//   return (
-//     <button
-//       {...props}
-//       className={`${styles.dateButton} ${isSelected ? styles.selected : ""}`}
-//     >
-//       {children}
-//     </button>
-//   );
-// }

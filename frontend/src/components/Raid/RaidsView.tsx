@@ -22,6 +22,7 @@ import DirectionDownSvg from "@components/svgs/DirectionDownSvg";
 import Button from "@components/buttons/Button";
 import Input from "@components/inputs/Input";
 import RadioInputWrapper from "@components/inputs/RadioInput";
+import Spinner from "../common/Spinner";
 
 export interface RaidsViewProps extends AllHTMLAttributes<HTMLDivElement> {
   articles: IBoard[];
@@ -78,7 +79,11 @@ const RaidsView = function RaidsView({
         </div>
         <div className={styles.bottomWrapper}>
           <RaidList articles={articles} handleViewDetail={handleViewDetail} />
-          {status === "loading" && <div>loading...</div>}
+          {status === "loading" && (
+            <div>
+              <Spinner />
+            </div>
+          )}
         </div>
       </div>
       <div>

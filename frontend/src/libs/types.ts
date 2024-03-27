@@ -33,3 +33,16 @@ export interface IBoard {
   title: string;
   user_number: string;
 }
+
+export interface IChraracter {
+  characterClassName: string;
+  characterLevel: string;
+  character_name: string;
+  itemAvgLevel: string;
+  itemMaxLevel: string;
+  serverName: string;
+  user_number: string;
+  armoryEngraving: any;
+  armoryGem: any;
+  cardEffects: any;
+}
