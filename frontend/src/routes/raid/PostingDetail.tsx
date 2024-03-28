@@ -1,4 +1,4 @@
-import MyPostingDetail from "@/components/MyPage/MyPostingDetail";
+import MyPostingDetail from "@/components/MyPage/ArticleComponent/Post/MyPostingDetail";
 
 const PostingDetailRoute = () => {
   return <MyPostingDetail />;

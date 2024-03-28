@@ -17,6 +17,7 @@ export interface FormValue {
   title: string;
   raid_difficulty: string;
   gate?: number;
+  content?: string;
 }
 export type IparamMap = {
   title: string; //  글제목
@@ -66,6 +67,8 @@ const RecruitmentPost = () => {
     setParamMap((prev) => {
       return {
         ...prev,
+        character_name: mainCharacter.character_name,
+        raid_leader: mainCharacter.character_name,
         member: [mainCharacter.character_name],
       };
     });
@@ -153,6 +156,7 @@ const RecruitmentPost = () => {
     gate: yup
       .number()
       .min(Number(paramMap.minGate), "최대관문이 최소관문보다 낮습니다."),
+    content: yup.string().max(1000, "1000자 이하로 작성해주세요."),
   });
 
   const {

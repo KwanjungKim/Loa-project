@@ -22,15 +22,6 @@ const CharDetailDataView = ({ isMainChar }: IDetailData) => {
         </div>
       ))}
       보석 :
-      {Object.values(isMainChar.ArmoryGemEffects).map((value, i) => (
-        <div key={i} style={{ display: "inline-block", color: "#fbc02d" }}>
-          <img
-            src={value.Icon}
-            style={{ width: "30px", height: "30px", borderRadius: "50px" }}
-          />
-          {value.Name}: {value.Description}
-        </div>
-      ))}
       {Object.values(isMainChar.ArmoryGems).map((value, i) => (
         <div key={i} style={{ width: "35%" }}>
           <img

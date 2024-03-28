@@ -6,8 +6,8 @@ import CharacterDetailData from "../kakaoLogin/CharacterDetailData";
 import { characterState } from "../../atoms/login";
 
 import { useNavigate } from "react-router-dom";
-import GetRaid from "./GetRaid";
-import GetPostingRaid from "./GetPostRaid";
+import GetRaid from "./ArticleComponent/Apply/ApplyingRaid";
+import GetPostingRaid from "./ArticleComponent/Post/PostingRaid";
 // import TestAtomData from "../kakaoLogin/characterDataInAtom";
 
 const MyInfo = () => {

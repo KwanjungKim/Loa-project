@@ -1,10 +1,11 @@
 import { useRecoilValue } from "recoil";
-import fetchUtils from "../../utils/fetchUtils";
-import { mainCharState } from "../../atoms/mainCharacter";
+import fetchUtils from "../../../../utils/fetchUtils";
+import { mainCharState } from "../../../../atoms/mainCharacter";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Button from "../buttons/Button";
+import Button from "../../../buttons/Button";
+import styled from "styled-components";
 
 const GetRaid = () => {
   const navigate = useNavigate();
@@ -33,17 +34,9 @@ const GetRaid = () => {
   }, [getRaidData]);
   return (
     <>
-      <h2>내가 신청 중인 레이드</h2>
+      <p style={{ fontSize: "25px" }}>내가 신청 중인 레이드</p>
       {Object.values(raidData).map((value: any, i: number) => (
-        <div
-          key={i}
-          style={{
-            border: "solid 2px grey",
-            borderRadius: "10px",
-            display: "flex",
-            marginBottom: "5px",
-          }}
-        >
+        <ArticleDiv key={i}>
           <div style={{ margin: "5px" }}>
             <p>{value.title} </p>
             <p style={{ color: "grey", fontSize: "12px" }}>
@@ -53,8 +46,7 @@ const GetRaid = () => {
           </div>
           <Button
             style={{
-              justifyContent: "space-between",
-              width: "90px",
+              width: "100px",
               margin: "8px",
             }}
             onClick={() => {
@@ -63,10 +55,21 @@ const GetRaid = () => {
           >
             상세보기
           </Button>
-        </div>
+        </ArticleDiv>
       ))}
     </>
   );
 };
 
 export default GetRaid;
+
+const ArticleDiv = styled.div`
+  width: 450px;
+  border: solid 2px grey;
+  border-radius: 10px;
+  display: flex;
+  margin-bottom: 5px;
+  &:hover {
+    border: solid 2px red;
+  }
+`;

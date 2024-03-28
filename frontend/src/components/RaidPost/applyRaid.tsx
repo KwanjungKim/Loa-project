@@ -2,7 +2,8 @@ import { useRecoilValue } from "recoil";
 import { mainCharState } from "../../atoms/mainCharacter";
 import fetchUtils from "../../utils/fetchUtils";
 import { useState } from "react";
-import { MediumButton } from "../common/Button";
+import { SmallButton } from "../common/Button";
+import dayjs from "dayjs";
 interface Props {
   articleId: string;
 }
@@ -15,9 +16,10 @@ const ApplyRaid = ({ articleId }: Props) => {
     board_number: articleId,
     character_name: characterName.character_name,
     mention: mention,
+    startDate: dayjs(),
   };
   const applyRaid = () => {
-    if (confirm(`${characterName.character_name}` + "으로 신청하시겠습니까?"))
+    if (confirm(`${characterName.character_name}` + "으로 신청하시겠습니까?")) {
       fetchUtils.post("/board/apply", param).then((res) => {
         if (!res.success) {
           alert(res.message);
@@ -27,14 +29,19 @@ const ApplyRaid = ({ articleId }: Props) => {
           );
         }
       });
+    }
   };
   return (
     <>
-      <input type="text" onChange={(e) => setMention(e.target.value)} />
-      <MediumButton variant="contained" onClick={() => applyRaid()}>
-        레이드 지원
-      </MediumButton>
-      <button onClick={() => console.log(characterName)}>123</button>
+      <input
+        type="text"
+        placeholder="공대장에게 자신을 어필해보세요."
+        style={{ width: "210px", height: "35px" }}
+        onChange={(e) => setMention(e.target.value)}
+      />
+      <SmallButton variant="contained" onClick={() => applyRaid()}>
+        지원하기
+      </SmallButton>
     </>
   );
 };

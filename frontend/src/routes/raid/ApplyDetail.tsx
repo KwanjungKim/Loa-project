@@ -1,4 +1,4 @@
-import MyApplyDetail from "../../components/MyPage/MyApplyDetail";
+import MyApplyDetail from "../../components/MyPage/ArticleComponent/Apply/MyApplyDetail";
 
 const ApplyDetailRoute = () => {
   return <MyApplyDetail />;

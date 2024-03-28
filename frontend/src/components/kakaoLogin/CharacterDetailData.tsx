@@ -28,7 +28,6 @@ const CharacterDetailData = () => {
           CharacterClassName: userData.CharacterClassName,
           ItemMaxLevel: userData.ItemMaxLevel,
           CardEffects: userData.CardEffects,
-          ArmoryGemEffects: userData.ArmoryGemEffects,
           ArmoryGems: userData.ArmoryGems,
           ArmoryEngraving: userData.ArmoryEngraving,
         };
