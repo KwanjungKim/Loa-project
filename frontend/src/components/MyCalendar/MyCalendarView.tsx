@@ -37,6 +37,8 @@ export interface MyCalendarViewDatesProps
   extends AllHTMLAttributes<HTMLDivElement> {
   selectedDate: string;
   selectedDates: IDate[];
+  isFirstTurn: boolean;
+  isLastTurn: boolean;
   handlePrevTurn: () => void;
   handleNextTurn: () => void;
   handleSelectDate: (date: string) => void;
@@ -45,6 +47,8 @@ export interface MyCalendarViewDatesProps
 MyCalendarView.Dates = memo(function Dates({
   selectedDates,
   selectedDate,
+  isFirstTurn,
+  isLastTurn,
   handlePrevTurn,
   handleNextTurn,
   handleSelectDate,
@@ -52,10 +56,13 @@ MyCalendarView.Dates = memo(function Dates({
 }: MyCalendarViewDatesProps) {
   return (
     <div className={styles.datesWrapper} {...props}>
-      {/* <button onClick={handlePrevTurn}>prev</button> */}
-      <IconButton onClick={handlePrevTurn}>
-        <DirectionDownSvg type="left" />
-      </IconButton>
+      {!isFirstTurn ? (
+        <IconButton onClick={handlePrevTurn}>
+          <DirectionDownSvg type="left" />
+        </IconButton>
+      ) : (
+        <div />
+      )}
       <div className={styles.dates}>
         {selectedDates.map((d) => (
           <Date
@@ -66,9 +73,13 @@ MyCalendarView.Dates = memo(function Dates({
           />
         ))}
       </div>
-      <IconButton onClick={handleNextTurn}>
-        <DirectionDownSvg type="right" />
-      </IconButton>
+      {!isLastTurn ? (
+        <IconButton onClick={handleNextTurn}>
+          <DirectionDownSvg type="right" />
+        </IconButton>
+      ) : (
+        <div />
+      )}
     </div>
   );
 });
@@ -100,18 +111,21 @@ interface DateProps extends AllHTMLAttributes<HTMLDivElement> {
   selectedDate: string;
 }
 
-const Date = function Date({
+const Date = memo(function Date({
   selectedDate,
   handleSelectDate,
   date,
   ...props
 }: DateProps) {
-  // console.log(selectedDate, date.date);
+  const title = `${dayjs(date.date).month() + 1}월 ${dayjs(
+    date.date,
+  ).date()}일`;
   return (
     <div {...props} className={styles.dateWrapper}>
       <CardButton
+        title={title}
+        aria-label={title}
         isSelected={selectedDate === date.date}
-        // className={styles.date}
         onClick={() => {
           handleSelectDate(date.date);
         }}
@@ -133,4 +147,4 @@ const Date = function Date({
       </CardButton>
     </div>
   );
-};
+});

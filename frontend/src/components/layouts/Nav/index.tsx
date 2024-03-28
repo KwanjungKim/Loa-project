@@ -22,7 +22,11 @@ export default function Nav({ ...props }: Props) {
 
   const isActivated = useCallback(
     function isActivated(path: string) {
-      return location.pathname === path;
+      if (path === "/") {
+        return false;
+        // return location.pathname === path;
+      }
+      return location.pathname.includes(path);
     },
     [location],
   );
@@ -73,7 +77,7 @@ export default function Nav({ ...props }: Props) {
         {isLoggedin ? (
           <>
             <Link to={"/my-calendar"} title="나의 달력 페이지">
-              <LinkedBox>
+              <LinkedBox activated={isActivated("/my-calendar")}>
                 <div
                   style={{
                     display: "flex",
@@ -87,7 +91,7 @@ export default function Nav({ ...props }: Props) {
               </LinkedBox>
             </Link>
             <Link to={"/my-page"} title="나의 정보 페이지">
-              <LinkedBox>
+              <LinkedBox activated={isActivated("/my-page")}>
                 <div
                   style={{
                     display: "flex",

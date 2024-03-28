@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
 // layouts
-// import RootLayout from "./components/layouts/RootLayout";
 import Layout from "./components/layouts/Layout";
 
 // routes
@@ -26,7 +25,6 @@ import PostingDetailRoute from "./routes/raid/PostingDetail";
 const router = createBrowserRouter([
   {
     path: "/",
-    // element: <RootLayout />,
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [

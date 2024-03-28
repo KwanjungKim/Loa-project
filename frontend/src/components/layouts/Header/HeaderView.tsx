@@ -6,13 +6,12 @@ import styles from "./HeaderView.module.scss";
 // components
 import IconButton from "@components/buttons/IconButton";
 import BurgerSvg from "@components/svgs/BurgerSvg";
-// import GetCharacterList from "@components/kakaoLogin/getCharacterList";
 import Button from "@components/buttons/Button";
 import SettingSvg from "@components/svgs/SettingSvg";
 import ModalBox from "@components/boxes/ModalBox";
 import NightSvg from "@components/svgs/NightSvg";
 import Switch from "@components/switches/Switch";
-import Nav from "../Nav";
+import Nav from "@components/layouts/Nav";
 import MainCharacterSelector from "./MainCharacterSelector";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
@@ -71,7 +70,6 @@ HeaderView.Logos = React.forwardRef(function Logos({
 HeaderView.CharacterList = React.memo(function CharacterList() {
   return (
     <div className={styles.characterList}>
-      {/* <GetCharacterList /> */}
       <MainCharacterSelector />
     </div>
   );
@@ -177,6 +175,17 @@ function NavModal({ ...props }: HeaderViewNavProps) {
       >
         <Nav />
       </div>
+      <p
+        style={{
+          position: "absolute",
+          bottom: "16px",
+          left: "24px",
+          fontSize: "8px",
+          color: "rgba(var(--font-faded), 1)",
+        }}
+      >
+        LOA IN. &copy; 2024. All rights reserved.
+      </p>
     </div>
   );
 }

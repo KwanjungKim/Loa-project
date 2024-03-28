@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 // recoil
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { characterState, loginState } from "@atoms/login";
+import { mainCharState, mainCharacterActions } from "@atoms/mainCharacter";
 
 // hooks
 import useClickOutside from "@hooks/useClickOutside";
@@ -23,7 +24,6 @@ import HeaderView, {
   HeaderViewButtonsProps,
   HeaderViewLogosProps,
 } from "./HeaderView";
-import { mainCharState, mainCharacterActions } from "@/atoms/mainCharacter";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -105,6 +105,19 @@ export default function Header({ ...props }: Props) {
   useEffect(() => {
     setShowNavModal(false);
   }, [location]);
+
+  useEffect(() => {
+    if (showNavModal) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+  }, [showNavModal]);
+  useEffect(() => {
+    return () => {
+      document.body.style.overflowY = "auto";
+    };
+  }, []);
 
   return (
     <HeaderView {...props}>

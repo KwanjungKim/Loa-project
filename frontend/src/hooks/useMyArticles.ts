@@ -4,13 +4,13 @@ import dayjs from "dayjs";
 
 // recoil
 import { useRecoilValue } from "recoil";
-import { mainCharState } from "../atoms/mainCharacter";
+import { mainCharState } from "@atoms/mainCharacter";
 
 // utils
-import fetchUtils from "../utils/fetchUtils";
+import fetchUtils from "@utils/fetchUtils";
 
 // types
-import { IBoard } from "../libs/types";
+import { IBoard } from "@libs/types";
 
 export interface IDate {
   date: string;
@@ -144,6 +144,8 @@ const useMyArticles = () => {
     setSelectedDate,
     listBySelectedDate,
     handleSelectDate,
+    dateTurn,
+    lastTurn,
   };
 };
 

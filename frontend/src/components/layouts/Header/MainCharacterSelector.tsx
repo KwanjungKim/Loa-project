@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 
 // recoil
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -12,10 +12,11 @@ import fetchUtils from "@utils/fetchUtils";
 import { IChraracter } from "@libs/types";
 
 // components
-import GamingSvg from "@/components/svgs/GamingSvg";
+import MainCharacterSelectorView, {
+  MainCharacterSelectorViewProps,
+} from "./MainCharacterSelectorView";
 
 const MainCharacterSelector = function MainCharacterSelector() {
-  const id = useId();
   const [charList, setCharList] = useState<IChraracter[]>([]);
   const [mainChar, setMainChar] = useRecoilState(mainCharState);
   const isLoggedin = useRecoilValue(loginState);
@@ -39,74 +40,29 @@ const MainCharacterSelector = function MainCharacterSelector() {
     getCharacterList();
   }, [getCharacterList]);
 
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      setMainChar((prev) => ({
+        ...prev,
+        character_name: e.target.value,
+      }));
+    },
+    [setMainChar],
+  );
+
+  const mainCharacterSelectorViewProps: MainCharacterSelectorViewProps =
+    useMemo(
+      () => ({
+        mainCharacter: mainChar,
+        characterList: charList,
+        handleChange,
+      }),
+      [mainChar, charList, handleChange],
+    );
+
   if (!hasCharacter || !isLoggedin) return null;
 
-  return (
-    <label
-      title="활동 캐릭터를 선택하세요."
-      style={{
-        position: "relative",
-        padding: "0 8px",
-        width: "100%",
-        height: "40px",
-        display: "flex",
-        alignItems: "center",
-        gap: "8px",
-        borderRadius: "999px",
-        border: "1px solid rgba(var(--divider), 1)",
-      }}
-      htmlFor={id}
-    >
-      <GamingSvg aria-hidden />
-      <p
-        style={{
-          width: "100%",
-          overflow: "hidden",
-          whiteSpace: "nowrap",
-          textOverflow: "ellipsis",
-          fontSize: "12px",
-          color: "rgba(var(--font), 1)",
-        }}
-      >
-        {mainChar.character_name} ({mainChar.ServerName})
-      </p>
-      <select
-        id={id}
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0,
-          opacity: 0,
-          zIndex: 1,
-          border: "none",
-          color: "rgba(var(--font), 1)",
-          textOverflow: "ellipsis",
-          cursor: "pointer",
-        }}
-        value={mainChar.character_name}
-        onChange={(e) => {
-          setMainChar((prev) => ({
-            ...prev,
-            character_name: e.target.value,
-          }));
-        }}
-      >
-        {charList.map((char) => (
-          <option
-            key={`${char.user_number}_${char.character_name}`}
-            value={char.character_name}
-            title={`${char.serverName} ${char.character_name} Lv.${char.itemMaxLevel} 
-          ${char.characterClassName}`}
-          >
-            {char.character_name} ({char.serverName}, Lv.{char.itemMaxLevel},{" "}
-            {char.characterClassName})
-          </option>
-        ))}
-      </select>
-    </label>
-  );
+  return <MainCharacterSelectorView {...mainCharacterSelectorViewProps} />;
 };
 
 export default MainCharacterSelector;
