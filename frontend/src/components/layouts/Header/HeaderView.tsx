@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef, memo } from "react";
 
 // styles
 import styles from "./HeaderView.module.scss";
@@ -34,7 +34,7 @@ export interface HeaderViewLogosProps
   handleCloseNavModal: () => void;
 }
 
-HeaderView.Logos = React.forwardRef(function Logos({
+HeaderView.Logos = memo(function Logos({
   handleClickLogo,
   showNavModal,
   toggleNavModal,
@@ -67,7 +67,7 @@ HeaderView.Logos = React.forwardRef(function Logos({
   );
 });
 
-HeaderView.CharacterList = React.memo(function CharacterList() {
+HeaderView.CharacterList = memo(function CharacterList() {
   return (
     <div className={styles.characterList}>
       <MainCharacterSelector />
@@ -86,7 +86,7 @@ export interface HeaderViewButtonsProps
   toggleScreenMode: () => void;
 }
 
-HeaderView.Buttons = React.forwardRef<HTMLDivElement, HeaderViewButtonsProps>(
+HeaderView.Buttons = forwardRef<HTMLDivElement, HeaderViewButtonsProps>(
   function Buttons(
     {
       showSetting,
@@ -133,7 +133,7 @@ interface HeaderViewSettingProps extends React.HTMLAttributes<HTMLDivElement> {
   isDark: boolean;
 }
 
-HeaderView.Setting = React.memo(function Setting({
+HeaderView.Setting = memo(function Setting({
   isDark,
   toggleScreenMode,
   ...props

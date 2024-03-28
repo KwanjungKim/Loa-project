@@ -1,53 +1,23 @@
-# LOA Project (가칭)
+# LOA IN
 
-## 1. Contributors
+**함께하는, 로아인**은 게임 로스트아크의 레이드 일정을 공유하고, 참여할 수 있는 웹 서비스입니다.
 
-### 1.1. Backend
+## Contributors
 
-- [KwanjungKim](https://github.com/KwanjungKim)
+- [KwanjungKim](https://github.com/KwanjungKim) : backend, devops
+- [WilleLee](https://github.com/WilleLee) : frontend (home, my calendar, raids list, layout)
+- [hongsi](https://github.com/minholee0706) : frontend (login, signup, my page, raid detail, write raid)
 
-### 1.2. Frontend
+## Skills Used
 
-- [WilleLee](https://github.com/WilleLee)
-- [홍시](https://github.com/minholee0706)
+| Backend  | ...  |
+| -------- | ---- |
+| Language | Java |
+| Tools    |      |
 
-## 2. Project Structure
-
-### 2.1. Backend
-
-```
-.
-├── README.md
-├── backend
-│   ├── Dockerfile
-```
-
-### 2.2. Frontend
-
-```
-.
-├── README.md
-├── frontend
-    ├── src
-        ├── main.tsx
-        ├── App.tsx
-        ├── routes
-        ├── components
-        ├── atoms
-        ├── hooks
-        ├── tests
-        ├── utils
-
-```
-
-## 3. Detailed Description
-
-### 3.1. Backend
-
-### 3.2. Frontend
-
-## 4. Development Environment & Stack
-
-### 4.1. Backend
-
-### 4.2. Frontend
+| Frontend | ...                                      |
+| -------- | ---------------------------------------- |
+| Language | Typescript, SCSS                         |
+| Tools    | React, Axios, Recoil, SWR, use-hook-form |
+| Styles   | CSS modules, CSS-in-JS                   |
+| Build    | Vite                                     |

@@ -137,7 +137,7 @@ const Date = memo(function Date({
           <p className={styles.day}>{dayjs(date.date).date()}</p>
           {date.data.length > 0 && (
             <div className={styles.appointedRaids}>
-              {date.data.slice(0, 3).map((item) => (
+              {date.data.slice(0, 2).map((item) => (
                 <span key={item.board_number}>{item.raid_type}</span>
               ))}
             </div>
