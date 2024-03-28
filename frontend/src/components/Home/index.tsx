@@ -24,24 +24,34 @@ import NightSvg from "@components/svgs/NightSvg";
 import ReadingSvg from "@components/svgs/ReadingSvg";
 import SearchSvg from "@components/svgs/SearchSvg";
 import SettingSvg from "@components/svgs/SettingSvg";
+import RadioInputWrapper from "../inputs/RadioInput";
 
 type FormValues = {
   text: string;
   date: string;
   time: string;
+  option: string;
 };
+
+const dummyOptions = [
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3", label: "3" },
+  { value: "4", label: "4" },
+];
 
 const Home = () => {
   const initialDate = dayjs().format("YYYY-MM-DD");
   const initialTime = dayjs().add(30, "minutes").format("HH:mm");
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, watch } = useForm<FormValues>({
     defaultValues: {
       text: "",
       date: initialDate,
       time: initialTime,
+      option: dummyOptions[0].value,
     },
   });
-
+  const selectedOption = watch("option");
   const dummyArticles: IBoard[] = [
     {
       board_list: null,
@@ -117,15 +127,13 @@ const Home = () => {
   }
 
   function onSubmit(data: FormValues) {
-    console.log(data);
     const dateInput = data.date + " " + data.time;
     const isBeforeNow = dayjs(dateInput).isBefore(dayjs());
-    console.log(isBeforeNow);
     if (isBeforeNow) {
       alert("현재 시간 이전입니다.");
       return;
     }
-    alert(`text: ${data.text}, date: ${dateInput}`);
+    alert(`text: ${data.text}, date: ${dateInput}, option: ${data.option}`);
   }
 
   return (
@@ -159,8 +167,14 @@ const Home = () => {
             gap: "4px",
           }}
         >
-          <Input type="text" placeholder="인풋" {...register("text")} />
           <Input
+            label="텍스트"
+            type="text"
+            placeholder="인풋"
+            {...register("text")}
+          />
+          <Input
+            label="날짜"
             type="date"
             min={dayjs().format("YYYY-MM-DD")}
             {...register("date", {
@@ -169,7 +183,18 @@ const Home = () => {
               },
             })}
           />
-          <Input type="time" {...register("time")} />
+          <Input label="시간" type="time" {...register("time")} />
+          <RadioInputWrapper label="옵션">
+            {dummyOptions.map((option) => (
+              <RadioInputWrapper.RadioInput
+                key={option.value}
+                value={option.value}
+                label={option.label}
+                isChecked={option.value === selectedOption}
+                {...register("option")}
+              />
+            ))}
+          </RadioInputWrapper>
           <Button.Brand isSmall type="submit">
             제출버튼
           </Button.Brand>

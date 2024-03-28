@@ -60,7 +60,7 @@ HeaderView.Logos = memo(function Logos({
         className={styles.logoWrapper}
         onClick={handleClickLogo}
       >
-        <h1>LOA IN</h1>
+        <h1>로아인</h1>
       </div>
       {showNavModal && <NavModal onClick={handleCloseNavModal} />}
     </div>
