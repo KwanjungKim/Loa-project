@@ -90,7 +90,7 @@
 		join board_party_info bpi on bi.board_number = bpi.board_number
 		join board_party_filter bpf on bi.board_number = bpf.board_number 
 		join character_info ci on ci.character_name = bpi.party_member
-		join board_applicant ba on bi.board_number = ba.board_number
+		left outer join board_applicant ba on bi.board_number = ba.board_number
 		where ci.user_number  = #{user_number}
 		<if test = 'startDate != null  and startDate !=""'>
 			and bri.startDate<![CDATA[ >= ]]>#{startDate}
