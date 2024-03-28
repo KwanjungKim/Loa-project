@@ -16,6 +16,8 @@ const MyCalendar = () => {
     listBySelectedDate,
     handleSelectDate,
     selectedDate,
+    dateTurn,
+    lastTurn,
   } = useMyArticles();
 
   const handleClickTitle = useCallback(
@@ -25,10 +27,20 @@ const MyCalendar = () => {
     [navigate],
   );
 
+  const isFirstTurn = useMemo(() => {
+    return dateTurn === 0;
+  }, [dateTurn]);
+
+  const isLastTurn = useMemo(() => {
+    return dateTurn === lastTurn;
+  }, [dateTurn, lastTurn]);
+
   const myCalendarViewDatesProps: MyCalendarViewDatesProps = useMemo(
     () => ({
       selectedDate,
       selectedDates,
+      isFirstTurn,
+      isLastTurn,
       handlePrevTurn,
       handleNextTurn,
       handleSelectDate,
@@ -36,6 +48,8 @@ const MyCalendar = () => {
     [
       selectedDate,
       selectedDates,
+      isFirstTurn,
+      isLastTurn,
       handlePrevTurn,
       handleNextTurn,
       handleSelectDate,

@@ -19,6 +19,17 @@ export default function Layout() {
             <div>
               <Nav />
             </div>
+            <p
+              style={{
+                position: "absolute",
+                bottom: "16px",
+                left: "24px",
+                fontSize: "8px",
+                color: "rgba(var(--font-faded), 1)",
+              }}
+            >
+              LOA IN. &copy; 2024. All rights reserved.
+            </p>
           </div>
           <div className={styles.outletWrapper}>
             <Outlet />

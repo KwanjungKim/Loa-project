@@ -61,7 +61,6 @@ const useAllArticles = (type: IRaidType | "") => {
       setPageNo(-1);
       setStatus("error");
     } else {
-      console.log("Hihihih");
       setListMap((prev) => {
         const newMap = new Map<number, IBoard[]>();
         prev.forEach((value, key) => {
