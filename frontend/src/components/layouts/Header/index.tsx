@@ -45,7 +45,6 @@ export default function Header({ ...props }: Props) {
 
   const [showNavModal, setShowNavModal] = useState(false);
   const [showSetting, setShowSetting] = useState(false);
-  const navModalRef = useRef<HTMLDivElement>(null);
   const settingRef = useRef<HTMLDivElement>(null);
 
   const toggleNavModal = () => {
@@ -121,7 +120,7 @@ export default function Header({ ...props }: Props) {
 
   return (
     <HeaderView {...props}>
-      <HeaderView.Logos {...headerViewLogosProps} ref={navModalRef} />
+      <HeaderView.Logos {...headerViewLogosProps} />
       <HeaderView.CharacterList />
       <HeaderView.Buttons {...headerViewButtonsProps} ref={settingRef} />
     </HeaderView>
