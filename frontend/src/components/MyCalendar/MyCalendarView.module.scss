@@ -98,6 +98,9 @@
 }
 
 @media screen and (max-width: 540px) {
+  .month {
+    font-size: 6px;
+  }
   .dateWrapper {
     width: 32px;
     height: 43px;
