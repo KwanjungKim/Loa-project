@@ -7,6 +7,10 @@
   align-items: center;
   color: rgba(var(--default-button-font), 1);
 
+  &.small {
+    height: 28px;
+  }
+
   > span {
     padding: 0 14px;
   }

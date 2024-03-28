@@ -6,7 +6,7 @@
   position: -webkit-sticky;
   left: 0;
   top: 0;
-  z-index: 1;
+  z-index: 9999;
   background-color: rgba(var(--background), 1);
 }
 
@@ -16,6 +16,7 @@
   height: 100%;
   display: grid;
   grid-template-columns: repeat(16, minmax(0, 1fr));
+  align-items: centers;
   border-bottom: 1px solid rgba(var(--divider), 1);
 }
 
@@ -44,9 +45,11 @@
 
 .characterList {
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: flex-start;
   grid-column: 4 / 12;
+  max-width: 310px;
 }
 
 .buttons {
@@ -91,4 +94,30 @@
   width: 280px;
   height: 100%;
   background-color: rgba(var(--background), 1);
+}
+
+@media screen and (max-width: 600px) {
+  .logos {
+    grid-column: 1 / 5;
+  }
+  .characterList {
+    grid-column: 5 / 11;
+  }
+  .buttons {
+    grid-column: 11 / 17;
+    column-gap: 0px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .logos {
+    grid-column: 1 / 4;
+  }
+  .characterList {
+    max-width: 110px;
+    grid-column: 4 / 11;
+  }
+  .logoWrapper {
+    display: none;
+  }
 }

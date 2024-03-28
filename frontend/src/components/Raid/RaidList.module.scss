@@ -1,0 +1,67 @@
+.articlesWrapper {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 8px;
+
+  &.noData {
+    grid-template-columns: 1fr;
+  }
+}
+
+.article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 40px;
+  column-gap: 16px;
+  border: 1px solid rgba(var(--divider), 1);
+  padding: 8px;
+  border-radius: 8px;
+
+  > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    // 타이틀 부분
+    > div {
+      display: flex;
+      align-items: center;
+      // justify-content: space-between;
+      gap: 8px;
+
+      > h4 {
+        max-width: 180px;
+        min-width: 56px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      > p {
+        font-size: 12px;
+        color: rgba(var(--font-faded), 1);
+        white-space: nowrap;
+      }
+    }
+
+    > p {
+      font-size: 12px;
+      color: rgba(var(--font-faded), 1);
+    }
+  }
+
+  > div:last-child {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 920px) {
+  .articlesWrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.noData {
+  margin: 0 auto;
+  color: rgba(var(--font-faded), 1);
+}

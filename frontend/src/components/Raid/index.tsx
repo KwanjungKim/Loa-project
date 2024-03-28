@@ -1,7 +1,8 @@
-// import { useState } from "react";
-// import RaidList from "./RaidList";
 import { useSearchParams } from "react-router-dom";
+
+// components
 import Raids from "./Raids";
+import Button from "@components/buttons/Button";
 
 type IRaidType =
   | "발탄"
@@ -10,7 +11,7 @@ type IRaidType =
   | "아브렐슈드"
   | "일리아칸"
   | "카멘"
-  | "에키드나"
+  | "에퀴드나"
   | "상아탑"
   | "카양겔";
 
@@ -21,16 +22,12 @@ const raidTypeOptions: { value: IRaidType | ""; id: number }[] = [
   { value: "아브렐슈드", id: 4 },
   { value: "일리아칸", id: 5 },
   { value: "카멘", id: 6 },
-  { value: "에키드나", id: 7 },
+  { value: "에퀴드나", id: 7 },
   { value: "상아탑", id: 8 },
   { value: "카양겔", id: 9 },
 ];
 
 const Raid = () => {
-  // const [selectedRaid, setSelectedRaid] = useState<IRaidType | "">("");
-  // function resetRaid() {
-  //   setSelectedRaid("");
-  // }
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedRaid = searchParams.get("type") as IRaidType | "";
 
@@ -45,35 +42,18 @@ const Raid = () => {
         <div>
           {raidTypeOptions.map((type) => {
             return (
-              <button
+              <Button.Default
                 key={type.id}
                 onClick={() => {
                   setSearchParams({ type: type.value });
                 }}
               >
                 {type.value}
-              </button>
+              </Button.Default>
             );
           })}
         </div>
       )}
-      {/* {selectedRaid === "" ? (
-        <div>
-          {raidTypeOptions.map((type) => {
-            return (
-              <button key={type.id} onClick={() => setSelectedRaid(type.value)}>
-                {type.value}
-              </button>
-            );
-          })}
-        </div>
-      ) : (
-        <RaidList
-          key={selectedRaid}
-          raidType={selectedRaid}
-          resetRaid={resetRaid}
-        />
-      )} */}
     </>
   );
 };

@@ -199,4 +199,20 @@ public class BoardService {
 		res.setResultModel(result);
 		return res;
 	}
+	
+	public ResponseModel kickPartyMember(BoardModel model) {
+		ResponseModel res = new ResponseModel();
+		ResultModel result = new ResultModel();
+		
+		mapper.kickPartyMember(model);
+		mapper.kickApplication(model);
+		
+		result.setMessage("파티를 탈퇴했습니다.");
+		if(model.getApplication_status().equals("추방")){
+			result.setMessage("파티원을 추방했습니다.");
+		}
+		result.setStatus("success");
+		res.setResultModel(result);
+		return res;
+	}
 }

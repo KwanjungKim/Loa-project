@@ -163,4 +163,22 @@
 		and bri.startDate<![CDATA[ >= ]]>#{startDate}
 		order by bri.startDate 
 	</select>
+	
+	<delete id="kickPartyMember">
+		delete from 
+		board_party_info
+		where board_number = #{board_number}
+		and party_member = #{character_name}
+	</delete>
+	
+	<update id="kickApplication">
+		UPDATE board_applicant 
+		SET application_status = #{application_status}
+		WHERE board_applicant.`no`  IN (
+		select a.`no`
+		from(
+  			SELECT * FROM board_applicant 
+  			WHERE board_number = #{board_number} and character_name = #{character_name}) a
+		)
+	</update>
 </mapper>

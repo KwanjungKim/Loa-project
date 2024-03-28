@@ -22,6 +22,24 @@ const { persistAtom } = recoilPersist({
   storage: sessionStorage,
 });
 
+const initialCharacter: ICharProps = {
+  user_number: "",
+  character_name: "",
+  ServerName: "",
+  CharacterName: "",
+  CharacterClassName: "",
+  ItemMaxLevel: "",
+  CardEffects: [
+    {
+      Description: "",
+      Name: "",
+    },
+  ],
+  ArmoryGemEffects: {},
+  ArmoryGems: {},
+  ArmoryEngraving: {},
+};
+
 export const mainCharState = atom<ICharProps>({
   key: "MainCharacterState",
   default: {
@@ -43,3 +61,7 @@ export const mainCharState = atom<ICharProps>({
   },
   effects_UNSTABLE: [persistAtom],
 });
+
+export const mainCharacterActions = {
+  reset: () => initialCharacter,
+};
